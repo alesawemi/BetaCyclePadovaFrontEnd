@@ -1,0 +1,20 @@
+<p>old-customers</p>
+
+<hr>
+
+<form #frmIndex="ngForm" (submit)="InsertId(frmIndex)">
+    <input type="number" placeholder="Inserisci ID" #id="ngModel" required name="id" [(ngModel)]="id">
+    <button type="submit" [disabled]="frmIndex.invalid">Visualizza Post per Titolo - inserendo un ID</button>
+</form>
+<pre>
+    <span style="color: blueviolet;">Ricerca singolo PostID</span>
+    <span>First Name: {{oneOldCustomer.firstName}}</span>
+    <span>Last Name: {{oneOldCustomer.lastName}}</span>
+</pre>
+<hr>
+
+<p style="color: blue;">Lista completa di allOldCustomers</p>
+<select size="5">
+    <option *ngFor="let j of allOldCustomers">{{j.firstName}}, {{j.lastName}}</option>
+</select>
+<hr>
