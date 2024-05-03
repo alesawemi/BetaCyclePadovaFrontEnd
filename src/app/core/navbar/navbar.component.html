@@ -8,9 +8,9 @@
     <ul>
       <li id="logo">BetaCycle</li>
       <li><a href="#">Home</a></li>
-      <li><a href="#">Categorie</a></li>
-      <li><a href="#">Qualcosa</a></li>
-      <li><a href="#">Qualcosa2</a></li>
+      <!-- <li><a href="#">Categorie</a></li> -->
+      <li><a *ngIf="auth.getLoginStatus()" routerLink="/products">I Nostri Prodotti</a></li>
+      <li><a *ngIf="auth.getLoginStatus()" routerLink="/logout">Logout</a></li>
 
       <!-- user logo -->
       <a routerLink="/login">
