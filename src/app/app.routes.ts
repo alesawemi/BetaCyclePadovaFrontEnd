@@ -11,8 +11,6 @@ export const routes: Routes = [
     // {path: 'oldCustomers', component: OldCustomersComponent},
     // {path: 'products', component: ProductsComponent},
     {path: 'home', component: HomeComponent},
-    {path: 'footer', component: FooterComponent}
-
-    
-
+    {path: 'footer', component: FooterComponent},
+    { path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];

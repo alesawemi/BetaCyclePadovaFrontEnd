@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { Credentials } from '../../shared/models/credentials';
 import { LoginHttpService } from '../../shared/services/loginHttp.service';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule,FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
