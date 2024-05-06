@@ -14,7 +14,10 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  
   loginCredentials: Credentials = new Credentials();
+
+  jwtToken: string = '';
 
   constructor(private http: LoginHttpService, private auth: AuthenticationService) {}
 
@@ -30,7 +33,15 @@ export class LoginComponent {
         next: (response: any) => {
           switch(response.status) {
             case HttpStatusCode.Ok:
-              this.auth.setLoginStatus(true, usr.value, pwd.value);
+              if (this.auth.TypeOfAuthorization ===  'basic') 
+                { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
+              if (this.auth.TypeOfAuthorization ===  'jwt') 
+              {
+                this.jwtToken = response.body.token;
+                console.log("Siamo in Login")
+                console.log(this.jwtToken)
+                this.auth.setLoginStatusJwt(true, this.jwtToken);
+              }
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
               break;
             case HttpStatusCode.NoContent:
@@ -38,7 +49,10 @@ export class LoginComponent {
           }
         },
         error: (err: any) => {
-          this.auth.setLoginStatus(false);
+          if (this.auth.TypeOfAuthorization ===  'basic') 
+            { this.auth.setLoginStatusBasic(false); }
+          if (this.auth.TypeOfAuthorization ===  'jwt') 
+            { this.auth.setLoginStatusJwt(false); }
           
           //trovare soluzione alternativa a alert --> popup con finestra di dialogo?
           if (err.status === 404) alert("REGISTRATI!"); //fare redirect alla pagina di login/registrazione

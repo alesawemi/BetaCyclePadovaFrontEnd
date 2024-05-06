@@ -7,6 +7,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ProductsComponent } from './features/products/products.component';
 import { LogoutComponent } from './core/logout/logout.component';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -16,4 +17,5 @@ import { LogoutComponent } from './core/logout/logout.component';
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';
+  
 }
