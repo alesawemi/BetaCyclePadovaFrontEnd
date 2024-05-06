@@ -8,6 +8,7 @@ import { ProductsComponent } from './features/products/products.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { RegistrationComponent } from './core/registration/registration.component';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -17,4 +18,5 @@ import { RegistrationComponent } from './core/registration/registration.componen
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';
+  
 }
