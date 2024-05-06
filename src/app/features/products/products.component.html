@@ -1,12 +1,9 @@
-<hr style="border: 0px;">
-<hr style="border: 0px;">
-<hr style="border: 0px;">
-<hr style="border: 0px;">
-<hr style="border: 0px;">
 
-<h2>Products</h2>
+<body>
+    <h2>Products</h2>
 
-<button (click)="GetAllProducts()">Tutti i Prodotti</button>
-<pre *ngIf="allProductsList.length>0">
-    <li *ngFor="let p of allProductsList" > {{p.name}} a soli {{p.listPrice}} $ </li>
-</pre>
+    <button (click)="GetAllProducts()">Tutti i Prodotti</button>
+    <pre *ngIf="allProductsList.length>0">
+        <li *ngFor="let p of allProductsList" > {{p.name}} a soli {{p.listPrice}} $ </li>
+    </pre>
+</body>

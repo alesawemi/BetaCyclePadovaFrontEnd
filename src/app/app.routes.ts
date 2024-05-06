@@ -5,6 +5,8 @@ import { ProductsComponent } from './features/products/products.component';
 import { HomeComponent } from './core/home/home.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { LogoutComponent } from './core/logout/logout.component';
+import { Registration } from './shared/models/registrationdata';
+import { RegistrationComponent } from './core/registration/registration.component';
 
 export const routes: Routes = [
 
@@ -15,5 +17,6 @@ export const routes: Routes = [
     {path: 'footer', component: FooterComponent},
     {path: 'logout', component: LogoutComponent},
     {path: 'products', component: ProductsComponent},
+    {path: 'registration', component: RegistrationComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];

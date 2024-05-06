@@ -16,6 +16,7 @@
       <li><a href="#">Accesories</a></li>
       <li><a href="#">Clothing</a></li>
       <li><a href="#">Blog</a></li>
+      <li><a *ngIf="auth.getLoginStatus() === false" routerLink="/registration">Registration</a></li>
 
       <!-- user logo -->
       <a routerLink="/login">
