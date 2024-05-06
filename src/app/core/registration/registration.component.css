@@ -1,11 +1,13 @@
 body{
     padding-top: 10%;
 }
-
+h3 {
+    padding-left: 41.5%;
+}
 .container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px;
 }
 
 .input-group {
@@ -14,7 +16,8 @@ body{
 
 .registration-form {
     background-color: #f9f9f9;
-    padding: 20px;
+    padding-left: 40%;
+    padding-right: 40%;
     border-radius: 5px;
 }
 

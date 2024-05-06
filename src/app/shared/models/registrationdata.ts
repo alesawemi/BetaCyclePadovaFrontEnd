@@ -1,5 +1,5 @@
-export class Registration{
-    customerId: number = 0;   
+export class Registration{ 
+    
     firstName: string = '';  
     lastName: string = '';
     emailAddress: string = '';

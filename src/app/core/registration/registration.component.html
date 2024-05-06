@@ -1,22 +1,25 @@
 <body>
     <h3>Registration Form</h3>
 
-    <form class="registration-form" #frmRegistration="ngForm" (submit)="Registration(frmRegistration)">
+    <form class="registration-form" #frmRegistration="ngForm"  (ngSubmit)="Registration(frmRegistration)">
         
         <input type="text" placeholder="Name" #nameInput="ngModel" 
-            minlength="1" maxlength="20" name="Name" [(ngModel)]="newRegistration.firstName" required>
+            minlength="1" maxlength="20" name="nameInput" [(ngModel)]="newRegistration.firstName">
 
         <input type="text" placeholder="Surname" #surnameInput="ngModel" 
-            minlength="1" maxlength="20" name="Surname" [(ngModel)]="newRegistration.lastName" required>
+            minlength="1" maxlength="20" name="surnameInput" [(ngModel)]="newRegistration.lastName">
 
-        <input type="email" placeholder="Email [required]" #emailInput="ngModel" required
-            minlength="1" maxlength="70" name="Email" [(ngModel)]="newRegistration.emailAddress">
+        <input type="email" placeholder="Email [required]" #emailInput="ngModel" 
+            minlength="1" maxlength="70" name="emailInput" [(ngModel)]="newRegistration.emailAddress" required>
 
         <input type="tel" placeholder="Phone" #phoneInput="ngModel"
-            minlength="10" maxlength="10" name="Phone" [(ngModel)]="newRegistration.phone">
+            minlength="10" maxlength="10" name="phoneInput" [(ngModel)]="newRegistration.phone">
 
-        <input type="password" placeholder="Password [required]" #passwordInput="ngModel" required
-            minlength="8" maxlength="16"  name="Password" [(ngModel)]="newRegistration.password">
+        <input type="password" placeholder="Password [required]" #passwordInput="ngModel" 
+            minlength="8" maxlength="16"  name="passwordInput" [(ngModel)]="newRegistration.password" required>
+        
+        <input type="password" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel" 
+            name="confirmPasswordInput" [(ngModel)]="confirmPassword" required>   
 
         <button type="submit" [disabled]="frmRegistration.invalid">Register</button>
     </form>

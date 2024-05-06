@@ -4,6 +4,6 @@ export class NewCustomer{
     lastName: string = '';
     emailAddress: string = '';
     phone: string = '';
-    passwordHash: string = '';
-    passwordSalt: string = '';
+    /*passwordHash: string = '';
+    passwordSalt: string = '';*/
 }

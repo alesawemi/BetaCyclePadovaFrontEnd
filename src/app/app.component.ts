@@ -6,13 +6,14 @@ import { LoginComponent } from './core/login/login.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { ProductsComponent } from './features/products/products.component';
 import { LogoutComponent } from './core/logout/logout.component';
+import { RegistrationComponent } from './core/registration/registration.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, NavbarComponent,HomeComponent,LoginComponent,FooterComponent,ProductsComponent, LogoutComponent]
+    imports: [RouterOutlet, NavbarComponent,HomeComponent,LoginComponent,FooterComponent,ProductsComponent, LogoutComponent, RegistrationComponent]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';

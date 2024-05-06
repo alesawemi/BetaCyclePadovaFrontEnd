@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { NewCustomer } from '../../shared/models/newCustomersdata';
 import { Registration } from '../../shared/models/registrationdata';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { Router } from '@angular/router';
+import { NewUserHttp } from '../../shared/services/newUserHttp.service';
 
 @Component({
   selector: 'app-registration',
@@ -14,30 +14,51 @@ import { Router } from '@angular/router';
   styleUrl: './registration.component.css'
 })
 export class RegistrationComponent {
+  confirmPassword: string ='';
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private UserHttp: NewUserHttp) {}
 
-  customerId: number = 0;   
-  firstName: string = '';  
-  lastName: string = '';
-  emailAddress: string = '';
-  phone: string = '';
-  passwordClear: string = '';//non è nella classe NewCustomer perché poi quando andrò ad injettare non mi serve
+  newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro
 
-  //HASH e SALT vanno calcolati a partire dalla password in chiaro che viene fornita dall'utente
-  passwordHash: string = '';
-  passwordSalt: string = '';
-
-  newRegistration: Registration = new Registration; //il nuovo user registrato ha solo la password in chiaro
-  newCustomer: NewCustomer = new NewCustomer; //il nuovo customer ha la password Hash e Salt
+  Registrated: Registration[] = []
 
   Registration(frm: NgForm) {  
-
     if (frm.valid) {
+
+      // Verifica se la password soddisfa i criteri richiesti
+      if (!this.isPasswordValid(this.newRegistration.password)) {
+        alert('La password deve contenere almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale.');
+        return;
+    }
+
+    // Verifica se la conferma della password corrisponde alla password
+    if (this.newRegistration.password !== this.confirmPassword) {
+        alert('La password e la conferma della password non corrispondono.');
+        return;
+    }
+
       // Invia i dati del modulo al server o esegui altre azioni necessarie
       console.log('Form submitted successfully!');
-      this.newRegistration = frm.value; //in automatico mi compila i campi del Registration
-      console.log(this.newRegistration.emailAddress)
+
+      // Copia solo i campi necessari dalla form all'istanza di newRegistration
+      this.newRegistration.firstName = frm.value.firstName;
+      this.newRegistration.lastName = frm.value.lastName;
+      this.newRegistration.emailAddress = frm.value.emailAddress;
+      this.newRegistration.phone = frm.value.phone;
+      this.newRegistration.password = frm.value.password;
+
+
+      //this.newRegistration = frm.value;
+
+      console.log(this.newRegistration)
+
+      //DemonSalvatore1! - password in chiaro 
+      console.log('Password in chiaro: '+this.newRegistration.password)
+      this.newRegistration.password = window.btoa(this.newRegistration.password); //---> cifra "undefined" :'(
+      console.log(this.newRegistration.password)
+
+      //ora che ho criptato posso inviare al backedn il nuovo user
+      this.PostRegistration();
 
     } else {
       // Mostra un alert o un messaggio di errore appropriato
@@ -45,6 +66,23 @@ export class RegistrationComponent {
     }
   }
 
+  // Funzione per verificare se la password soddisfa i criteri richiesti
+isPasswordValid(password: string): boolean {
+  // Almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/; //mi sono fatto aiutare da ChatGPT qui
+  return passwordRegex.test(password);
+}
+
   //Ok- ora ho il mio user con la password in chiaro e devo criptarla - non so se farlo lato back-end
-  //dobbiamo decidere
+  PostRegistration(){
+    this.UserHttp.PostNewRegistration(this.newRegistration).subscribe({
+     next: (jsData: any) => {
+       this.Registrated= jsData      
+       alert("Hai inviato un nuovo user")
+    },
+    error: (erreur: any) => {
+      console.log(erreur)
+    }
+   })
+  }
 }
