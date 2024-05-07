@@ -5,6 +5,7 @@ import { Registration } from '../../shared/models/registrationdata';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { Router } from '@angular/router';
 import { NewUserHttp } from '../../shared/services/newUserHttp.service';
+import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +17,7 @@ import { NewUserHttp } from '../../shared/services/newUserHttp.service';
 export class RegistrationComponent {
   confirmPassword: string ='';
 
-  constructor(private UserHttp: NewUserHttp) {}
+  constructor(private UserHttp: NewUserHttp, private redirect: Router) {}
 
   newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro
 
@@ -90,12 +91,23 @@ export class RegistrationComponent {
     console.log("2 Phone: "+ this.newRegistration.phone)
 
     this.UserHttp.PostNewRegistration(this.newRegistration).subscribe({
-     next: (jsData: any) => {
-       this.Registrated= jsData      
-       alert("Hai inviato un nuovo user")
+     next: (response: any) => {
+      switch(response.status) {
+        case HttpStatusCode.Ok:
+          alert("Ti sei registrato! Verrai reindirizzato alla pagina del login!");
+          this.redirect.navigate(['/login']);
+          break;
+        default: break;
+      }
     },
-    error: (erreur: any) => {
-      console.log(erreur)
+    error: (err: any) => {
+      console.log(err)
+      if (err.status === 409) { // Conflitto (Utente già nel DB)
+        alert("Utente già presente nel database.");
+    } else {
+        // Gestisci altri casi di errore
+        console.error('Si è verificato un errore:', err);
+    }
     }
    })
   }
