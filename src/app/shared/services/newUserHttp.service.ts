@@ -41,6 +41,11 @@ import { NewCustomer } from '../models/newCustomersdata';
 
     //Registration - devo mandare al backend le info con la password in chiaro
     PostNewRegistration(postNewRegistr: Registration){
+      console.log("Post: "+ postNewRegistr.firstName + typeof(postNewRegistr.firstName))
+      console.log("Post: "+ postNewRegistr.lastName + typeof(postNewRegistr.lastName))
+      console.log("Post: "+ postNewRegistr.emailAddress + typeof(postNewRegistr.emailAddress))
+      console.log("Post: "+ postNewRegistr.phone + typeof(postNewRegistr.phone))
+      console.log("Post: "+ postNewRegistr.password + typeof(postNewRegistr.password))
         return this.http.post<Registration>(`${this.private_Url_New_Customer}/api/Users/Registration`, postNewRegistr);
     }
 }

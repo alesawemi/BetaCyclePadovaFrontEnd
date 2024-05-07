@@ -5,4 +5,6 @@ export class Registration{
     emailAddress: string = '';
     phone: string = '';
     password: string = '';
+
+    //ADRESS
 }

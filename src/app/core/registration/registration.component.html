@@ -15,11 +15,11 @@
         <input type="tel" placeholder="Phone" #phoneInput="ngModel"
             minlength="10" maxlength="10" name="phoneInput" [(ngModel)]="newRegistration.phone">
 
-        <input type="password" placeholder="Password [required]" #passwordInput="ngModel" 
-            minlength="8" maxlength="16"  name="passwordInput" [(ngModel)]="newRegistration.password" required>
+        <input type="text" placeholder="Password [required]" #passwordInput="ngModel" 
+            minlength="8" maxlength="32"  name="passwordInput" [(ngModel)]="newRegistration.password" required>
         
-        <input type="password" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel" 
-            name="confirmPasswordInput" [(ngModel)]="confirmPassword" required>   
+        <input type="text" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel" 
+            name="confirmPasswordInput" [(ngModel)]="confirmPasswordInput" required>   
 
         <button type="submit" [disabled]="frmRegistration.invalid">Register</button>
     </form>
