@@ -4,13 +4,13 @@ import { CommonModule } from '@angular/common';
 import { ProductHttpService } from '../../shared/services/productHttp.service';
 
 @Component({
-  selector: 'app-products',
+  selector: 'app-bikes',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.css'
+  templateUrl: './bikes.component.html',
+  styleUrl: './bikes.component.css'
 })
-export class ProductsComponent {
+export class BikesComponent {
   constructor(private mainHttp: ProductHttpService) {}
 
   allProductsList: Product[] = [];
@@ -28,3 +28,4 @@ export class ProductsComponent {
   }
 
 }
+

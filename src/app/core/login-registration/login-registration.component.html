@@ -31,7 +31,8 @@
         <div class="form-container sign-up-container">
             <form #frmRegistration="ngForm" (ngSubmit)="Registration(frmRegistration)">
 
-                <h1>Create Account</h1>
+                <!-- <h1>Create Account</h1> -->
+                <h1>Sign Up</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
@@ -51,11 +52,11 @@
                     name="phoneInput" [(ngModel)]="newRegistration.phone">
 
                 <input type="text" placeholder="Password [required]" #passwordInput="ngModel" minlength="8"
-                    maxlength="32" name="passwordInput" [(ngModel)]="newRegistration.password" required>
+                    maxlength="32" name="passwordInput" [(ngModel)]="clearPassword" required>
 
                 <input type="text" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel"
                     name="confirmPasswordInput" [(ngModel)]="confirmPasswordInput" required>
-                <button type="submit" >Register</button>
+                <button type="submit">Register</button>
             </form>
 
         </div>
@@ -87,7 +88,7 @@
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Hello, Friend!</h1>
-                    <p>Enter your personal details and start journey with us</p>
+                    <p>Enter your personal details and start your journey with us</p>
                     <button class="ghost" id="signUp">Sign Up</button>
                 </div>
             </div>

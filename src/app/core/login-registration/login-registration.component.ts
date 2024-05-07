@@ -9,15 +9,14 @@ import { LoginHttpService } from '../../shared/services/loginHttp.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
-  selector: 'app-registration', 
+  selector: 'app-login-registration',
   standalone: true,
   imports: [FormsModule, CommonModule],
-  templateUrl: './registration.component.html',
-  styleUrl: './registration.component.css'
+  templateUrl: './login-registration.component.html',
+  styleUrl: './login-registration.component.css'
 })
 
-
-export class RegistrationComponent {
+export class LoginRegistrationComponent {
   
   constructor(
 
@@ -39,12 +38,12 @@ export class RegistrationComponent {
 
   // REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
   
-  [x: string]: any;
-  confirmPassword: string ='';  
-
+  // [x: string]: any;
+  // confirmPassword: string ='';  
+  // Registrated: Registration[] = []
+  
   newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro
-
-  Registrated: Registration[] = []
+  clearPassword: string = '';  
 
   Registration(frm: NgForm) {  
     if (frm.valid) {
@@ -63,14 +62,14 @@ export class RegistrationComponent {
 
       // Invia i dati del modulo al server 
 
-      // Copia solo i campi necessari dalla form all'istanza di newRegistration
       this.newRegistration.firstName = frm.value.nameInput;
       this.newRegistration.lastName = frm.value.surnameInput;
       this.newRegistration.emailAddress = frm.value.emailInput;
       this.newRegistration.phone = frm.value.phoneInput;
-      this.newRegistration.password = frm.value.passwordInput;
 
-      this.newRegistration.password = window.btoa(this.newRegistration.password); 
+      this.clearPassword = frm.value.passwordInput;
+
+      this.newRegistration.password = window.btoa(this.clearPassword); 
 
       //ora che ho criptato posso inviare al backend il nuovo user
       this.PostRegistration();

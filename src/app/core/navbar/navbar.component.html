@@ -6,21 +6,19 @@
 
   <div class="main-navigation">
     <ul>
+      <!-- si può usare il logo betacycle come anchor per la home? e far sparire la voce home -->
       <li id="logo">BetaCycle</li>
-      <li><a routerLink="/home">Home</a></li>
-      <li><a *ngIf="auth.getLoginStatus()" routerLink="/products">I Nostri Prodotti</a></li>
+      <li><a routerLink="/home">Home</a></li>      
+      <li><a routerLink="/bikes">Bikes</a></li>
+      <li><a routerLink="/components">Components</a></li>
+      <li><a routerLink="/accessories">Accesories</a></li>
+      <li><a routerLink="/clothing">Clothing</a></li>
+      <li><a *ngIf="auth.getLoginStatus()" routerLink="/blog">Blog</a></li> 
+      <!-- logout diventa icona vicino al login, apre finestra di dialogo con "sei sicuro di voler uscire?" - "sì" -->
       <li><a *ngIf="auth.getLoginStatus()" routerLink="/logout">Logout</a></li>
-      <li><a href="#">Bikes</a></li>
-      <li><a href="#">Components</a></li>
-      <li><a href="#">Accesories</a></li>
-      <li><a href="#">Clothing</a></li>
-      <li><a *ngIf="auth.getLoginStatus() === false" routerLink="/registration">Registration</a></li>
-      <!-- Aggiungere *ngIf alla voce del BLOG perché si accede al blog solo che c'è login -->
-      <li><a href="#">Blog</a></li> 
-
 
       <!-- user logo -->
-      <a routerLink="/login">
+      <a routerLink="/login&registration">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
             <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>

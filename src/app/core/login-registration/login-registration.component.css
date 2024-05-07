@@ -4,7 +4,8 @@
 .container {
     max-width: 600px;
     margin: 0 auto;
-    padding: 40px;
+	/* padding: 40px; */
+    padding: 300px;
 }
 
 .input-group {
@@ -63,7 +64,8 @@ body {
 	font-family: 'Montserrat', sans-serif;
 	/* height: 100vh; */
 	margin: -20px 0 50px;
-    border: 5px solid black ;
+    /* border: 5px solid black ; */
+	padding-bottom: 10%;
 }
 
 h1 {

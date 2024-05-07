@@ -1,22 +1,30 @@
 import { Routes } from '@angular/router';
-// import { OldCustomersComponent } from './features/old-customers/old-customers.component';
-import { LoginComponent } from './core/login/login.component';
-import { ProductsComponent } from './features/products/products.component';
+
 import { HomeComponent } from './core/home/home.component';
-import { FooterComponent } from './core/footer/footer.component';
+
+import { BikesComponent } from './features/bikes/bikes.component';
+import { ComponentsComponent } from './features/components/components.component';
+import { AccessoriesComponent } from './features/accessories/accessories.component';
+import { ClothingComponent } from './features/clothing/clothing.component';
+import { BlogComponent } from './features/blog/blog.component';
+
+import { LoginRegistrationComponent } from './core/login-registration/login-registration.component';
 import { LogoutComponent } from './core/logout/logout.component';
-import { Registration } from './shared/models/registrationdata';
-import { RegistrationComponent } from './core/registration/registration.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 export const routes: Routes = [
 
-    {path: 'login', component: LoginComponent},
-    // {path: 'oldCustomers', component: OldCustomersComponent},
-    // {path: 'products', component: ProductsComponent},
     {path: 'home', component: HomeComponent},
-    {path: 'footer', component: FooterComponent},
+    
+    {path: 'bikes', component: BikesComponent},
+    {path: 'components', component: ComponentsComponent},
+    {path: 'accessories', component: AccessoriesComponent},
+    {path: 'clothing', component: ClothingComponent},
+    {path: 'blog', component: BlogComponent},    
+    
+    {path: 'login&registration', component: LoginRegistrationComponent},
     {path: 'logout', component: LogoutComponent},
-    {path: 'products', component: ProductsComponent},
-    {path: 'registration', component: RegistrationComponent},
+
+    {path: 'footer', component: FooterComponent},
     { path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];
