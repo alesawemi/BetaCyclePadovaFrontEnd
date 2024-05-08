@@ -117,6 +117,11 @@ button.ghost {
 	border-color: #FFFFFF;
 }
 
+#register {
+	margin-top: 2%;
+	margin-bottom: 7%;
+}
+
 form {
 	background-color: #FFFFFF;
 	display: flex;
@@ -288,3 +293,17 @@ input {
 
 
 
+.password-match {
+	margin: 1%;
+    border: 2px solid #4caf50; /* colore del bordo verde quando le password corrispondono */
+	color: #4caf50;
+}
+
+.password-not-match {
+	margin: 4%;
+    border: 2px solid #f44336; /* colore del bordo rosso quando le password non corrispondono */
+}
+
+.error-message {
+    color: #f44336; /* colore del testo rosso per i messaggi di errore */
+}

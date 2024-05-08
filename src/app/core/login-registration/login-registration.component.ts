@@ -46,8 +46,18 @@ export class LoginRegistrationComponent {
 
   Registrated: Registration[] = []
 
+  passwordsMatch: boolean = false;
+
+  checkPasswordMatch() {
+      this.passwordsMatch = this.newRegistration.password === this.confirmPassword;
+  }
+
+
+
   Registration(frm: NgForm) {  
     if (frm.valid) {
+
+      
 
       // Verifica se la password soddisfa i criteri richiesti
       if (!this.isPasswordValid(frm.value.passwordInput)) {
@@ -150,6 +160,7 @@ export class LoginRegistrationComponent {
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
               break;
             case HttpStatusCode.NoContent:
+              
               break;
           }
         },
@@ -159,8 +170,17 @@ export class LoginRegistrationComponent {
           if (this.auth.TypeOfAuthorization ===  'jwt') 
             { this.auth.setLoginStatusJwt(false); }
           
+          
           //trovare soluzione alternativa a alert --> popup con finestra di dialogo?
-          if (err.status === 404) alert("REGISTRATI!"); //fare redirect alla pagina di login/registrazione
+          if (err.status === 404) {
+              //alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
+              const container = document.getElementById('container');
+              if (container) {
+                container.classList.add("right-panel-active");
+              } else {
+                console.error("Container element is null.");
+              }
+          }
           if (err.status === 400) alert(err.error.message);            
         }
       });

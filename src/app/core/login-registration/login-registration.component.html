@@ -40,7 +40,7 @@
                     </span>
 
                 <input type="password" placeholder="Password [required]" #passwordInput="ngModel" minlength="8"
-                [pattern]="passwordRegex" name="passwordInput" [(ngModel)]="newRegistration.password" required>
+                [pattern]="passwordRegex" name="passwordInput" [(ngModel)]="newRegistration.password" required (input)="checkPasswordMatch()">
                     <span *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error-message">
                         <span *ngIf="passwordInput.errors?.['required']">Password is required</span>
                         <span *ngIf="passwordInput.errors?.['minlength']">Password must be at least 8 characters long</span>
@@ -48,16 +48,16 @@
                     </span>
 
                 <input type="password" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel" minlength="8"
-                    maxlength="32" name="confirmPasswordInput" [(ngModel)]="confirmPassword" required>
+                    maxlength="32" name="confirmPasswordInput" [(ngModel)]="confirmPassword" required  (input)="checkPasswordMatch()">
                     <span *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="error-message">
                         <span *ngIf="confirmPasswordInput.errors?.['required']">Confirm Password is required</span>
-                        <span *ngIf="confirmPasswordInput.errors?.['minlength']">Confirm Password must be at least 8 characters long</span>
-                        <span *ngIf="newRegistration.password !== confirmPasswordInput.value">Passwords do not match</span>
+                        <span *ngIf="confirmPasswordInput.errors?.['minlength']">Confirm Password must be at least 8 characters long</span>                  
+                        <div [ngClass]="{'password-match': passwordsMatch, 'password-not-match': !passwordsMatch}">
+                            Passwords {{ passwordsMatch ? 'match' : 'do not match' }}
+                        </div>
                     </span>
-                
-                
 
-                <button type="submit" [disabled]="frmRegistration.invalid">Register</button>
+                <button id="register" type="submit" [disabled]="frmRegistration.invalid">Register</button>
             </form>
 
         </div>
