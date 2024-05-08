@@ -145,8 +145,6 @@ export class LoginRegistrationComponent {
               if (this.auth.TypeOfAuthorization ===  'jwt') 
               {
                 this.jwtToken = response.body.token;
-                console.log("Siamo in Login")
-                console.log(this.jwtToken)
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
               }
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)

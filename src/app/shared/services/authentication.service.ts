@@ -49,8 +49,6 @@ export class AuthenticationService {
     this.isLogged = logValue;
 
     if (logValue) {      
-        console.log("Siamo in Auth Service:")
-        console.log(jwtToken)
         localStorage.setItem('token', jwtToken);
 
         this.authHeader = this.authHeader.set(
