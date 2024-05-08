@@ -38,12 +38,13 @@ export class LoginRegistrationComponent {
 
   // REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
   
-  // [x: string]: any;
+  [x: string]: any;
   confirmPassword: string ='';  
-  // Registrated: Registration[] = []
-  
+  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}$/; //mi sono fatto aiutare da ChatGPT qui
+
   newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro
-  clearPassword: string = '';  
+
+  Registrated: Registration[] = []
 
   Registration(frm: NgForm) {  
     if (frm.valid) {
@@ -62,14 +63,14 @@ export class LoginRegistrationComponent {
 
       // Invia i dati del modulo al server 
 
+      // Copia solo i campi necessari dalla form all'istanza di newRegistration
       this.newRegistration.firstName = frm.value.nameInput;
       this.newRegistration.lastName = frm.value.surnameInput;
       this.newRegistration.emailAddress = frm.value.emailInput;
       this.newRegistration.phone = frm.value.phoneInput;
+      this.newRegistration.password = frm.value.passwordInput;
 
-      this.clearPassword = frm.value.passwordInput;
-
-      this.newRegistration.password = window.btoa(this.clearPassword); 
+      this.newRegistration.password = window.btoa(this.newRegistration.password); 
 
       //ora che ho criptato posso inviare al backend il nuovo user
       this.PostRegistration();
@@ -83,8 +84,8 @@ export class LoginRegistrationComponent {
   // Funzione per verificare se la password soddisfa i criteri richiesti
   isPasswordValid(password: string): boolean {
     // Almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/; //mi sono fatto aiutare da ChatGPT qui
-    return passwordRegex.test(password);
+    
+    return this.passwordRegex.test(password);
   }
 
   //Ok- ora ho il mio user con la password in chiaro e devo criptarla - non so se farlo lato back-end

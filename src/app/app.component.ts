@@ -14,6 +14,9 @@ import { LogoutComponent } from './core/logout/logout.component';
 import { FooterComponent } from './core/footer/footer.component';
 
 
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 @Component({
     selector: 'app-root',
     standalone: true,
@@ -22,7 +25,8 @@ import { FooterComponent } from './core/footer/footer.component';
     imports: [RouterOutlet, NavbarComponent,
       HomeComponent, 
       BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, BlogComponent, 
-      LoginRegistrationComponent, LogoutComponent, FooterComponent]
+      LoginRegistrationComponent, LogoutComponent, FooterComponent,
+    FormsModule, CommonModule]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';

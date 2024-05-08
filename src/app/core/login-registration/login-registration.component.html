@@ -1,62 +1,63 @@
 <body>
-    <!-- <h3>Registration Form</h3>
-
-    <form class="registration-form" #frmRegistration="ngForm" (ngSubmit)="Registration(frmRegistration)">
-
-        <input type="text" placeholder="Name" #nameInput="ngModel" minlength="1" maxlength="20" name="nameInput"
-            [(ngModel)]="newRegistration.firstName">
-
-        <input type="text" placeholder="Surname" #surnameInput="ngModel" minlength="1" maxlength="20"
-            name="surnameInput" [(ngModel)]="newRegistration.lastName">
-
-        <input type="email" placeholder="Email [required]" #emailInput="ngModel" minlength="1" maxlength="70"
-            name="emailInput" [(ngModel)]="newRegistration.emailAddress" required>
-
-        <input type="tel" placeholder="Phone" #phoneInput="ngModel" minlength="10" maxlength="10" name="phoneInput"
-            [(ngModel)]="newRegistration.phone">
-
-        <input type="text" placeholder="Password [required]" #passwordInput="ngModel" minlength="8" maxlength="32"
-            name="passwordInput" [(ngModel)]="newRegistration.password" required>
-
-        <input type="text" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel"
-            name="confirmPasswordInput" [(ngModel)]="confirmPasswordInput" required>
-
-        <button type="submit" [disabled]="frmRegistration.invalid">Register</button>
-    </form> -->
-
-
     <!-- New Registration -->
     <!-- Bisogna sistemarlo un attimo: login, dimensioni... -->
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form #frmRegistration="ngForm" (ngSubmit)="Registration(frmRegistration)">
-
-                <!-- <h1>Create Account</h1> -->
-                <h1>Sign Up</h1>
+               
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
+
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" #nameInput="ngModel" minlength="1" maxlength="20" name="nameInput"
-                    [(ngModel)]="newRegistration.firstName">
+                <input type="text" placeholder="Name" #nameInput="ngModel" minlength="2" maxlength="50" name="nameInput"
+                    [(ngModel)]="newRegistration.firstName"> 
+                    <span *ngIf="nameInput && nameInput.invalid && (nameInput.dirty || nameInput.touched)" class="error-message">                    
+                        <span *ngIf="nameInput.errors?.['minlength']">Name must be at least 2 characters long</span>
+                    </span>
 
-                <input type="text" placeholder="Surname" #surnameInput="ngModel" minlength="1" maxlength="20"
+                <input type="text" placeholder="Surname" #surnameInput="ngModel" minlength="2" maxlength="50"
                     name="surnameInput" [(ngModel)]="newRegistration.lastName">
+                    <span *ngIf="surnameInput.invalid && (surnameInput.dirty || surnameInput.touched)" class="error-message">                    
+                        <span *ngIf="surnameInput.errors?.['minlength']">Surname must be at least 2 characters long</span>
+                    </span>
 
-                <input type="email" placeholder="Email [required]" #emailInput="ngModel" minlength="1" maxlength="70"
+                <input type="email" placeholder="Email [required]" #emailInput="ngModel" minlength="5" maxlength="150"
                     name="emailInput" [(ngModel)]="newRegistration.emailAddress" required>
+                    <span *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="error-message">
+                        <span *ngIf="emailInput.errors?.['required']">Email is required</span>
+                        <span *ngIf="emailInput.errors?.['minlength']">Email must be at least 5 characters long</span>
+                        <span *ngIf="emailInput.errors?.['email']">Please enter a valid email address</span>
+                    </span>
+                    
 
-                <input type="tel" placeholder="Phone" #phoneInput="ngModel" minlength="10" maxlength="10"
+                <input type="tel" placeholder="Phone" #phoneInput="ngModel" minlength="9" maxlength="20"
                     name="phoneInput" [(ngModel)]="newRegistration.phone">
+                    <span *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)" class="error-message">                    
+                        <span *ngIf="phoneInput.errors?.['minlength']">Phone must be at least 9 characters long</span>
+                    </span>
 
-                <input type="text" placeholder="Password [required]" #passwordInput="ngModel" minlength="8"
-                    maxlength="32" name="passwordInput" [(ngModel)]="clearPassword" required>
+                <input type="password" placeholder="Password [required]" #passwordInput="ngModel" minlength="8"
+                [pattern]="passwordRegex" name="passwordInput" [(ngModel)]="newRegistration.password" required>
+                    <span *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="error-message">
+                        <span *ngIf="passwordInput.errors?.['required']">Password is required</span>
+                        <span *ngIf="passwordInput.errors?.['minlength']">Password must be at least 8 characters long</span>
+                        <span *ngIf="passwordInput.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character ($!%*?&)</span>
+                    </span>
 
-                <input type="text" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel"
-                    name="confirmPasswordInput" [(ngModel)]="confirmPassword" required>
-                <button type="submit">Register</button>
+                <input type="password" placeholder="Confirm Password [required]" #confirmPasswordInput="ngModel" minlength="8"
+                    maxlength="32" name="confirmPasswordInput" [(ngModel)]="confirmPassword" required>
+                    <span *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="error-message">
+                        <span *ngIf="confirmPasswordInput.errors?.['required']">Confirm Password is required</span>
+                        <span *ngIf="confirmPasswordInput.errors?.['minlength']">Confirm Password must be at least 8 characters long</span>
+                        <span *ngIf="newRegistration.password !== confirmPasswordInput.value">Passwords do not match</span>
+                    </span>
+                
+                
+
+                <button type="submit" [disabled]="frmRegistration.invalid">Register</button>
             </form>
 
         </div>
@@ -75,7 +76,6 @@
                 <input type="text" placeholder="username" name="user" #username><br>
 		        <input type="password" placeholder="password" name="password" #password><br>
 		        <input type="button" value="Login" (click)="Login(username, password)">
-
             </form>
 
         </div>
