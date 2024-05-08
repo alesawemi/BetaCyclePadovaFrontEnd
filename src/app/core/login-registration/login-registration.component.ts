@@ -39,7 +39,7 @@ export class LoginRegistrationComponent {
   // REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
   
   // [x: string]: any;
-  // confirmPassword: string ='';  
+  confirmPassword: string ='';  
   // Registrated: Registration[] = []
   
   newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro

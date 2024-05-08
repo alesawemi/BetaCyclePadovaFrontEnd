@@ -37,7 +37,7 @@
 }
 
 /* Login form */
-.login {
+form {
     position: absolute;
     top: calc(50% - 75px);
     left: calc(50% - 50px);
@@ -47,8 +47,8 @@
     z-index: 2;
 }
 
-.login input[type=text],
-.login input[type=password] {
+form input[type=text],
+form input[type=password] {
     width: 250px;
     height: 30px;
     background: transparent;
@@ -61,11 +61,11 @@
     padding: 4px;
 }
 
-.login input[type=password] {
+form input[type=password] {
     margin-top: 10px;
 }
 
-.login input[type=button] {
+form input[type=button] {
     width: 260px;
     height: 35px;
     background: #fff;
@@ -80,17 +80,17 @@
     margin-top: 10px;
 }
 
-.login input[type=button]:hover {
+form input[type=button]:hover {
     opacity: 0.8;
 }
 
-.login input[type=button]:active {
+form input[type=button]:active {
     opacity: 0.6;
 }
 
-.login input[type=text]:focus,
-.login input[type=password]:focus,
-.login input[type=button]:focus {
+form input[type=text]:focus,
+form input[type=password]:focus,
+form input[type=button]:focus {
     outline: none;
     border: 1px solid rgba(255,255,255,0.9);
 }

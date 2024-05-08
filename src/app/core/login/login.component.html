@@ -1,4 +1,3 @@
-
 <div class="fullscreen-modal">
 	<div class="grad"></div>
 	<div class="header">
@@ -6,13 +5,12 @@
 	</div>
 	<br>
 
-	<div class="login">
+	<form>
 		<input type="text" placeholder="username" name="user" #username><br>
 		<input type="password" placeholder="password" name="password" #password><br>
-		<input type="button" value="Login" (click)="Login(username, password)">
-	</div>
+		<button type="submit" (click)="Login(username, password)">Login</button>
+	</form>
 </div>
-
 
 
 <div class="footer-wrapper">
