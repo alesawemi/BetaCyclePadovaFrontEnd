@@ -155,7 +155,7 @@
 }
 .social-icons a.tiktok:hover
 {
-  background: linear-gradient(to right,  #25f4ee, #000000, #fe2c55,  #FFFFFF);
+  background: linear-gradient(to right, #000000, #000000, #000000, #000000, #25f4ee, #FFFFFF, #fe2c55, #000000, #000000, #000000, #000000);
 }
 @media (max-width:767px)
 {
