@@ -1,13 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-	/* padding: 40px; */
-    padding: 300px;
-}
-
 .input-group {
     margin-bottom: 10px;
 }
@@ -31,10 +24,16 @@
 }
 
 .registration-form button[type="submit"] {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    cursor: pointer;
+    border-radius: 20px;
+	border: 1px solid #FF4B2B;
+	background-color: #FF4B2B;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
 }
 
 .registration-form button[type="submit"]:hover {
@@ -44,11 +43,6 @@
 .error-message {
     color: red;
 }
-
-
-/* Css New Form  */
-
-
 
 * {
 	box-sizing: border-box;
@@ -96,8 +90,9 @@ a {
 	margin: 15px 0;
 }
 
+/* questo in realtà non viene usato, vedere "registration-form button" riga 26 e "sign-in-container button" riga 164*/
 button {
-	border-radius: 20px;
+	border-radius: 20px; 
 	border: 1px solid #FF4B2B;
 	background-color: #FF4B2B;
 	color: #FFFFFF;
@@ -164,6 +159,19 @@ input {
 	left: 0;
 	width: 50%;
 	z-index: 2;
+}
+
+.sign-in-container button {
+    border-radius: 20px;
+	border: 1px solid #ff464c;
+	background-color: #ff464c;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
 }
 
 .container.right-panel-active .sign-in-container {

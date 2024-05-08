@@ -19,7 +19,8 @@ export class BikesComponent {
     this.mainHttp.httpGetProducts()
     .subscribe({
         next: (Data: any) => { 
-          this.allProductsList = Data;
+          if (Data.$values) { this.allProductsList = Data.$values; } 
+          else { console.error("Response format is not as expected"); }         
         },
         error: (errore: any) => {
           console.log(errore);
