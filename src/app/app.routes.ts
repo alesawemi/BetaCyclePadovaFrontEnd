@@ -26,5 +26,5 @@ export const routes: Routes = [
     {path: 'logout', component: LogoutComponent},
 
     {path: 'footer', component: FooterComponent},
-    { path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
+    {path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];
