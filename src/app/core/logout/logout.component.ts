@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.css'
 })
+
 export class LogoutComponent {
   constructor (private auth: AuthenticationService, private router: Router) {}
 

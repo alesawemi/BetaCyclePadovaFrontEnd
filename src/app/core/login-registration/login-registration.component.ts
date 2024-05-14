@@ -122,16 +122,6 @@ export class LoginRegistrationComponent {
   }
 
 
-
-
-
-
-
-
-
-
-
-
   
   // LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
   loginCredentials: Credentials = new Credentials();
@@ -150,8 +140,8 @@ export class LoginRegistrationComponent {
         next: (response: any) => {
           switch(response.status) {
             case HttpStatusCode.Ok:
-              if (this.auth.TypeOfAuthorization ===  'basic') 
-                { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
+              // if (this.auth.TypeOfAuthorization ===  'basic') 
+              //   { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
               if (this.auth.TypeOfAuthorization ===  'jwt') 
               {
                 this.jwtToken = response.body.token;
@@ -165,8 +155,8 @@ export class LoginRegistrationComponent {
           }
         },
         error: (err: any) => {
-          if (this.auth.TypeOfAuthorization ===  'basic') 
-            { this.auth.setLoginStatusBasic(false); }
+          // if (this.auth.TypeOfAuthorization ===  'basic') 
+          //   { this.auth.setLoginStatusBasic(false); }
           if (this.auth.TypeOfAuthorization ===  'jwt') 
             { this.auth.setLoginStatusJwt(false); }
           
