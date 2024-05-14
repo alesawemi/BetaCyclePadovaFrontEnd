@@ -16,6 +16,7 @@ import { FooterComponent } from './core/footer/footer.component';
 
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CristianHomeComponent } from '../cristian-home/cristian-home.component';
 
 @Component({
     selector: 'app-root',
@@ -26,7 +27,7 @@ import { CommonModule } from '@angular/common';
       HomeComponent, 
       BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, BlogComponent, 
       LoginRegistrationComponent, LogoutComponent, FooterComponent,
-    FormsModule, CommonModule]
+    FormsModule, CommonModule,CristianHomeComponent]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';
