@@ -1,3 +1,24 @@
 body{
     padding-top: 10%;
 }
+
+.filters {
+    font-family: 'Raleway', cursive;
+    text-align: justify;
+}
+
+h2 {
+    text-align: center;
+}
+
+pre{
+    text-align: center;
+}
+
+div {
+    text-align: center;
+}
+
+button {
+    margin: 5px;
+}

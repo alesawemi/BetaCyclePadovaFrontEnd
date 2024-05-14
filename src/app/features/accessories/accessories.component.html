@@ -1,8 +1,23 @@
 <body>
-    <h2>Accessories</h2>
 
-    <button (click)="GetAllAccessories()">Tutti gli Accessori</button>
-    <pre *ngIf="allAccessories.length>0">
-        <li *ngFor="let a of allAccessories" > {{a.productName}} a soli {{a.listPrice}} $ </li>
+    <h2>Accessori</h2>
+
+    <button (click)="openFilters()">Filtra</button>
+
+    <pre class="filters" *ngIf="filtersOn"> 
+    <button (click)="GetAllAccessories()">Rimuovi Tutti i Filtri</button>
+    <input  type="checkbox" [(ngModel)] = "priceAscending" (change)="ifAscending($event)" [disabled]="priceDescending"> Prezzo Crescente 
+    <input  type="checkbox" [(ngModel)] = "priceDescending" (change)="ifDescending($event)" [disabled]="priceAscending"> Prezzo Decrescente         
+    <button (click)="GetAccessoriesWithFilters()">Prova Filtri</button>  
     </pre>
+
+    
+   
+
+    <pre *ngIf="allAccessories.length>0">
+        <li *ngFor="let a of allAccessories" > {{a.productName}} a soli {{a.listPrice}}$ - COLOR {{a.color}}  </li>
+    </pre>
+
+
+
 </body>
