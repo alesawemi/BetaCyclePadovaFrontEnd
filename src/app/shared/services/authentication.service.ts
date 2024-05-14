@@ -90,6 +90,7 @@ export class AuthenticationService {
 
         //se non lo trova me ne generi uno nuovo
         if (!this.cookie.check(this.name)) {
+          this.router.navigate(['home']); // Redirect alla home
           this.setJwtCookie(jwtToken);
         }
         else
