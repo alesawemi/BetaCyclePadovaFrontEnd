@@ -15,6 +15,6 @@ export class LogoutComponent {
 
   ConfirmLogout() {
     this.auth.Logout();
-    this.router.navigate(['home']);
+    //this.router.navigate(['home']);
   }
 }

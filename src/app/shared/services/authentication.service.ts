@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http'
 import {CookieService, SameSite} from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -27,7 +28,7 @@ export class AuthenticationService {
   
   //COSTRUTTORE
   //è la prima cosa che esegue al caricamento della pagina e al refresh
-  constructor(private cookie: CookieService) {
+  constructor(private cookie: CookieService, private router: Router) {
     if (this.cookie.check(this.name)) { //vado a vedere se il cookie esiste già
       //vado a calcolarmi la scadenza del token e del cookie
       this.jwtToken = this.cookie.get(this.name);
@@ -144,12 +145,28 @@ export class AuthenticationService {
 
     if (expiresIn > 0) { //se è maggiore di 0 vuol dire che è valido
       this.jwtExpirationTimer = setTimeout(() => { //mi parte poi un countdown e capisce quando scade il token
-          this.Logout(); // Chiama Logout() quando il token è scaduto
+        this.Logout(); // Chiama Logout() quando il token è scaduto
       }, expiresIn);
+
+      // Imposto il timer per avvisare 30 secondi prima della scadenza
+      if (expiresIn > 30000) { // Controllo che manchino almeno 30 secondi
+        setTimeout(() => {
+            this.notifyTokenExpiring(); // Chiama la funzione di notifica
+        }, expiresIn - 30000);
+    } else {
+        this.notifyTokenExpiring(); // Notifica subito se mancano meno di 30 secondi
+    }
+
   } else {
       this.Logout(); // se il token è già scaduto eseguo subito il Logout()
   }
   }
+
+  // Funzione per la notifica
+private notifyTokenExpiring() {
+  alert('Il token sta per scadere, verrai sloggato tra 30 secondi.');
+}
+
 
   //prende il dato Expiration corrispondente al ticket
   private parseJwtExpiration(token: string): Date {
@@ -166,6 +183,7 @@ export class AuthenticationService {
   }
 
 
+
   Logout() {
     //if (this.TypeOfAuthorization === 'basic') this.setLoginStatusBasic(false);
     if (this.TypeOfAuthorization === 'jwt') {
@@ -176,10 +194,11 @@ export class AuthenticationService {
             contentType: 'application/json',
             responseType: 'text'
         });
-        alert("Ti sei sloggato!");
+        alert("Ti sei sloggato!"); //da capire se tenerlo attivo oppure no
         this.stopJwtExpirationTimer();
-        // window.localStorage.clear();
-        // window.location.reload(); // Serve a ricaricare la pagina (fare un refresh)
+
+        window.localStorage.clear();
+        this.router.navigate(['home']); // Redirect alla home
     }
   }
 }
