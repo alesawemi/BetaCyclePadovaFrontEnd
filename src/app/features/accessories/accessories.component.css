@@ -3,13 +3,7 @@ body{
 }
 
 p {    
-    font-weight: bold;
-}
-
-.filters {
-    font-family: 'Raleway', cursive;
-    text-align: justify;
-}
+    font-weight: bold;}
 
 h2 {
     text-align: center;

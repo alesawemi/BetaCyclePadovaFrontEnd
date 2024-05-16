@@ -1,9 +1,6 @@
 <body>
 
     <h2>Accessori</h2>
-
-   
-
     
     <button (click)="GetAllAccessories()">Rimuovi Tutti i Filtri</button>
     <input  type="checkbox" [(ngModel)] = "priceAscending" (change)="ifAscending($event)" [disabled]="priceDescending"> Prezzo Crescente 
@@ -27,12 +24,22 @@
                 </li>
             </ul>            
         </div>
+
+        <div class='child'>
+            <ul> <p>Price</p> 
+                <li *ngFor="let pRange of priceIntervals, index as i">
+                    <input type="checkbox" [(ngModel)]="selectedPriceRange[i]"
+                        (change)="checkPrice($event)" [disabled]="checkedPrices[i]"> 
+                        {{pRange}} $
+                        
+                </li>
+            </ul>            
+        </div>
     </div>
 
     <pre *ngIf="allAccessories.length>0">
+        <p>{{allAccessories.length}} Risultati Trovati</p>
         <li *ngFor="let a of allAccessories" > {{a.productName}} - {{a.listPrice}}$ - COLOR {{a.color}} - CATEGORY {{a.productCategory}}  </li>
     </pre>
-
-
-
+    
 </body>
