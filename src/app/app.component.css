@@ -1,0 +1,5 @@
+body{
+    padding: 0px 2vw;
+
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(81, 115, 187, 0.8), rgba(0, 0, 0, 0.8));
+}

@@ -4,23 +4,36 @@ body {
   padding: 0;
 }
 
-#logo {
-  color: #FCA311;
-  font-family: 'Raleway', cursive;
-  font-size: 40px;
-  padding: 0px 40px;
-
+.blue {
+  color: #395ead !important;
 }
 
 nav {
-  background-color: rgba(255, 255, 255, 0.658);
-  overflow-y: auto;
+  background: linear-gradient(to right, rgba(81, 115, 187, 0.8), rgba(80, 79, 79, 0.8), rgba(81, 115, 187, 0.8));
   position: fixed;
-  left: 0;
+  left: 2vw; /* Utilizza un margine relativo */
+  right: 2vw; /* Utilizza un margine relativo */
   top: 0;
-  text-align: center;
-  width: 100%;
+  width: calc(100% - 4vw); /* Utilizza una larghezza relativa */
   z-index: 10000;
+  border-radius: 1vw; /* Utilizza un bordo arrotondato relativo */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+
+nav::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  z-index: -1;
+  border-radius: 1vw; /* Utilizza un bordo arrotondato relativo */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(81, 115, 187, 0.8), rgba(0, 0, 0, 0.8));
 }
 
 nav ul {
@@ -29,145 +42,86 @@ nav ul {
   padding: 0;
   text-align: center;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 nav li {
-  float: center;
+  display: inline-block;
 }
 
 nav li.right {
-  float: right; 
+  float: right;
 }
-
 
 nav li a {
   display: block;
-  padding: 14px 16px;
+  padding: 1vw; /* Utilizza un padding relativo */
   text-decoration: none;
-  color: black;
+  color: rgb(253, 253, 253);
+  font-weight: bold;
+  white-space: nowrap; /* Evita il testo di andare a capo */
+  overflow: hidden; /* Nasconde eventuali testi che escono dalla larghezza massima */
+  text-overflow: ellipsis; /* Aggiunge i puntini di sospensione per testi che escono */
+  transition: font-size 0.3s; /* Aggiungi una transizione alla dimensione del carattere */
 }
 
 nav li a:hover {
-  background-color: #ddd;
-  color: black;
+  background-color:rgb(255, 254, 254,0.3);
+  color:#FCA311;
+  font-size: 1.2vw; /* Dimensione del carattere più grande al passaggio del mouse */
+  border-radius: 30px;
 }
 
-nav li a i {
-  margin-right: 5px; 
-}
-
-nav svg {
-  margin-left: 75px; 
-}
-
-
-
-#cover {
-  height: 900px;
-  position: relative;
-  top: -55px;
-  width: 100%;
-  background: url(https://static.vecteezy.com/system/resources/previews/028/058/295/non_2x/cyclist-riding-down-the-road-free-photo.jpg) no-repeat top center;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-
-ul {
-  padding: 0;
-}
-
-li {
-  color: #14213D;
-  display: inline-block;
-  font-family: 'Abel', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
-  margin: 16px 20px;
-  text-transform: uppercase;
-}
-
-.cover-content {
-  box-sizing: border-box;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
-  top: 280px;
-  width: 70%;
-}
-
-h1 {
-  color: #FFF;
-  font-family: 'Amatic SC', cursive;
-  font-size: 72px;
-  line-height: 60px;
-  padding: 20px 10px;
-  text-align: center;
-}
-
-h2 {
-  color: white;
-  font-family: 'Raleway', sans-serif;
-  font-size: 42px;
-  font-weight: 300;
-  text-align: center;
-}
-
-h3 {
-  color: #14213D;
-  font-family: 'Abel', sans-serif;
-  font-size: 28px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-h4 {
+#logo {
   color: #FCA311;
-  font-family: 'Abel', sans-serif;
-  font-size: 24px;
-  margin: 0px 0px 50px 0px;
+  font-family: 'Raleway', cursive;
+  font-size: 2vw;
+  padding: 0.1vw 2vw; 
+  font-weight: bold;
 }
 
-p {
-  color: #333;
-  font-family: 'Raleway', sans-serif;
-  font-size: 16px;
-  font-weight: 300;
+svg{
+  margin-right: 2vw;
+  margin-left: 2vw;
+  width: 1vw;
+  height: 1vw;
+  
 }
 
-a {
-  text-decoration: none;
+
+/* Stili per il campo di ricerca */
+.searchform input[type="text"] {
+  width: 50vp; /* Larghezza del campo di ricerca */
+  padding: 10px; /* Spazio interno */
+  border: 1px solid #ccc; /* Bordo */
+  border-radius: 20px; /* Bordi arrotondati */
+  font-size: 14px; /* Dimensione del carattere */
 }
 
-.btn {
-  background-color: #14213D;
-  color: #FFF;
-  font-family: 'Amatic SC', cursive;
-  font-size: 26px;
-  padding: 14px;
-  background-image: -webkit-linear-gradient(#FFD194, #BC1324);
+/* Stili per il pulsante di ricerca */
+.searchform button[type="submit"] {
+  background-color: #007bff; /* Colore di sfondo */
+  color: #fff; /* Colore del testo */
+  border: none; /* Rimuove il bordo */
+  padding: 10px 15px; /* Spazio interno */
+  border-radius: 20px; /* Bordi arrotondati */
+  font-size: 14px; /* Dimensione del carattere */
+  cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+  margin-left: 5px; /* Aggiunge spazio a sinistra del pulsante */
+  margin-right: 5px; /* Aggiunge spazio a destra del pulsante */
 }
 
-.products {
-  background: #EEEFF1;
-  box-sizing: border-box;
-  width: 90%;
-  margin: 20px auto;
-  padding: 20px 0px;
-  text-align: center;
+/* Hover sul pulsante di ricerca */
+.searchform button[type="submit"]:hover {
+  background-color: #04080e; /* Cambia il colore di sfondo al passaggio del mouse */
 }
 
-.product {
-  display: inline-block;
-  margin: 0px 2% 80px 2%;
-  text-align: center;
-  width: 45%;
-}
 
-.product img {
-  width: 100%;
-}
 
-.blue {
-  color: #14213D !important;
-}
+
+
+

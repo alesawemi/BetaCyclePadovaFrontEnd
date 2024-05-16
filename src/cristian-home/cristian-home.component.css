@@ -1,17 +1,17 @@
 /* PRODUCT CARD */
 
 .product-card {
+  border: 2px solid red;
   background-color: #f5f6fa;
   border-radius: 10px;
   color: #2f3640;
-  margin: 0 2em;
   transition: all linear .2s;
   width: 250px;
   display: flex;
   flex-direction: column;
   flex: 0 0 calc(25% - 3em); /* 3em di margine tra gli elementi */
   margin: 1.5em;
-  justify-content: space-between;
+ 
 }
 
 .product-card:hover,
@@ -99,7 +99,7 @@
     grid-auto-rows: auto;
     
   }
-  
+
   .product-card {
     margin: 1.5em;
   }

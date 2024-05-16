@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import {Route, RouterModule } from '@angular/router';
 import { CristianHomeComponent } from '../../../cristian-home/cristian-home.component';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,46 @@ import { CristianHomeComponent } from '../../../cristian-home/cristian-home.comp
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+  phrases: string[] = [
+    "Scegli la tua strada, scegli la tua bicicletta",
+    "Ogni pedalata è un'avventura",
+    "Libera la tua mente e il tuo spirito: pedala con noi!"
+  ];
+  currentPhrase: string = '';
+  currentIndex: number = 0;
 
+  constructor() { }
+
+  ngOnInit(): void {
+    this.showNextPhrase();
+  }
+
+  showNextPhrase(): void {
+    this.currentPhrase = this.phrases[this.currentIndex];
+    setTimeout(() => this.hideCurrentPhrase(), 5000);
+    this.currentIndex = (this.currentIndex + 1) % this.phrases.length;
+    setTimeout(() => {
+      this.showPhrase();
+    }, 1000);
+  }
+  
+  showPhrase(): void {
+    const overlayText = document.querySelector('.overlay-text');
+    if (overlayText) {
+      overlayText.classList.add('show');
+      overlayText.classList.remove('hide'); // Rimuovi la classe hide se presente
+    }
+  }
+  
+  hideCurrentPhrase(): void {
+    this.currentPhrase = '';
+    setTimeout(() => this.showNextPhrase(), 2000);
+    const overlayText = document.querySelector('.overlay-text');
+    if (overlayText) {
+      overlayText.classList.remove('show');
+      overlayText.classList.add('hide'); // Aggiungi la classe hide per far uscire il testo
+    }
+  }
+  
 }
