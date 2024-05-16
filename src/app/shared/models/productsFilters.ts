@@ -1,8 +1,8 @@
 export class Filters {
-    productName: string = '';    
-    color: string = '';   
-    size: string = '';  
-    productCategory: string = '';
+    productName: string = 'allProducts';    
+    color: string = 'color';   
+    size: string = 'size';  
+    productCategory: string = 'category';
     maxPrice: number = 0.;
     minPrice: number = 0.;
     maxWeight: number = 0;

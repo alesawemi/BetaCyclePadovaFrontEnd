@@ -14,6 +14,10 @@ export class CommonService {
     return this.http.get(url);
   }
 
+  GetProperties(url: string): Observable<any>{
+    return this.http.get(url);
+  }
+
   GetWithFilters(url: string, filters: Filters): Observable<any>{
     return this.http.post(url, filters, {   
       observe: 'response'
