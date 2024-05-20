@@ -23,8 +23,6 @@ export class AccessoriesComponent {
 
   constructor(private http: CommonService) {}
 
-
-
   allAccessories: Accessory[] = [];
   
   // get full list of Accessories
@@ -216,8 +214,8 @@ export class AccessoriesComponent {
 
     for(let k=0; k<this.selectedPriceRange.length; k++){
       if(this.selectedPriceRange[k]) {
-        this.filtersFromInput.minPrice = this.prices[k];
-        this.filtersFromInput.maxPrice = this.prices[k+1];
+        // this.filtersFromInput.minPrice = this.prices[k];
+        // this.filtersFromInput.maxPrice = this.prices[k+1];
       } 
     } 
 
