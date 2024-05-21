@@ -1,3 +1,18 @@
+/* Text Styles */
+.new-arrivals-title {
+  text-align: center;
+  font-family: 'Arial Black', sans-serif;
+  font-size: 1.5em;
+  color: #ffbb00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #2f3640; /* Background color */
+  padding: 10px; /* Padding */
+  border-radius: 10px; /* Rounded corners */
+  margin: 5px 0; /* Margin for spacing */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding in width */
+}
+
 /* PRODUCT CARD */
 
 .product-card {
@@ -6,24 +21,23 @@
   border-radius: 10px;
   color: #2f3640;
   transition: all linear .2s;
-  width: 250px;
+  width: 200px;
   display: flex;
   flex-direction: column;
-  flex: 0 0 calc(25% - 3em); /* 3em di margine tra gli elementi */
-  margin: 1.5em;
- 
+  margin: 10px auto; /* Center the card horizontally */
 }
 
 .product-card:hover,
 .product-card:active {
   box-shadow: .2em .5em .5em rgba(0, 0, 0, 0.4);
-  transform: scale(1.1);
+  transform: scale(1.04);
 }
 
 .product-img {
   border-radius: 10px 10px 0 0;
   height: 150px;
   max-width: 100%;
+  border: 2px solid blue;
 }
 
 .img-one {
@@ -48,9 +62,10 @@
 .product-text {
   padding: 1em;
   text-align: center;
+  font-size: 70%;
 }
 
-.product-cart button{
+.product-cart button {
   border: 0;
   border-radius: 0 0 10px 10px;
   color: #f5f6fa;
@@ -95,23 +110,22 @@
 /* media queries */
 @media screen and (max-width: 860px) {
   .container {
-    display: grid;
-    grid-auto-rows: auto;
-    
+      display: grid;
+      grid-auto-rows: auto;
   }
 
   .product-card {
-    margin: 1.5em;
+      margin: 1.5em;
   }
 }
 
-.category{
-  font-size: 25px; 
-  font-weight: bold; 
-  color: #333; 
+.category {
+  font-size: 25px;
+  font-weight: bold;
+  color: #333;
 }
 
-a{
+a {
   margin-left: 25px;
   font-family: 'Arial Black', Gadget, sans-serif; /* Usa una famiglia di font più interessante */
   font-size: 20px;
@@ -119,10 +133,15 @@ a{
   text-decoration: none; /* Rimuovi la sottolineatura */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Aggiungi un'ombra al testo */
   transition: color 0.3s ease, text-shadow 0.3s ease; /* Aggiungi una transizione per l'effetto hover */
-  
 }
 
 a:hover {
   color: rgb(153, 153, 255); /* Cambia il colore al passaggio del mouse */
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* Aumenta l'ombra al passaggio del mouse */
+}
+
+/* Additional Swiper Styles */
+swiper-slide {
+  display: flex;
+  justify-content: center;
 }

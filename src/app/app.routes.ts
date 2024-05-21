@@ -15,7 +15,6 @@ import { FooterComponent } from './core/footer/footer.component';
 export const routes: Routes = [
 
     {path: 'home', component: HomeComponent},
-    
     {path: 'bikes', component: BikesComponent},
     {path: 'components', component: ComponentsComponent},
     {path: 'accessories', component: AccessoriesComponent},

@@ -42,6 +42,29 @@
   transform: translate(-50%, -50%) scale(0); /* Applica la trasformazione di scala per far uscire il testo */
 }
 
+.cont_carousels{
+  width: 50%; 
+  border:2px solid red; 
+  padding: 20px;
+  background-color: rgba(240, 255, 255, 0.6);
+  margin-top: 20px;
+}
 
+.cont_carousels {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 20px;
+}
+
+/* Stilizzazione per i componenti figli */
+.cont_carousels > app-nuovi-arrivi,
+.cont_carousels > app-piu-venduti {
+  width: 50%;
+  margin: 10px 0;
+}
 
 

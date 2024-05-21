@@ -22,6 +22,7 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 3px;
+  border: 2px solid red;
 }
 
 nav::before {
@@ -47,10 +48,12 @@ nav ul {
   justify-content: center;
   align-items: center;
   width: 100%;
+  border: 2px solid black;
 }
 
 nav li {
   display: inline-block;
+  height: 100%;
 }
 
 nav li.right {
@@ -67,14 +70,9 @@ nav li a {
   overflow: hidden; /* Nasconde eventuali testi che escono dalla larghezza massima */
   text-overflow: ellipsis; /* Aggiunge i puntini di sospensione per testi che escono */
   transition: font-size 0.3s; /* Aggiungi una transizione alla dimensione del carattere */
+  border: 2px solid blue;
 }
 
-nav li a:hover {
-  background-color:rgb(255, 254, 254,0.3);
-  color:#FCA311;
-  font-size: 1.2vw; /* Dimensione del carattere più grande al passaggio del mouse */
-  border-radius: 30px;
-}
 
 #logo {
   color: #FCA311;
@@ -85,17 +83,20 @@ nav li a:hover {
 }
 
 svg{
-  margin-right: 2vw;
-  margin-left: 2vw;
-  width: 1vw;
-  height: 1vw;
-  
+  border: 2px solid red;
+  width: 1.1vw;
+  height: 1.1vw;
 }
 
 
+.searchform{
+  display: flex;
+  margin-left: 20px;
+  border: 2px solid yellow;
+}
 /* Stili per il campo di ricerca */
 .searchform input[type="text"] {
-  width: 50vp; /* Larghezza del campo di ricerca */
+  width: 70%; /* Larghezza del campo di ricerca */
   padding: 10px; /* Spazio interno */
   border: 1px solid #ccc; /* Bordo */
   border-radius: 20px; /* Bordi arrotondati */

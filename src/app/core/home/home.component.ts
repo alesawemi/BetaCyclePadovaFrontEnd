@@ -3,14 +3,17 @@ import { FooterComponent } from '../footer/footer.component';
 import {Route, RouterModule } from '@angular/router';
 import { CristianHomeComponent } from '../../../cristian-home/cristian-home.component';
 import { OnInit } from '@angular/core';
+import { NuoviArriviComponent } from '../carousels/NuoviArrivi/nuovi-arrivi/nuovi-arrivi.component';
+import { PiuVendutiComponent } from '../carousels/PiuVenduti/piu-venduti/piu-venduti.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FooterComponent,RouterModule,CristianHomeComponent],
+  imports: [FooterComponent,RouterModule,CristianHomeComponent,NuoviArriviComponent,PiuVendutiComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent implements OnInit{
   phrases: string[] = [
     "Scegli la tua strada, scegli la tua bicicletta",
