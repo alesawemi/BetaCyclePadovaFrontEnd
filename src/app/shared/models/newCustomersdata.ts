@@ -1,9 +1,7 @@
 export class NewCustomer{
-    customerId: number = 0;   
-    firstName: string = '';  
-    lastName: string = '';
-    emailAddress: string = '';
+    id: number = 0;   
+    name: string = '';  
+    surname: string = '';
     phone: string = '';
-    /*passwordHash: string = '';
-    passwordSalt: string = '';*/
+    mail: string = '';
 }

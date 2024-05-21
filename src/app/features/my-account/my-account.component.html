@@ -1,0 +1,77 @@
+<body>
+<br>
+<br>
+<br>
+
+<h3>Modifica i tuoi dati</h3>
+
+<form [formGroup]="profileForm" (ngSubmit)="updateUser()">
+  <div>
+    <label>Email:</label>
+    <input type="email" formControlName="email" readonly>
+  </div>
+  <div>
+    <label>Name:</label>
+    <input type="text" formControlName="name">
+    <div *ngIf="profileForm.get('name')?.invalid && (profileForm.get('name')?.dirty || profileForm.get('name')?.touched)" class="error-message">
+      <span *ngIf="profileForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long</span>
+    </div>
+  </div>
+  <div>
+    <label>Surname:</label>
+    <input type="text" formControlName="surname">
+    <div *ngIf="profileForm.get('surname')?.invalid && (profileForm.get('surname')?.dirty || profileForm.get('surname')?.touched)" class="error-message">
+      <span *ngIf="profileForm.get('surname')?.errors?.['minlength']">Surname must be at least 2 characters long</span>
+    </div>
+  </div>
+  <div>
+    <label>Phone:</label>
+    <input type="tel" formControlName="phone">
+    <div *ngIf="profileForm.get('phone')?.invalid && (profileForm.get('phone')?.dirty || profileForm.get('phone')?.touched)" class="error-message">
+      <span *ngIf="profileForm.get('phone')?.errors?.['minlength']">Phone must be at least 9 characters long</span>
+    </div>
+  </div>
+  <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
+</form>
+<hr>
+
+<h3>Modifica il tuo indirizzo</h3>
+
+<form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+  <div>
+    <label>AddressLine1:</label>
+    <input type="text" formControlName="addressLine1">
+  </div>
+  <div>
+    <label>AddressLine2:</label>
+    <input type="text" formControlName="addressLine2">
+  </div>
+  <div>
+    <label>City:</label>
+    <input type="text" formControlName="city">
+  </div>
+  <div>
+    <label>StateProvince:</label>
+    <input type="text" formControlName="stateProvince">
+  </div>
+  <div>
+    <label>CountryRegion:</label>
+    <input type="text" formControlName="countryRegion">
+  </div>
+  <div>
+    <label>Postal Code:</label>
+    <input type="text" formControlName="postalCode">
+  </div>
+
+  <div>
+    <label>Address Type:</label>
+    <input type="text" formControlName="addressType">
+  </div>
+  
+  <button type="submit" [disabled]="addressForm.invalid">Update Address</button>
+</form>
+
+<br>
+<br>
+
+</body>

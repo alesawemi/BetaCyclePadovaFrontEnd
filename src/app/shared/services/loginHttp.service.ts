@@ -8,13 +8,18 @@ import { Credentials } from '../models/credentials';
 })
 export class LoginHttpService {
 
+ mail: string = '';
+
   constructor(private http: HttpClient) { }
 
   LoginPost(credential: Credentials): Observable<any>{
+    this.mail = credential.username;
     return this.http.post(`https://localhost:7228/login`, credential, 
     {   
       observe: 'response'
     })
   }
+
+  
 }
 

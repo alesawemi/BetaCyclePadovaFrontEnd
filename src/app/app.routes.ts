@@ -12,6 +12,8 @@ import { LoginRegistrationComponent } from './core/login-registration/login-regi
 import { LogoutComponent } from './core/logout/logout.component';
 import { FooterComponent } from './core/footer/footer.component';
 
+import { MyAccountComponent } from './features/my-account/my-account.component';
+
 export const routes: Routes = [
 
     {path: 'home', component: HomeComponent},
@@ -22,6 +24,7 @@ export const routes: Routes = [
     {path: 'blog', component: BlogComponent},    
     
     {path: 'login&registration', component: LoginRegistrationComponent},
+    {path: 'myAccount', component: MyAccountComponent},
     {path: 'logout', component: LogoutComponent},
 
     {path: 'footer', component: FooterComponent},

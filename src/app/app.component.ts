@@ -13,6 +13,7 @@ import { LoginRegistrationComponent } from './core/login-registration/login-regi
 import { LogoutComponent } from './core/logout/logout.component';
 import { FooterComponent } from './core/footer/footer.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -27,7 +28,7 @@ import { CristianHomeComponent } from '../cristian-home/cristian-home.component'
       HomeComponent, 
       BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, BlogComponent, 
       LoginRegistrationComponent, LogoutComponent, FooterComponent,
-    FormsModule, CommonModule,CristianHomeComponent]
+    FormsModule, CommonModule,CristianHomeComponent, ReactiveFormsModule]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';

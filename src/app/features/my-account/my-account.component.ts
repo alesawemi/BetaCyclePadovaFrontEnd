@@ -1,0 +1,204 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Address, AddressCustomer } from '../../shared/models/addressData';
+import { NewUserHttp } from '../../shared/services/newUserHttp.service';
+import { LoginHttpService } from '../../shared/services/loginHttp.service';
+import { AuthenticationService } from '../../shared/services/authentication.service';
+import { NewCustomer } from '../../shared/models/newCustomersdata';
+import { AddressHttp } from '../../shared/services/address.service';
+
+@Component({
+  selector: 'app-my-account',
+  templateUrl: './my-account.component.html',
+  styleUrls: ['./my-account.component.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule]
+})
+export class MyAccountComponent implements OnInit {
+  profileForm!: FormGroup;
+  addressForm!: FormGroup;
+  found: boolean = false;
+  email: string = '';
+  updId: number = 0;
+  adrsId: number = 0;
+  isSubmitted: boolean = false; //devo disabilitare il bottone
+
+  constructor(
+    private fb: FormBuilder,
+    private newUserHttp: NewUserHttp,
+    private loginHttp: LoginHttpService,
+    private auth: AuthenticationService,
+    private adrs: AddressHttp
+  ) {}
+
+  //quando la pagina viene inizializzata compie le seguenti operazioni
+  ngOnInit(): void {
+    this.initForms(); //richiama il metodo che inizializza la pagina con quello che voglio
+    
+    this.email = this.auth.getEmailFromJwt(); //si prende il valore dell'email dal JWT Token nel cookie
+    console.log('email: ' + this.email)
+
+    if (this.email.length >0) { //vado a vedere se esiste qualcosa in mail
+
+      this.newUserHttp.GetNewCustomerByMail(this.email).subscribe((user: NewCustomer) => {
+        if (user) { // Se l'utente è autenticato
+          console.log('mail da back: ' + user.mail)
+          console.log('user id: ' + user.id)
+          this.updId = user.id; //mi salvo l'id dell'user
+          console.log(this.updId)
+          // Imposta i placeholder dinamicamente
+          this.setUserPlaceholder(user.mail, user.name, user.surname, user.phone);
+
+          //#region SE TROVO UN USER guardo gli address
+            console.log('id da cercare '+this.updId)
+
+            //qui il contrario del fondo, devo prima fare il get dalla CUSTOMER - ADDRESS poi da ADDRESS
+            this.adrs.GetAddressCustomerByCustId(this.updId).subscribe((ac: AddressCustomer) => {
+              this.adrsId = ac.addressId;
+              this.adrs.GetAddressById(this.adrsId).subscribe((a: Address) => { //ricorda di fare GetAddressCust
+                this.found = true;
+                console.log('Found: '+this.found)
+                this.setAddressPlaceholder(a.addressLine1, a.addressLine2, a.city, a.stateProvince, a.countryRegion, a.postalCode, ac.addressType);
+              });
+
+            }, error => {
+              // alert('Non trovato')
+               console.error('Error fetching user:', error);
+               this.setAddressPlaceholder('','','','','','','');
+               this.found = false;
+            });
+          //#endregion
+
+        }
+      }, error => {
+        console.error('Error fetching user:', error);
+      });
+
+
+      
+    }
+  }
+
+  initForms() {
+    this.profileForm = this.fb.group({
+      email: [this.email],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      surname: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      phone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(20)]]
+    });
+
+    this.addressForm = this.fb.group({
+      addressLine1: ['', Validators.required],
+      addressLine2: ['', Validators.required],
+      city: ['', Validators.required],
+      stateProvince: ['', Validators.required],
+      countryRegion: ['', Validators.required],
+      postalCode: ['', Validators.required],
+      addressType: ['', Validators.required]
+    });
+  }
+
+  setUserPlaceholder(email: string, firstName: string, lastName: string, phone: string) {
+    // Imposta i placeholder per i campi del form
+    this.profileForm.patchValue({
+      email: email,
+      name: firstName ? firstName : 'Inserisci il tuo nome',
+      surname: lastName ? lastName : 'Inserisci il tuo cognome',
+      phone: phone ? phone : 'Inserisci n° telefonico'
+    });
+  }
+
+  setAddressPlaceholder(addressLine1: string, addressLine2: string, city: string, stateProvince: string, countryRegion: string, postalCode: string, addressType: string){
+    this.addressForm.patchValue({
+      addressLine1: addressLine1 ? addressLine1: 'Insert addressLine1',
+      addressLine2: addressLine2 ? addressLine2: 'Insert addressLine2',
+      city: city ? city: 'Insert city',
+      stateProvince: stateProvince ? stateProvince: 'Insert stateProvince',
+      countryRegion: countryRegion ? countryRegion: 'Insert countryRegion',
+      postalCode: postalCode ? postalCode: 'Insert postalCode',
+      addressType: addressType ? addressType: 'Insert addressType'
+    })
+  }
+
+  //#region UPDATE USER DATA
+  UpdUser : NewCustomer = new NewCustomer();
+  frmvalues: any;
+  //richiamo il metodo quando faccio il submit della form "profileForm"
+  updateUser() {
+    if (this.profileForm.valid) {
+      this.frmvalues = this.profileForm.getRawValue();
+      this.UpdUser.id = this.updId;
+      this.UpdUser.mail = this.email;
+      this.UpdUser.name = this.frmvalues.name;
+      this.UpdUser.surname = this.frmvalues.surname;
+      this.UpdUser.phone = this.frmvalues.phone;
+      console.log(this.UpdUser.phone)
+      this.newUserHttp.UpdateNewCustomerById(this.updId, this.UpdUser).subscribe((response: any) => {
+        alert('User updated')
+        console.log('User updated', response);
+      });
+    }
+  }
+  //#endregion
+
+//#region ADDRESS
+  address: Address = new Address();
+  addressCust : AddressCustomer = new AddressCustomer();
+  //richiamo il metodo quando faccio il submit della form "addressForm"
+  updateAddress() {
+    
+    if (this.addressForm.valid) {
+
+      const postAddress = this.addressForm.value;
+      
+      this.address.addressId = this.adrsId;
+      this.address.addressLine1 = this.addressForm.value.addressLine1;
+      this.address.addressLine2 = this.addressForm.value.addressLine2;
+      this.address.city = this.addressForm.value.city;
+      this.address.countryRegion = this.addressForm.value.countryRegion;
+      this.address.stateProvince = this.addressForm.value.stateProvince;
+      this.address.postalCode = this.addressForm.value.postalCode;
+
+      if(this.found){ //se esiste già un indirizzo gli faccio fare l'update - consideriamo i vecchi utenti di cui non conosciamo le psw
+        console.log('Sei entrato nel update');
+        this.addressCust.customerId = this.updId;
+        this.addressCust.addressId = this.adrsId;
+        this.addressCust.addressType = this.addressForm.value.addressType;
+
+        this.adrs.UpdateAddressCustomerByCustId(this.updId, this.addressCust).subscribe((respone: any) => {
+            alert('Address Customer - Type updated'); console.log(respone);
+          this.adrs.UpdateAddressByadrsId(this.adrsId, this.address).subscribe((respons: any) => {
+            alert('Address updated'); console.log('Address updated', respons);         
+          });
+        });        
+      }
+      else{ //se è la prima volta che inserisco i dati degli address è logicamente giusto fare un post
+        this.adrs.PostAddress(postAddress).subscribe((a: Address) => {
+          alert('Address posted');
+          this.isSubmitted = true;
+          //devo fare un post anche sulla tabella condivisa da Customer/Users e Address
+       
+          this.addressCust.customerId = this.updId;
+          this.addressCust.addressId = a.addressId;
+          this.addressCust.addressType = this.addressForm.value.addressType;
+
+          this.adrs.PostAddressCustomer(this.addressCust).subscribe((response: any) => {
+            alert('Address - Customer posted');
+
+            //disabilitare il pulsante update - perché l'ho appena fatto
+            this.isSubmitted = true;
+
+          })
+        })
+      }
+      
+
+    }
+  }
+
+//#endregion
+
+
+}
+

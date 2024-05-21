@@ -26,6 +26,10 @@ import { NewCustomer } from '../models/newCustomersdata';
       return this.http.get<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/${id}`);
     }
 
+    GetNewCustomerByMail(mail: string) : Observable<any>{ //lo uso per address
+      return this.http.get<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/email/${mail}`);
+    }
+
     PostNewCustomer(postNewCust: NewCustomer){
       return this.http.post<NewCustomer>(`${this.private_Url_New_Customer}/api/Users`, postNewCust);
     }
@@ -34,6 +38,12 @@ import { NewCustomer } from '../models/newCustomersdata';
     {
       return this.http.put<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/${id}`, upNewCust);
     }
+
+    UpdateNewCustomerByEmail(email: string, upNewCust: NewCustomer) //lo uso per update user
+    {
+      return this.http.put<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/email/${email}`, upNewCust);
+    }
+
 
     DeleteNewCustomerById(id: number){
       return this.http.delete<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/${id}`);

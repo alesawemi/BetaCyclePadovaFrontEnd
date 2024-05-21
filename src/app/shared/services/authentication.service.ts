@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http'
 import {CookieService, SameSite} from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-
-  //DICHIARAZIONE DELLE VARIABILI
+  
+//#region DICHIARAZIONE DELLE VARIABILI
 
   jwtToken: string = '';
   private name: string = window.btoa("jwt_token");
@@ -21,12 +22,13 @@ export class AuthenticationService {
 
   private jwtExpirationTimer: any; //è un timer che mi tiene conto della sessione
 
+  
   //nel mio backend ho due tipi di autenticazione - al momento sto usando la jwt (migliore)
   public TypeOfAuthorization: string = 'jwt'; // 'basic'
 
-  //////////////////////////////////////////////////////////////////////////////////////////
+  //#endregion
   
-  //COSTRUTTORE
+//#region COSTRUTTORE
   //è la prima cosa che esegue al caricamento della pagina e al refresh
   constructor(private cookie: CookieService, private router: Router) {
     if (this.cookie.check(this.name)) { //vado a vedere se il cookie esiste già
@@ -46,15 +48,17 @@ export class AuthenticationService {
       }
     }
   }
- //////////////////////////////////////////////////////////////////////////////////////////
-
-  //METODI
+//#endregion
+ 
+//#region METODI
 
   //questo metodo mi serve a sapere se sono loggato (isLogged=true) oppure no (isLogged=false)
   getLoginStatus() {
     return this.isLogged;
   }
 
+  
+  //#region BASIC
   //Questo serve ad impostare true o false per la basic (che al momento sono sto usando)
   // setLoginStatusBasic(logValue: boolean, usr: string='', psw: string=''){
   //   this.isLogged = logValue;
@@ -76,9 +80,10 @@ export class AuthenticationService {
   //   }
   // }
 
+//#endregion 
   
   
-  
+  //#region JWT TOKEN
   //Questo serve ad impostare true o false per la JWT (che STO USANDO)
   setLoginStatusJwt(logValue: boolean, jwtToken: string=''){
     this.isLogged = logValue;
@@ -115,12 +120,13 @@ export class AuthenticationService {
       });
     }
   }
+//#endregion
 
-  //QUESTO FUNZIONA
+  //#region COOKIE
   private setJwtCookie(jwtToken: string){
     //Utilizzo di Cookies      
     let expires: Date = new Date();
-    expires.setMinutes(expires.getMinutes() + 1); //10 minuti di scadenza - da prendere dal token
+    expires.setMinutes(expires.getMinutes() + 30); //10 minuti di scadenza - da prendere dal token
     let path: string = "/";
     let domain: string = "localhost"
     let secure: boolean = true;
@@ -182,9 +188,9 @@ private notifyTokenExpiring() {
       clearTimeout(this.jwtExpirationTimer);
     }
   }
+//#endregion
 
-
-
+  //#region  LOGOUT
   Logout() {
     //if (this.TypeOfAuthorization === 'basic') this.setLoginStatusBasic(false);
     if (this.TypeOfAuthorization === 'jwt') {
@@ -202,4 +208,20 @@ private notifyTokenExpiring() {
         this.router.navigate(['home']); // Redirect alla home
     }
   }
+//#endregion
+
+
+  //#region GET USERNAME FROM JWT TOKEN
+
+  // Metodo per decodificare il JWT e ottenere lo username
+  getEmailFromJwt(): string {
+    if (this.jwtToken) {
+      const decodedToken: any = jwtDecode(this.jwtToken);
+      return decodedToken.unique_name || ''; // Assicurati che il nome del claim sia corretto
+    }
+    return '';
+  }
+//#endregion
+
+//#endregion
 }

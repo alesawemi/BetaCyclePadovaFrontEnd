@@ -122,6 +122,49 @@ svg{
 }
 
 
+/*quando l'user è loggato devo farglielo capire
+inoltre gli tolgo la pagina di login&registration
+mostrandoli un menù a tendina stile amazon dove
+può gestire il proprio account, le info di contatto, le preferenze ...*/
+.logged-in-icon {
+  color: gold; /* Cambia il colore dell'icona */
+  animation: glow 1s infinite alternate; /* Aggiunge l'effetto di brillamento */
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px gold, 0 0 10px gold, 0 0 15px gold, 0 0 20px gold;
+  }
+  to {
+    text-shadow: 0 0 10px gold, 0 0 20px gold, 0 0 30px gold, 0 0 40px gold;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  display: none; /* Nascondi inizialmente */
+}
+
+li:hover .dropdown-menu {
+  display: block; /* Mostra quando il mouse è sopra il <li> */
+}
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+
 
 
 
