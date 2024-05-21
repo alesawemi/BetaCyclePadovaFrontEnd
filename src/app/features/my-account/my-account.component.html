@@ -1,77 +1,81 @@
 <body>
-<br>
-<br>
-<br>
-
-<h3>Modifica i tuoi dati</h3>
-
-<form [formGroup]="profileForm" (ngSubmit)="updateUser()">
-  <div>
-    <label>Email:</label>
-    <input type="email" formControlName="email" readonly>
-  </div>
-  <div>
-    <label>Name:</label>
-    <input type="text" formControlName="name">
-    <div *ngIf="profileForm.get('name')?.invalid && (profileForm.get('name')?.dirty || profileForm.get('name')?.touched)" class="error-message">
-      <span *ngIf="profileForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long</span>
-    </div>
-  </div>
-  <div>
-    <label>Surname:</label>
-    <input type="text" formControlName="surname">
-    <div *ngIf="profileForm.get('surname')?.invalid && (profileForm.get('surname')?.dirty || profileForm.get('surname')?.touched)" class="error-message">
-      <span *ngIf="profileForm.get('surname')?.errors?.['minlength']">Surname must be at least 2 characters long</span>
-    </div>
-  </div>
-  <div>
-    <label>Phone:</label>
-    <input type="tel" formControlName="phone">
-    <div *ngIf="profileForm.get('phone')?.invalid && (profileForm.get('phone')?.dirty || profileForm.get('phone')?.touched)" class="error-message">
-      <span *ngIf="profileForm.get('phone')?.errors?.['minlength']">Phone must be at least 9 characters long</span>
-    </div>
-  </div>
-  <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
-</form>
-<hr>
-
-<h3>Modifica il tuo indirizzo</h3>
-
-<form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
-  <div>
-    <label>AddressLine1:</label>
-    <input type="text" formControlName="addressLine1">
-  </div>
-  <div>
-    <label>AddressLine2:</label>
-    <input type="text" formControlName="addressLine2">
-  </div>
-  <div>
-    <label>City:</label>
-    <input type="text" formControlName="city">
-  </div>
-  <div>
-    <label>StateProvince:</label>
-    <input type="text" formControlName="stateProvince">
-  </div>
-  <div>
-    <label>CountryRegion:</label>
-    <input type="text" formControlName="countryRegion">
-  </div>
-  <div>
-    <label>Postal Code:</label>
-    <input type="text" formControlName="postalCode">
-  </div>
-
-  <div>
-    <label>Address Type:</label>
-    <input type="text" formControlName="addressType">
-  </div>
   
-  <button type="submit" [disabled]="addressForm.invalid">Update Address</button>
-</form>
-
-<br>
-<br>
-
-</body>
+  <div class="container">
+    <br>
+  <h3>Modifica i tuoi dati</h3>
+  
+  <form [formGroup]="profileForm" (ngSubmit)="updateUser()">
+    <div class="form-group">
+      <label>Email:</label>
+      <div class="readonly-field">
+        <input type="email" formControlName="email" readonly>
+        <span class="lock-icon" title="Non modificabile">🔒</span>
+      </div>
+    </div>
+    <div>
+      <label>Name:</label>
+      <input type="text" formControlName="name" [ngClass]="{'untouched-field': profileForm.get('name')?.pristine}">
+      <div *ngIf="profileForm.get('name')?.invalid && (profileForm.get('name')?.dirty || profileForm.get('name')?.touched)" class="error-message">
+        <span *ngIf="profileForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long</span>
+      </div>
+    </div>
+    <div>
+      <label>Surname:</label>
+      <input type="text" formControlName="surname" [ngClass]="{'untouched-field': profileForm.get('surname')?.pristine}">
+      <div *ngIf="profileForm.get('surname')?.invalid && (profileForm.get('surname')?.dirty || profileForm.get('surname')?.touched)" class="error-message">
+        <span *ngIf="profileForm.get('surname')?.errors?.['minlength']">Surname must be at least 2 characters long</span>
+      </div>
+    </div>
+    <div>
+      <label>Phone:</label>
+      <input type="tel" formControlName="phone" [ngClass]="{'untouched-field': profileForm.get('phone')?.pristine}">
+      <div *ngIf="profileForm.get('phone')?.invalid && (profileForm.get('phone')?.dirty || profileForm.get('phone')?.touched)" class="error-message">
+        <span *ngIf="profileForm.get('phone')?.errors?.['minlength']">Phone must be at least 9 characters long</span>
+      </div>
+    </div>
+    <button type="submit" [disabled]="profileForm.invalid || profileForm.pristine">Update Profile</button>
+    <button type="button" (click)="cancelProfileChanges()">Cancel</button>
+  </form>
+  <hr>
+  
+  <h3>Modifica il tuo indirizzo</h3>
+  
+  <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+    <div>
+      <label>AddressLine1:</label>
+      <input type="text" formControlName="addressLine1" [ngClass]="{'untouched-field': addressForm.get('addressLine1')?.pristine}">
+    </div>
+    <div>
+      <label>AddressLine2:</label>
+      <input type="text" formControlName="addressLine2" [ngClass]="{'untouched-field': addressForm.get('addressLine2')?.pristine}">
+    </div>
+    <div>
+      <label>City:</label>
+      <input type="text" formControlName="city" [ngClass]="{'untouched-field': addressForm.get('city')?.pristine}">
+    </div>
+    <div>
+      <label>StateProvince:</label>
+      <input type="text" formControlName="stateProvince" [ngClass]="{'untouched-field': addressForm.get('stateProvince')?.pristine}">
+    </div>
+    <div>
+      <label>CountryRegion:</label>
+      <input type="text" formControlName="countryRegion" [ngClass]="{'untouched-field': addressForm.get('countryRegion')?.pristine}">
+    </div>
+    <div>
+      <label>Postal Code:</label>
+      <input type="text" formControlName="postalCode" [ngClass]="{'untouched-field': addressForm.get('postalCode')?.pristine}">
+    </div>
+  
+    <div>
+      <label>Address Type:</label>
+      <input type="text" formControlName="addressType" [ngClass]="{'untouched-field': addressForm.get('addressType')?.pristine}">
+    </div>
+    
+    <button type="submit" [disabled]="addressForm.invalid || addressForm.pristine">Update Address</button>
+    <button type="button" (click)="cancelAddressChanges()">Cancel</button>
+  </form>
+  
+</div>
+  
+  </body>
+  

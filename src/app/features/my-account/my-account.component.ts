@@ -22,7 +22,12 @@ export class MyAccountComponent implements OnInit {
   email: string = '';
   updId: number = 0;
   adrsId: number = 0;
-  isSubmitted: boolean = false; //devo disabilitare il bottone
+
+  // Per avere i valori sempre aggiornati nel form
+  originalProfileValues: any;
+  originalAddressValues: any;
+  originalProfileData: any;
+  originalAddressData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -34,50 +39,8 @@ export class MyAccountComponent implements OnInit {
 
   //quando la pagina viene inizializzata compie le seguenti operazioni
   ngOnInit(): void {
-    this.initForms(); //richiama il metodo che inizializza la pagina con quello che voglio
-    
-    this.email = this.auth.getEmailFromJwt(); //si prende il valore dell'email dal JWT Token nel cookie
-    console.log('email: ' + this.email)
-
-    if (this.email.length >0) { //vado a vedere se esiste qualcosa in mail
-
-      this.newUserHttp.GetNewCustomerByMail(this.email).subscribe((user: NewCustomer) => {
-        if (user) { // Se l'utente è autenticato
-          console.log('mail da back: ' + user.mail)
-          console.log('user id: ' + user.id)
-          this.updId = user.id; //mi salvo l'id dell'user
-          console.log(this.updId)
-          // Imposta i placeholder dinamicamente
-          this.setUserPlaceholder(user.mail, user.name, user.surname, user.phone);
-
-          //#region SE TROVO UN USER guardo gli address
-            console.log('id da cercare '+this.updId)
-
-            //qui il contrario del fondo, devo prima fare il get dalla CUSTOMER - ADDRESS poi da ADDRESS
-            this.adrs.GetAddressCustomerByCustId(this.updId).subscribe((ac: AddressCustomer) => {
-              this.adrsId = ac.addressId;
-              this.adrs.GetAddressById(this.adrsId).subscribe((a: Address) => { //ricorda di fare GetAddressCust
-                this.found = true;
-                console.log('Found: '+this.found)
-                this.setAddressPlaceholder(a.addressLine1, a.addressLine2, a.city, a.stateProvince, a.countryRegion, a.postalCode, ac.addressType);
-              });
-
-            }, error => {
-              // alert('Non trovato')
-               console.error('Error fetching user:', error);
-               this.setAddressPlaceholder('','','','','','','');
-               this.found = false;
-            });
-          //#endregion
-
-        }
-      }, error => {
-        console.error('Error fetching user:', error);
-      });
-
-
-      
-    }
+    this.initForms(); //imposta i Validator dei vari campi form
+    this.loadData(); //carico i dati che ci sono nel database
   }
 
   initForms() {
@@ -99,6 +62,36 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
+  loadData() { 
+    this.email = this.auth.getEmailFromJwt();
+    console.log('email: ' + this.email)
+
+    if (this.email.length > 0) {
+      this.newUserHttp.GetNewCustomerByMail(this.email).subscribe((user: NewCustomer) => {
+        if (user) {
+          this.updId = user.id;
+          this.setUserPlaceholder(user.mail, user.name, user.surname, user.phone);
+          this.originalProfileValues = this.profileForm.getRawValue();
+
+          this.adrs.GetAddressCustomerByCustId(this.updId).subscribe((ac: AddressCustomer) => {
+            this.adrsId = ac.addressId;
+            this.adrs.GetAddressById(this.adrsId).subscribe((a: Address) => {
+              this.found = true;
+              this.setAddressPlaceholder(a.addressLine1, a.addressLine2, a.city, a.stateProvince, a.countryRegion, a.postalCode, ac.addressType);
+              this.originalAddressValues = this.addressForm.getRawValue();
+            });
+          }, error => {
+            this.setAddressPlaceholder('','','','','','','');
+            this.found = false;
+          });
+        }
+      }, error => {
+        console.error('Error fetching user:', error);
+      });
+    }
+  }
+
+  
   setUserPlaceholder(email: string, firstName: string, lastName: string, phone: string) {
     // Imposta i placeholder per i campi del form
     this.profileForm.patchValue({
@@ -135,7 +128,8 @@ export class MyAccountComponent implements OnInit {
       this.UpdUser.phone = this.frmvalues.phone;
       console.log(this.UpdUser.phone)
       this.newUserHttp.UpdateNewCustomerById(this.updId, this.UpdUser).subscribe((response: any) => {
-        alert('User updated')
+        alert('User updated successfully')
+        this.cancelProfileChanges()
         console.log('User updated', response);
       });
     }
@@ -167,16 +161,18 @@ export class MyAccountComponent implements OnInit {
         this.addressCust.addressType = this.addressForm.value.addressType;
 
         this.adrs.UpdateAddressCustomerByCustId(this.updId, this.addressCust).subscribe((respone: any) => {
-            alert('Address Customer - Type updated'); console.log(respone);
+            //alert('Address Customer - Type updated'); console.log(respone);
           this.adrs.UpdateAddressByadrsId(this.adrsId, this.address).subscribe((respons: any) => {
-            alert('Address updated'); console.log('Address updated', respons);         
+            //alert('Address updated'); console.log('Address updated', respons); 
+            alert('Address Updated successfully')
+            this.cancelAddressChanges(); // Segna il form come non modificato        
           });
         });        
       }
       else{ //se è la prima volta che inserisco i dati degli address è logicamente giusto fare un post
         this.adrs.PostAddress(postAddress).subscribe((a: Address) => {
-          alert('Address posted');
-          this.isSubmitted = true;
+          //alert('Address posted');
+          
           //devo fare un post anche sulla tabella condivisa da Customer/Users e Address
        
           this.addressCust.customerId = this.updId;
@@ -184,10 +180,11 @@ export class MyAccountComponent implements OnInit {
           this.addressCust.addressType = this.addressForm.value.addressType;
 
           this.adrs.PostAddressCustomer(this.addressCust).subscribe((response: any) => {
-            alert('Address - Customer posted');
+            //alert('Address - Customer posted');
+            alert('Address Updated successfully')
 
             //disabilitare il pulsante update - perché l'ho appena fatto
-            this.isSubmitted = true;
+            this.cancelAddressChanges(); // Segna il form come non modificato 
 
           })
         })
@@ -199,6 +196,16 @@ export class MyAccountComponent implements OnInit {
 
 //#endregion
 
+
+cancelProfileChanges() {
+  this.loadData();
+  this.profileForm.markAsPristine(); // Segna il form come non modificato
+}
+
+cancelAddressChanges() {
+  this.loadData();
+  this.addressForm.markAsPristine(); // Segna il form come non modificato
+}
 
 }
 

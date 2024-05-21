@@ -1,4 +1,135 @@
-body{
-    background-color:darkseagreen;
+
+.untouched-field {
+    background-color: #f0f0f0; /* Grigio chiaro */
+  }
+
+  /* my-account.component.css */
+
+/* Spazio per la navbar */
+body {
+    margin: 0;
     padding-left: 2%;
-}
+    padding-top: 60px; /* Altezza approssimativa della navbar */
+    font-family: Arial, sans-serif;
+    /* background-color:darkseagreen; */
+    background-color: #f4f4f4;
+  }
+  
+  /* Container principale */
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  /* Titoli */
+  h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  /* Moduli */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form > div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .untouched-field {
+    border-color: #ccc;
+  }
+  
+  .error-message {
+    color: #ff0000;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }
+  
+  /* Pulsanti */
+  button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #007bff;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  button[type="button"] {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #5a6268;
+  }
+  
+  hr {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 30px 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+  
+    h3 {
+      font-size: 1.2em;
+    }
+  
+    button {
+      font-size: 0.9em;
+      padding: 8px 12px;
+    }
+  }
+  
