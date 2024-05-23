@@ -6,13 +6,14 @@ import { BikesComponent } from './features/bikes/bikes.component';
 import { ComponentsComponent } from './features/components/components.component';
 import { AccessoriesComponent } from './features/accessories/accessories.component';
 import { ClothingComponent } from './features/clothing/clothing.component';
+import { SearchComponent } from './features/search/search.component';
 import { BlogComponent } from './features/blog/blog.component';
 
 import { LoginRegistrationComponent } from './core/login-registration/login-registration.component';
-import { LogoutComponent } from './core/logout/logout.component';
-import { FooterComponent } from './core/footer/footer.component';
-
 import { MyAccountComponent } from './features/my-account/my-account.component';
+import { LogoutComponent } from './core/logout/logout.component';
+
+import { FooterComponent } from './core/footer/footer.component';
 
 import { CookiePolicyComponent } from './features/cookie-policy/cookie-policy.component';
 import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
@@ -24,6 +25,7 @@ export const routes: Routes = [
     {path: 'components', component: ComponentsComponent},
     {path: 'accessories', component: AccessoriesComponent},
     {path: 'clothing', component: ClothingComponent},
+    {path: 'search', component: SearchComponent},
     {path: 'blog', component: BlogComponent},    
     
     {path: 'login&registration', component: LoginRegistrationComponent},

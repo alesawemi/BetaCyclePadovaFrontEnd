@@ -1,10 +1,10 @@
 import { Interval } from "./intervalsData";
 
 export class Filters {
-    productName: string = 'allProducts';    
-    color: string = 'color';   
-    size: string = 'size';  
-    productCategory: string = 'category';
+    productName: string = '';    
+    color: string = '';   
+    size: string = '';  
+    productCategory: string = '';
     pIntervals: Interval[] = [];
     wIntervals: Interval[] = [];
     descPrice: boolean = false;

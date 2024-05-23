@@ -8,4 +8,5 @@ export class GeneralView {
     size: string = '';    
     weight: number = 0;   
     productCategory: string = '';
+    productModel: string = '';
 }

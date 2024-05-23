@@ -56,9 +56,9 @@
     </li>
 
     <li>
-      <form class="searchform cf">
-        <input type="text" placeholder="Cosa stai cercando?">
-        <button type="submit">Search</button>
+      <form class="searchform cf" (ngSubmit)="Search(searchParameter)">
+        <input type="text" placeholder="Cosa stai cercando?" [(ngModel)]="searchParameter" name="searchInput">                  
+        <button type="submit"> Search </button>
       </form>
     </li>
     </ul>

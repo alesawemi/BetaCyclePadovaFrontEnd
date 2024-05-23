@@ -7,6 +7,7 @@ import { Accessory } from '../../shared/models/accessoriesData';
 import { Filters } from '../../shared/models/productsFilters';
 import { Properties } from '../../shared/models/productProperties';
 import { concat } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-accessories',

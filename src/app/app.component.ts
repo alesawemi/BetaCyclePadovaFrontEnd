@@ -7,6 +7,7 @@ import { BikesComponent } from './features/bikes/bikes.component';
 import { ComponentsComponent } from './features/components/components.component';
 import { AccessoriesComponent } from './features/accessories/accessories.component';
 import { ClothingComponent } from './features/clothing/clothing.component';
+import { SearchComponent } from './features/search/search.component';
 import { BlogComponent } from './features/blog/blog.component';
 
 import { LoginRegistrationComponent } from './core/login-registration/login-registration.component';
@@ -26,9 +27,10 @@ import { CristianHomeComponent } from '../cristian-home/cristian-home.component'
     styleUrl: './app.component.css',
     imports: [RouterOutlet, NavbarComponent,
       HomeComponent, 
-      BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, BlogComponent, 
+      BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, SearchComponent, 
+      BlogComponent, 
       LoginRegistrationComponent, LogoutComponent, FooterComponent,
-    FormsModule, CommonModule,CristianHomeComponent, ReactiveFormsModule]
+      FormsModule, CommonModule, CristianHomeComponent, ReactiveFormsModule]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';

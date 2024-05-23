@@ -127,7 +127,15 @@ export class LoginRegistrationComponent {
   }
 
 
-  
+
+
+
+
+
+
+
+
+
   // LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
   loginCredentials: Credentials = new Credentials();
 
@@ -194,9 +202,6 @@ export class LoginRegistrationComponent {
 
 
 
-
-
-  
   // CODICE PER L'ANIMAZIONE ///////////////////////////////////////////////////////////////////////////////////
   //Esegue codice javascript dopo l'inizializzazione dei componenti 
   ngOnInit(): void {
