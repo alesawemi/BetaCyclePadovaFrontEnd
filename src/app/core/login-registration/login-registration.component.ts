@@ -7,6 +7,7 @@ import { HttpStatusCode } from '@angular/common/http';
 import { Credentials } from '../../shared/models/credentials';
 import { LoginHttpService } from '../../shared/services/loginHttp.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-registration',
@@ -19,6 +20,7 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 export class LoginRegistrationComponent {
   
   constructor(
+    private router: Router,
 
     // per la registration:
     private UserHttp: NewUserHttp, 
@@ -46,10 +48,12 @@ export class LoginRegistrationComponent {
 
   Registrated: Registration[] = []
 
+  pass: string = '';
+
   passwordsMatch: boolean = false;
 
   checkPasswordMatch() {
-      this.passwordsMatch = this.newRegistration.password === this.confirmPassword;
+      this.passwordsMatch = this.pass === this.confirmPassword;
   }
 
 
@@ -78,9 +82,9 @@ export class LoginRegistrationComponent {
       this.newRegistration.lastName = frm.value.surnameInput;
       this.newRegistration.emailAddress = frm.value.emailInput;
       this.newRegistration.phone = frm.value.phoneInput;
-      this.newRegistration.password = frm.value.passwordInput;
+      this.pass = frm.value.passwordInput;
 
-      this.newRegistration.password = window.btoa(this.newRegistration.password); 
+      this.newRegistration.password = window.btoa(this.pass); 
 
       //ora che ho criptato posso inviare al backend il nuovo user
       this.PostRegistration();
@@ -105,6 +109,7 @@ export class LoginRegistrationComponent {
       switch(response.status) {
         case HttpStatusCode.Ok:
           alert("Benvenuto! Per favore, esegui l'accesso al tuo account nella sezione Login");
+          this.router.navigate(['login&registration']); // Redirect alla pagina di login
           break;
         default: break;
       }
@@ -148,6 +153,7 @@ export class LoginRegistrationComponent {
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
               }
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
+              this.router.navigate(['home']); // Redirect alla home
               break;
             case HttpStatusCode.NoContent:
               

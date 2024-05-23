@@ -96,21 +96,21 @@ export class MyAccountComponent implements OnInit {
     // Imposta i placeholder per i campi del form
     this.profileForm.patchValue({
       email: email,
-      name: firstName ? firstName : 'Inserisci il tuo nome',
-      surname: lastName ? lastName : 'Inserisci il tuo cognome',
-      phone: phone ? phone : 'Inserisci n° telefonico'
+      name: firstName ? firstName : '',
+      surname: lastName ? lastName : '',
+      phone: phone ? phone : ''
     });
   }
 
   setAddressPlaceholder(addressLine1: string, addressLine2: string, city: string, stateProvince: string, countryRegion: string, postalCode: string, addressType: string){
     this.addressForm.patchValue({
-      addressLine1: addressLine1 ? addressLine1: 'Insert addressLine1',
-      addressLine2: addressLine2 ? addressLine2: 'Insert addressLine2',
-      city: city ? city: 'Insert city',
-      stateProvince: stateProvince ? stateProvince: 'Insert stateProvince',
-      countryRegion: countryRegion ? countryRegion: 'Insert countryRegion',
-      postalCode: postalCode ? postalCode: 'Insert postalCode',
-      addressType: addressType ? addressType: 'Insert addressType'
+      addressLine1: addressLine1 ? addressLine1: '',
+      addressLine2: addressLine2 ? addressLine2: '',
+      city: city ? city: '',
+      stateProvince: stateProvince ? stateProvince: '',
+      countryRegion: countryRegion ? countryRegion: '',
+      postalCode: postalCode ? postalCode: '',
+      addressType: addressType ? addressType: ''
     })
   }
 

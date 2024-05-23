@@ -5,13 +5,14 @@ import { CristianHomeComponent } from '../../../cristian-home/cristian-home.comp
 import { OnInit } from '@angular/core';
 import { NuoviArriviComponent } from '../carousels/NuoviArrivi/nuovi-arrivi/nuovi-arrivi.component';
 import { PiuVendutiComponent } from '../carousels/PiuVenduti/piu-venduti/piu-venduti.component';
+import { CookieBannerComponent } from "../../features/cookie-banner/cookie-banner.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [FooterComponent,RouterModule,CristianHomeComponent,NuoviArriviComponent,PiuVendutiComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    imports: [FooterComponent, RouterModule, CristianHomeComponent, NuoviArriviComponent, PiuVendutiComponent, CookieBannerComponent]
 })
 
 export class HomeComponent implements OnInit{
