@@ -80,4 +80,10 @@ export class CookieBannerComponent implements OnInit {
       this.rejectCookies();
     }
   }
+
+
+  redirectToPolicy()
+  {
+    this.router.navigate(['cookie-policy']);
+  }
 }

@@ -15,6 +15,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { MyAccountComponent } from './features/my-account/my-account.component';
 
 import { CookiePolicyComponent } from './features/cookie-policy/cookie-policy.component';
+import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
     {path: 'footer', component: FooterComponent},
 
     {path: 'cookie-policy', component: CookiePolicyComponent},
+    {path: 'privacy-policy', component: PrivacyPolicyComponent},
 
     {path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];
