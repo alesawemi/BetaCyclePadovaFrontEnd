@@ -1,0 +1,12 @@
+<body>
+    <p>chat works!</p>
+    <hr>
+    <input type="text" #msg />
+    <hr>
+    <button (click)="ChatSendMessage(msg)">Invia Messaggio</button>
+    <hr>
+    <ul>
+        <li *ngFor="let m of currentChat">{{m.User}} - {{m.Message}}</li>
+    </ul>
+</body>
+

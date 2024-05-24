@@ -14,27 +14,27 @@
     </div>
     <div>
       <label>Name:</label>
-      <input type="text" formControlName="name" [ngClass]="{'untouched-field': profileForm.get('name')?.pristine}">
+      <input type="text" formControlName="name" placeholder="Insert Name" [ngClass]="{'untouched-field': profileForm.get('name')?.pristine}">
       <div *ngIf="profileForm.get('name')?.invalid && (profileForm.get('name')?.dirty || profileForm.get('name')?.touched)" class="error-message">
         <span *ngIf="profileForm.get('name')?.errors?.['minlength']">Name must be at least 2 characters long</span>
       </div>
     </div>
     <div>
       <label>Surname:</label>
-      <input type="text" formControlName="surname" [ngClass]="{'untouched-field': profileForm.get('surname')?.pristine}">
+      <input type="text" formControlName="surname" placeholder="Insert Surname" [ngClass]="{'untouched-field': profileForm.get('surname')?.pristine}">
       <div *ngIf="profileForm.get('surname')?.invalid && (profileForm.get('surname')?.dirty || profileForm.get('surname')?.touched)" class="error-message">
         <span *ngIf="profileForm.get('surname')?.errors?.['minlength']">Surname must be at least 2 characters long</span>
       </div>
     </div>
     <div>
       <label>Phone:</label>
-      <input type="tel" formControlName="phone" [ngClass]="{'untouched-field': profileForm.get('phone')?.pristine}">
+      <input type="tel" formControlName="phone" placeholder="Insert Phone" [ngClass]="{'untouched-field': profileForm.get('phone')?.pristine}">
       <div *ngIf="profileForm.get('phone')?.invalid && (profileForm.get('phone')?.dirty || profileForm.get('phone')?.touched)" class="error-message">
         <span *ngIf="profileForm.get('phone')?.errors?.['minlength']">Phone must be at least 9 characters long</span>
       </div>
     </div>
     <button type="submit" [disabled]="profileForm.invalid || profileForm.pristine">Update Profile</button>
-    <button type="button" (click)="cancelProfileChanges()">Cancel</button>
+    <button type="button" (click)="cancelProfileChanges()">Undo</button>
   </form>
   <hr>
   
@@ -43,36 +43,36 @@
   <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
     <div>
       <label>AddressLine1:</label>
-      <input type="text" formControlName="addressLine1" [ngClass]="{'untouched-field': addressForm.get('addressLine1')?.pristine}">
+      <input type="text" formControlName="addressLine1" placeholder="Insert addressLine1" [ngClass]="{'untouched-field': addressForm.get('addressLine1')?.pristine}">
     </div>
     <div>
       <label>AddressLine2:</label>
-      <input type="text" formControlName="addressLine2" [ngClass]="{'untouched-field': addressForm.get('addressLine2')?.pristine}">
+      <input type="text" formControlName="addressLine2" placeholder="Insert addressLine2" [ngClass]="{'untouched-field': addressForm.get('addressLine2')?.pristine}">
     </div>
     <div>
       <label>City:</label>
-      <input type="text" formControlName="city" [ngClass]="{'untouched-field': addressForm.get('city')?.pristine}">
+      <input type="text" formControlName="city" placeholder="Insert city" [ngClass]="{'untouched-field': addressForm.get('city')?.pristine}">
     </div>
     <div>
       <label>StateProvince:</label>
-      <input type="text" formControlName="stateProvince" [ngClass]="{'untouched-field': addressForm.get('stateProvince')?.pristine}">
+      <input type="text" formControlName="stateProvince" placeholder="Insert province" [ngClass]="{'untouched-field': addressForm.get('stateProvince')?.pristine}">
     </div>
     <div>
       <label>CountryRegion:</label>
-      <input type="text" formControlName="countryRegion" [ngClass]="{'untouched-field': addressForm.get('countryRegion')?.pristine}">
+      <input type="text" formControlName="countryRegion" placeholder="Insert countryRegion" [ngClass]="{'untouched-field': addressForm.get('countryRegion')?.pristine}">
     </div>
     <div>
       <label>Postal Code:</label>
-      <input type="text" formControlName="postalCode" [ngClass]="{'untouched-field': addressForm.get('postalCode')?.pristine}">
+      <input type="text" formControlName="postalCode" placeholder="Insert postalCode" [ngClass]="{'untouched-field': addressForm.get('postalCode')?.pristine}">
     </div>
   
     <div>
       <label>Address Type:</label>
-      <input type="text" formControlName="addressType" [ngClass]="{'untouched-field': addressForm.get('addressType')?.pristine}">
+      <input type="text" formControlName="addressType" placeholder="Insert addressType" [ngClass]="{'untouched-field': addressForm.get('addressType')?.pristine}">
     </div>
     
     <button type="submit" [disabled]="addressForm.invalid || addressForm.pristine">Update Address</button>
-    <button type="button" (click)="cancelAddressChanges()">Cancel</button>
+    <button type="button" (click)="cancelAddressChanges()">Undo</button>
   </form>
   
 </div>

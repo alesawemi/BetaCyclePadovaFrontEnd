@@ -6,7 +6,6 @@ import { GeneralView } from '../../shared/models/viewsData';
 import { Filters } from '../../shared/models/productsFilters';
 import { Interval } from '../../shared/models/intervalsData';
 import { Properties } from '../../shared/models/productProperties';
-import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-bikes',
@@ -189,14 +188,13 @@ export class BikesComponent {
   selectedWeightRange: boolean[] = [];
   
   newInterval: Interval = new Interval;
-  intervalIndex: number = 0;
 
   priceAscending: boolean = false; 
   priceDescending: boolean = false;
 
   filtersFromInput: Filters = new Filters();
 
-  GetAccessoriesWithFilters(){
+  GetBikesWithFilters(){
 
     //create string for color selection
     if (Object.keys(this.selectedColors).length > 0) {
@@ -224,40 +222,31 @@ export class BikesComponent {
       for (const s of Object.keys(this.selectedSizes)) {
         if (this.selectedSizes[s]) {
           this.filtersFromInput.size = this.filtersFromInput.size.concat(":" + s)
-        }
+        } 
       }
     }
 
     //set min/max price - multiple selection allowed    
-    console.log("price intervals")
-    for (let z=0; z<this.selectedPriceRange.length; z++) {
-      console.log(this.intervalIndex);
-      if (this.selectedPriceRange[z]) {    
-        this.newInterval = new Interval;     
+    this.filtersFromInput.pIntervals = [];
+    for (let z=0; z<this.selectedPriceRange.length; z++) {     
+      if (this.selectedPriceRange[z]) { 
+        this.newInterval = new Interval;
         this.newInterval.min = this.prices[z];
         this.newInterval.max = this.prices[z+1];
-        console.log(this.newInterval)
-        this.filtersFromInput.pIntervals[this.intervalIndex] = this.newInterval;
-        console.log(this.filtersFromInput.pIntervals)
-        this.intervalIndex++;
+        this.filtersFromInput.pIntervals.push(this.newInterval);
       }
-    }    
+    }  
 
-    this.newInterval = new Interval;
-    this.intervalIndex = 0;
-
-    //set min/max weight - multiple selection allowed    
-    for (let z=0; z<this.selectedWeightRange.length; z++) {
-      if (this.selectedWeightRange[z]) {                 
-        this.newInterval = new Interval;   
+    //set min/max weight - multiple selection allowed 
+    this.filtersFromInput.wIntervals = [];   
+    for (let z=0; z<this.selectedWeightRange.length; z++) {     
+      if (this.selectedWeightRange[z]) {     
+        this.newInterval = new Interval;            
         this.newInterval.min = this.weights[z];
         this.newInterval.max = this.weights[z+1];
-        this.filtersFromInput.wIntervals[this.intervalIndex] = this.newInterval;
-        this.intervalIndex++;
+        this.filtersFromInput.wIntervals.push(this.newInterval);
       }
     } 
-
-    console.log(this.filtersFromInput)
       
     //order by ascending/descending price if corresponding option is selected (checkboxes)
     this.filtersFromInput.ascPrice = this.priceAscending;
@@ -268,12 +257,15 @@ export class BikesComponent {
     .subscribe({
         next: (Data: any) => { 
           console.log(Data)
-          if (Data.body.$values.length > 0) { this.allBikes = Data.body.$values; } 
+          if (Data.body.$values.length > 0) { 
+            this.allBikes = Data.body.$values; 
+            // this.RemoveAllFilters();
+          } 
           else { 
             alert("Siamo spiacenti, " +
               "al momento non sono presenti prodotti che soddisfano questi parametri di ricerca. " +
               "Vi invitiamo a modificare i filtri.");
-            this.RemoveAllFilters();
+            this.GetAllBikes();
            }         
         },
         error: (errore: any) => {
@@ -298,11 +290,11 @@ export class BikesComponent {
     
     //reset category options
     for (const cat of Object.keys(this.selectedCategories)) { this.selectedCategories[cat] = false; }
-    this.selectedCategories= {};
+    this.selectedCategories = {};
 
     //reset size options
     for (const s of Object.keys(this.selectedSizes)) { this.selectedSizes[s] = false; }
-    this.selectedSizes= {};
+    this.selectedSizes = {};
 
     //reset price options
     for (let j=0; j<(this.nPriceIntervals); j++) {
@@ -336,7 +328,6 @@ export class BikesComponent {
     }
     
     this.prices[this.maxIndex+1] = pMax; 
-    console.log(this.prices);
   }
 
   SetWeightIntervals(wMax: number, wMin: number, nWindows: number){
@@ -351,7 +342,6 @@ export class BikesComponent {
     }
     
     this.weights[this.maxIndex+1] = wMax; 
-    console.log(this.weights);
   }
 
 

@@ -1,0 +1,110 @@
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    margin-left: 0.15%;  
+    width: 95.65%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  #cookie-banner-content {
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+  }
+  
+  #cookie-banner h4 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+  
+  #cookie-banner p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  #cookie-banner p a {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #cookie-banner p a:hover {
+    text-decoration: underline;
+  }
+  
+  #cookie-banner-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  #cookie-banner-buttons button {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: transparent;
+  }
+  
+  #accept-button {
+    border: 2px solid #333; 
+    color:#333;
+  }
+  
+  #reject-button {
+    border: 2px solid #333; 
+    color: #333;
+  }
+  
+  #customize-button {
+    border: 2px solid #007bff; 
+    color: #007bff;
+    margin-right: auto;
+  }
+  
+  #cookie-banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer; /*la manina*/
+  }
+  
+  #preferences-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: slideIn 0.3s forwards;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .preference {
+    display: flex;
+    align-items: center;
+  }
+  
+  .preference input {
+    margin-right: 10px;
+  }
+  

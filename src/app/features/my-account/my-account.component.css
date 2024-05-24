@@ -94,7 +94,7 @@ body {
   button[type="submit"]:disabled {
     background-color: #007bff;
     opacity: 0.6;
-    cursor: not-allowed;
+    cursor: not-allowed; /*appare il simbolo del divieto*/
   }
   
   button[type="button"] {

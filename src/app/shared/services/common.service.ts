@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Filters } from '../models/productsFilters';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CommonService {
 
   constructor(private http: HttpClient) { }
