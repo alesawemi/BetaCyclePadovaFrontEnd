@@ -17,6 +17,7 @@ import { FooterComponent } from './core/footer/footer.component';
 
 import { CookiePolicyComponent } from './features/cookie-policy/cookie-policy.component';
 import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
+import { ChatComponent } from './features/chat/chat.component';
 
 export const routes: Routes = [
 
@@ -27,6 +28,8 @@ export const routes: Routes = [
     {path: 'clothing', component: ClothingComponent},
     {path: 'search', component: SearchComponent},
     {path: 'blog', component: BlogComponent},    
+
+    {path: 'chat', component: ChatComponent}, //SIGNAL R 24/05/2024
     
     {path: 'login&registration', component: LoginRegistrationComponent},
     {path: 'myAccount', component: MyAccountComponent},
