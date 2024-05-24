@@ -20,14 +20,18 @@ export class SearchComponent {
 
   searchParameter: string = '';  
 
-  result: any;
+  filteredResult: GeneralView[] = [];
 
   SearchByParam() {
     this.GetByParam(this.searchParameter)
       .subscribe({
         next: (Data: any) => { 
           console.log(Data);
-          this.result = Data;
+          if (Data.$values) { this.filteredResult = Data.$values; } 
+          else { 
+            console.error("Response format is not as expected"); 
+            alert("Siamo spiacenti, Errore Inaspettato. Si prega di riprovare più tardi.");
+          } 
         },          
         error: (errore: any) => {
         console.log(errore);

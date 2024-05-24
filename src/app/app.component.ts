@@ -18,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CristianHomeComponent } from '../cristian-home/cristian-home.component';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +29,7 @@ import { CristianHomeComponent } from '../cristian-home/cristian-home.component'
       BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, SearchComponent, 
       BlogComponent, 
       LoginRegistrationComponent, LogoutComponent, FooterComponent,
-      FormsModule, CommonModule, CristianHomeComponent, ReactiveFormsModule]
+      FormsModule, CommonModule, ReactiveFormsModule]
 })
 export class AppComponent {
   title = 'BetaCycle_Padova';

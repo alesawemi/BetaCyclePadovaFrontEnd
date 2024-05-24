@@ -8,4 +8,6 @@ export class Accessory {
     size: string = '';    
     weight: number = 0;   
     productCategory: string = '';
+    productModel: string = '';
+    img: any;
 }

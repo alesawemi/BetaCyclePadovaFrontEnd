@@ -9,4 +9,5 @@ export class GeneralView {
     weight: number = 0;   
     productCategory: string = '';
     productModel: string = '';
+    img: any;
 }

@@ -1,7 +1,12 @@
 <body>
     <h2>Risultati della Ricerca</h2>
-
-    <p>Hai cercato "{{searchParameter}}"</p>
-    <div *ngIf="result">{{result | json}}</div>
+    
+    <pre *ngIf="filteredResult.length>0"> 
+        <p>Hai cercato "{{searchParameter}}"</p>
+        <p>{{filteredResult.length}} Risultati Trovati</p>
+        <li *ngFor="let r of filteredResult" > {{r.productName}} - {{r.listPrice}}$ 
+        {{r.productModel}} in {{r.productCategory}}
+        {{r.color}} - {{r.size}} - {{r.weight}} g </li>
+    </pre>
     
 </body>
