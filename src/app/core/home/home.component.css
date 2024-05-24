@@ -44,9 +44,9 @@
 
 .cont_carousels{
   width: 50%; 
-  border:2px solid red; 
+  border:2px solid rgb(255, 255, 255); 
   padding: 20px;
-  background-color: rgba(240, 255, 255, 0.6);
+  background-color: black;
   margin-top: 20px;
 }
 
@@ -62,13 +62,92 @@
 
 /* Stilizzazione per i componenti figli */
 
-.cont_carousels > app-piu-venduti {
-  width: 35%;
-  margin: 10px 0;
-}
-
 .cont_carousels > app-nuovi-arrivi
 {
-  width: 65%;
+  width: 55%;
+}
+
+.cont_carousels > app-piu-venduti
+{
+  width: 25%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* Importa il font desiderato */
+
+.image-container {
+  position: relative;
+  width: 40%;
+  border: 2px solid rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.darkened-image {
+  width: 100%;
+  height: auto;
+  filter: brightness(50%);
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif; /* Imposta il font */
+  font-weight: bold;
+  color: white; /* Imposta il colore del testo */
+  width: 100%;
+  overflow: hidden;
+}
+
+.text-slide {
+  opacity: 0;
+  width: 100%;
+  animation: fade 10s infinite;
+  margin: 0; /* Rimuove i margini dei paragrafi */
+}
+
+.text-slide:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.text-slide:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.cta-button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 10px; /* Margine inferiore per staccare il bottone dal bordo */
+  padding: 10px 20px;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff; /* Colore di sfondo del bottone */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  z-index: 1; /* Assicura che il bottone sia sopra l'immagine */
+}
+
+.cta-button:hover {
+  background-color: #0056b3; /* Colore di sfondo del bottone quando si passa sopra con il mouse */
+}
+
+@keyframes fade {
+  0%, 25%, 75%, 100% {
+    opacity: 0;
+  }
+  35%, 65% {
+    opacity: 1;
+  }
 }
 
