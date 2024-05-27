@@ -1,2 +1,64 @@
+<body>
 
-<body><p>components works!</p></body>
+    <h2>Componenti</h2>
+
+    <button (click)="GetFiltered()">Filtra</button>  
+    
+    <button (click)="GetAll()">Rimuovi Tutti i Filtri</button>
+
+    <div class='parent'>
+        <div class='child'>
+            <ul> <p>Colors</p> 
+                <li *ngFor="let col of view.viewProperties.availableColors">
+                    <input type="checkbox" [(ngModel)]="selectedColors[col]"> {{col}}
+                </li>
+            </ul>            
+        </div>
+        
+        <div class='child'>
+            <ul> <p>Categories</p> 
+                <li *ngFor="let cat of view.viewProperties.availableCategories">
+                    <input type="checkbox" [(ngModel)]="selectedCategories[cat]"> {{cat}}
+                </li>
+            </ul>            
+        </div>
+
+        <div class='child'>
+            <ul> <p>Sizes</p> 
+                <li *ngFor="let s of view.viewProperties.availableSizes">
+                    <input type="checkbox" [(ngModel)]="selectedSizes[s]"> {{s}}
+                </li>
+            </ul>            
+        </div>
+
+        <div class='child'>
+            <ul> <p>Price</p> 
+                <li> <input  type="checkbox" [(ngModel)] = "priceAscending" [disabled]="priceDescending"> Prezzo Crescente </li>
+                <!-- (change)="ifAscending($event)" -->
+                <li> <input  type="checkbox" [(ngModel)] = "priceDescending" [disabled]="priceAscending"> Prezzo Decrescente </li>          
+                <!-- (change)="ifDescending($event)" -->
+                <br>
+                <li *ngFor="let pRange of view.priceIntervals, index as i">
+                    <input type="checkbox" [(ngModel)]="selectedPriceRange[i]"> {{pRange}} $
+                        <!-- (change)="checkPrice($event)" [disabled]="checkedPrices[i]" -->                        
+                </li>
+            </ul>          
+        </div>
+
+        <div class='child' *ngIf="view.weightIntervals.length>0">
+            <ul> <p>Weight</p> 
+                <li *ngFor="let wRange of view.weightIntervals, index as i">
+                    <input type="checkbox" [(ngModel)]="selectedWeightRange[i]"> {{wRange}} kg
+                        <!-- (change)="checkWeight($event)" [disabled]="checkedWeights[i]"  -->
+                </li>
+            </ul>            
+        </div>
+    </div>
+
+    <pre *ngIf="view.allItems.length>0">
+        <p>{{view.allItems.length}} Risultati Trovati</p>
+        <li *ngFor="let i of view.allItems" > {{i.productName}} - {{i.listPrice}}$ - COLOR {{i.color}} - MODEL {{i.productModel}} - CATEGORY {{i.productCategory}} - SIZE {{i.size}} - WEIGHT {{(i.weight/1000).toFixed(1)}} kg </li>
+    </pre>
+    
+</body>
+

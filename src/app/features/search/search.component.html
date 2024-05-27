@@ -6,7 +6,7 @@
         <p>{{filteredResult.length}} Risultati Trovati</p>
         <li *ngFor="let r of filteredResult" > {{r.productName}} - {{r.listPrice}}$ 
         {{r.productModel}} in {{r.productCategory}}
-        {{r.color}} - {{r.size}} - {{r.weight}} g </li>
+        {{r.color}} - {{r.size}} - {{(r.weight/1000).toFixed(1)}} kg </li>
     </pre>
     
 </body>

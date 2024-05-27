@@ -44,20 +44,11 @@
                 </li>
             </ul>          
         </div>
-
-        <div class='child' *ngIf="view.weightIntervals.length>0">
-            <ul> <p>Weight</p> 
-                <li *ngFor="let wRange of view.weightIntervals, index as i">
-                    <input type="checkbox" [(ngModel)]="selectedWeightRange[i]"> {{wRange}} kg
-                        <!-- (change)="checkWeight($event)" [disabled]="checkedWeights[i]"  -->
-                </li>
-            </ul>            
-        </div>
     </div>
 
     <pre *ngIf="view.allItems.length>0">
         <p>{{view.allItems.length}} Risultati Trovati</p>
-        <li *ngFor="let c of view.allItems" > {{c.productName}} - {{c.listPrice}}$ - COLOR {{c.color}} - MODEL {{c.productModel}} - CATEGORY {{c.productCategory}} - SIZE {{c.size}} - WEIGHT {{c.weight}} g </li>
+        <li *ngFor="let i of view.allItems" > {{i.productName}} - {{i.listPrice}}$ - COLOR {{i.color}} - MODEL {{i.productModel}} - CATEGORY {{i.productCategory}} - SIZE {{i.size}} </li>
     </pre>
     
 </body>

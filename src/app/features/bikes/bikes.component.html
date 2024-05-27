@@ -1,15 +1,15 @@
 <body>
 
     <h2>Biciclette</h2>
-   
-    <button (click)="GetBikesWithFilters()">Filtra</button>  
+
+    <button (click)="GetFiltered()">Filtra</button>  
     
-    <button (click)="GetAllBikes()">Rimuovi Tutti i Filtri</button>
-    
+    <button (click)="GetAll()">Rimuovi Tutti i Filtri</button>
+
     <div class='parent'>
         <div class='child'>
             <ul> <p>Colors</p> 
-                <li *ngFor="let col of bikeProperties.availableColors">
+                <li *ngFor="let col of view.viewProperties.availableColors">
                     <input type="checkbox" [(ngModel)]="selectedColors[col]"> {{col}}
                 </li>
             </ul>            
@@ -17,7 +17,7 @@
         
         <div class='child'>
             <ul> <p>Categories</p> 
-                <li *ngFor="let cat of bikeProperties.availableCategories">
+                <li *ngFor="let cat of view.viewProperties.availableCategories">
                     <input type="checkbox" [(ngModel)]="selectedCategories[cat]"> {{cat}}
                 </li>
             </ul>            
@@ -25,7 +25,7 @@
 
         <div class='child'>
             <ul> <p>Sizes</p> 
-                <li *ngFor="let s of bikeProperties.availableSizes">
+                <li *ngFor="let s of view.viewProperties.availableSizes">
                     <input type="checkbox" [(ngModel)]="selectedSizes[s]"> {{s}}
                 </li>
             </ul>            
@@ -38,28 +38,26 @@
                 <li> <input  type="checkbox" [(ngModel)] = "priceDescending" [disabled]="priceAscending"> Prezzo Decrescente </li>          
                 <!-- (change)="ifDescending($event)" -->
                 <br>
-                <li *ngFor="let pRange of priceIntervals, index as i">
+                <li *ngFor="let pRange of view.priceIntervals, index as i">
                     <input type="checkbox" [(ngModel)]="selectedPriceRange[i]"> {{pRange}} $
                         <!-- (change)="checkPrice($event)" [disabled]="checkedPrices[i]" -->                        
                 </li>
             </ul>          
         </div>
 
-        <div class='child'>
+        <div class='child' *ngIf="view.weightIntervals.length>0">
             <ul> <p>Weight</p> 
-                <li *ngFor="let wRange of weightIntervals, index as i">
+                <li *ngFor="let wRange of view.weightIntervals, index as i">
                     <input type="checkbox" [(ngModel)]="selectedWeightRange[i]"> {{wRange}} kg
                         <!-- (change)="checkWeight($event)" [disabled]="checkedWeights[i]"  -->
-                        
-                        
                 </li>
             </ul>            
         </div>
     </div>
 
-    <pre *ngIf="allBikes.length>0">
-        <p>{{allBikes.length}} Risultati Trovati</p>
-        <li *ngFor="let b of allBikes" > {{b.productName}} - {{b.listPrice}}$ - COLOR {{b.color}} - CATEGORY {{b.productCategory}} - SIZE {{b.size}} - MODEL {{b.productModel}} - WEIGHT {{b.weight}} g </li>
+    <pre *ngIf="view.allItems.length>0">
+        <p>{{view.allItems.length}} Risultati Trovati</p>                                                                                                                              
+        <li *ngFor="let i of view.allItems" > {{i.productName}} - {{i.listPrice}}$ - COLOR {{i.color}} - MODEL {{i.productModel}} - CATEGORY {{i.productCategory}} - SIZE {{i.size}} - WEIGHT {{(i.weight/1000).toFixed(1)}} kg </li>
     </pre>
     
 </body>

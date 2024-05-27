@@ -26,12 +26,12 @@ export class SearchComponent {
     this.GetByParam(this.searchParameter)
       .subscribe({
         next: (Data: any) => { 
-          console.log(Data);
-          if (Data.$values) { this.filteredResult = Data.$values; } 
+          if (Data.$values.length>0) { this.filteredResult = Data.$values; } 
           else { 
-            console.error("Response format is not as expected"); 
-            alert("Siamo spiacenti, Errore Inaspettato. Si prega di riprovare più tardi.");
-          } 
+            alert("Siamo spiacenti, " +
+              "al momento non sono presenti prodotti che soddisfano questi parametri di ricerca. " +
+              "Vi invitiamo a modificare i filtri.");              
+           }   
         },          
         error: (errore: any) => {
         console.log(errore);
