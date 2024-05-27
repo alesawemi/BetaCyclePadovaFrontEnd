@@ -6,13 +6,14 @@ import { OnInit } from '@angular/core';
 import { NuoviArriviComponent } from '../carousels/NuoviArrivi/nuovi-arrivi/nuovi-arrivi.component';
 import { PiuVendutiComponent } from '../carousels/PiuVenduti/piu-venduti/piu-venduti.component';
 import { CookieBannerComponent } from "../../features/cookie-banner/cookie-banner.component";
+import { CategoryComponent } from '../carousels/category/category/category.component';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [FooterComponent, RouterModule, CristianHomeComponent, NuoviArriviComponent, PiuVendutiComponent, CookieBannerComponent]
+    imports: [CategoryComponent,FooterComponent, RouterModule, CristianHomeComponent, NuoviArriviComponent, PiuVendutiComponent, CookieBannerComponent]
 })
 
 export class HomeComponent implements OnInit{

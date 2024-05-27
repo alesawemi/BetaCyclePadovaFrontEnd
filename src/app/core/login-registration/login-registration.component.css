@@ -1,12 +1,25 @@
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+body {
+	padding-top: 10%;
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+	/* height: 100vh; */
+	margin: 0px;
+    /* border: 5px solid black ; */
+	padding-bottom: 10%;
+}
+
 .input-group {
     margin-bottom: 10px;
 }
 
 .registration-form {
-    background-color: #f9f9f9;
     padding-left: 40%;
     padding-right: 40%;
     border-radius: 5px;
@@ -25,8 +38,8 @@
 
 .registration-form button[type="submit"] {
     border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #395ead;
+	background-color: #395ead;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -48,19 +61,7 @@
 	box-sizing: border-box;
 }
 
-body {
-	padding-top: 10%;
-	background: #f6f5f7;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	font-family: 'Montserrat', sans-serif;
-	/* height: 100vh; */
-	margin: -20px 0 50px;
-    /* border: 5px solid black ; */
-	padding-bottom: 10%;
-}
+
 
 h1 {
 	font-weight: bold;
@@ -93,8 +94,8 @@ a {
 /* questo in realtà non viene usato, vedere "registration-form button" riga 26 e "sign-in-container button" riga 164*/
 button {
 	border-radius: 20px; 
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #395ead;
+	background-color: #395ead;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -168,8 +169,8 @@ input {
 
 .sign-in-container button {
     border-radius: 20px;
-	border: 1px solid #ff464c;
-	background-color: #ff464c;
+	border: 1px solid #395ead;
+	background-color: #395ead;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -226,8 +227,8 @@ input {
 
 .overlay {
 	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: -webkit-linear-gradient(to right, #FCA311, #fa9a00);
+	background: linear-gradient(to right, #FCA311, #fa9a00);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -291,8 +292,6 @@ input {
 	width: 40px;
 }
 
-
-
 .password-match {
 	margin: 1%;
     border: 2px solid #4caf50; /* colore del bordo verde quando le password corrispondono */
@@ -307,10 +306,6 @@ input {
 .error-message {
     color: #f44336; /* colore del testo rosso per i messaggi di errore */
 }
-
-
-
-
 
 .social-icons
 {

@@ -22,7 +22,6 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 3px;
-  border: 2px solid red;
 }
 
 nav::before {
