@@ -5,13 +5,17 @@ import { GenericViewService } from '../../shared/services/genericview.service';
 import { HttpParams } from '@angular/common/http';
 import { Filters } from '../../shared/models/productsFilters';
 import { Interval } from '../../shared/models/intervalsData';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-clothing',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './clothing.component.html',
-  styleUrl: './clothing.component.css'
+  styleUrl: './clothing.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 
 export class ClothingComponent {

@@ -1,45 +1,117 @@
-body{
-    padding-top: 10%;
-    text-align: center;
-}
-
-p {    
-    font-weight: bold;}
-
-h2 {
-    text-align: center;
-}
-
-pre{
-    text-align: center;
-}
-
-div {
-    text-align: center;
-}
-
-button {
-    margin: 5px;
-}
-
-/* li {
-    list-style-type: none;
-} */
-
-ul {
-    list-style-type: none;
-    font-family: 'Raleway', cursive;
-}
-
-.parent {
-    /* border: 1px solid black; */
-    margin: 1rem;
-    padding: 2rem 2rem;
-    text-align: center;
+/* Generale */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    margin-top: 10%;
   }
-.child {
-    display: inline-block;
-    /* border: 1px solid red; */
-    padding: 1rem 1rem;
-    vertical-align: middle;
+  
+  .bikes-container {
+    height: 100vh;
   }
+  
+  mat-drawer-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  mat-drawer {
+    width: 250px;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  mat-drawer h2 {
+    margin-top: 0;
+  }
+  
+  mat-drawer-content {
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #fff;
+  }
+  
+  button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #303f9f;
+  }
+  
+  /* Stile per i filtri */
+  .parent {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .child {
+    margin-bottom: 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  p {
+    font-weight: bold;
+    margin: 0 0 10px;
+  }
+  
+  li {
+    margin-bottom: 5px;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  /* Stile per i prodotti */
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fafafa;
+  }
+  
+  .product-img img {
+    max-width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .product-text h3 {
+    margin: 0 0 10px;
+  }
+  
+  .product-text p {
+    margin: 5px 0;
+  }
+  
+  .product-cart button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-cart button:hover {
+    background-color: #45a049;
+  }
+  

@@ -5,13 +5,16 @@ import { GenericViewService } from '../../shared/services/genericview.service';
 import { HttpParams } from '@angular/common/http';
 import { Filters } from '../../shared/models/productsFilters';
 import { Interval } from '../../shared/models/intervalsData';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-components',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './components.component.html',
-  styleUrl: './components.component.css'
+  styleUrl: './components.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class ComponentsComponent {constructor(public view: GenericViewService) {}
