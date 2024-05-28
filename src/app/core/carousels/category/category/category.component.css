@@ -1,0 +1,58 @@
+.product-card{
+padding: 2px;
+height: 100%;
+}
+
+.new-arrivals-title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 3em; 
+    font-weight: 700;
+    color: #333; 
+    text-align: center;
+    margin: 20px 0; 
+    color: white;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+swiper-slide{
+    margin: 9px;
+    border-radius: 50px;
+}
+img{
+    border-radius: 200px;
+}
+
+div.swiper-button-next{
+    border: 2px solid red;
+    color: red;
+}
+
+swiper-container{
+    border: 5px solid #2f3640; 
+    border-radius: 30px; 
+    width: 100%;
+    padding: 10px;
+}
+
+swiper-slide{
+    border: 2px solid ; 
+    justify-content: center;
+}
+
+p{
+    color: rgb(255, 255, 255); 
+    text-align: center; 
+    margin-top :10px;
+}
+
+img{
+    width: 100%; height: 100%; 
+    object-fit: cover; 
+    border-radius: 50px;
+}
+
+.extend-product-card{
+    height:100%; 
+    width:100%; 
+    border-radius: 50px;
+}

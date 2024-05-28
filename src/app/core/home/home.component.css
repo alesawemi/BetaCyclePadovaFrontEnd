@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* Importa il font desiderato */
+
 .video-container {
   position: relative;
   width: 100%;
@@ -69,10 +71,10 @@
 
 .cont_carousels > app-piu-venduti
 {
-  width: 25%;
+  width: 40%;
+  border: 2px solid red;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /* Importa il font desiderato */
 
 .image-container {
   position: relative;

@@ -16,13 +16,12 @@ nav {
   top: 0;
   width: calc(100% - 4vw); /* Utilizza una larghezza relativa */
   z-index: 10000;
-  border-radius: 1vw; /* Utilizza un bordo arrotondato relativo */
+  border-radius: 1vw; 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 3px;
-  border: 2px solid red;
 }
 
 nav::before {
@@ -33,7 +32,7 @@ nav::before {
   bottom: 2px;
   left: 2px;
   z-index: -1;
-  border-radius: 1vw; /* Utilizza un bordo arrotondato relativo */
+  border-radius: 1vw; 
   background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(81, 115, 187, 0.8), rgba(0, 0, 0, 0.8));
 }
 
@@ -62,7 +61,7 @@ nav li.right {
 
 nav li a {
   display: block;
-  padding: 1vw; /* Utilizza un padding relativo */
+  padding: 1vw; 
   text-decoration: none;
   color: rgb(253, 253, 253);
   font-weight: bold;
@@ -94,6 +93,7 @@ svg{
   margin-left: 20px;
   border: 2px solid yellow;
 }
+
 /* Stili per il campo di ricerca */
 .searchform input[type="text"] {
   width: 70%; /* Larghezza del campo di ricerca */
