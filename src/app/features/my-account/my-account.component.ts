@@ -7,6 +7,8 @@ import { LoginHttpService } from '../../shared/services/loginHttp.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { NewCustomer } from '../../shared/models/newCustomersdata';
 import { AddressHttp } from '../../shared/services/address.service';
+import { LogtraceService } from '../../shared/services/logtrace.service';
+import { LogTrace } from '../../shared/models/LogTraceData';
 
 @Component({
   selector: 'app-my-account',
@@ -34,8 +36,12 @@ export class MyAccountComponent implements OnInit {
     private newUserHttp: NewUserHttp,
     private loginHttp: LoginHttpService,
     private auth: AuthenticationService,
-    private adrs: AddressHttp
+    private adrs: AddressHttp,
+    private logtrace: LogtraceService // per gestione errori centralizzata
   ) {}
+
+  //fEnd LogTrace
+  fEndError: LogTrace = new LogTrace;
 
   //quando la pagina viene inizializzata compie le seguenti operazioni
   ngOnInit(): void {
@@ -87,6 +93,11 @@ export class MyAccountComponent implements OnInit {
         }
       }, error => {
         console.error('Error fetching user:', error);
+        this.fEndError = new LogTrace;
+        this.fEndError.Level = 'my-account';
+        this.fEndError.Message = 'An Error Occurred in loadData';
+        this.fEndError.Exception = error.toString();
+        this.logtrace.PostError(this.fEndError);
       });
     }
   }

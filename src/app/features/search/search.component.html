@@ -4,9 +4,16 @@
     <pre *ngIf="filteredResult.length>0"> 
         <p>Hai cercato "{{searchParameter}}"</p>
         <p>{{filteredResult.length}} Risultati Trovati</p>
-        <li *ngFor="let r of filteredResult" > {{r.productName}} - {{r.listPrice}}$ 
-        {{r.productModel}} in {{r.productCategory}}
-        {{r.color}} - {{r.size}} - {{(r.weight/1000).toFixed(1)}} kg </li>
-    </pre>
-    
+    <div class="container">
+    <li *ngFor="let r of filteredResult" > 
+    {{r.productName}} 
+    {{r.listPrice}}$ 
+    {{r.productModel}} in {{r.productCategory}} ({{r.mainCategory}})
+    {{r.color}} - {{r.size}} - {{(r.weight/1000).toFixed(1)}} kg 
+    <div class="product-img">
+    <img [src]="r.largeImage" alt="{{r.productName}}" />
+    </div>
+    </li>
+    </div>
+    </pre>    
 </body>

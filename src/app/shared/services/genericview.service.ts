@@ -5,6 +5,8 @@ import { HttpParams } from '@angular/common/http';
 import { GeneralView } from '../../shared/models/viewsData';
 import { Properties } from '../../shared/models/productProperties';
 import { Filters } from '../../shared/models/productsFilters';
+import { LogtraceService } from './logtrace.service';
+import { LogTrace } from '../models/LogTraceData';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +14,12 @@ import { Filters } from '../../shared/models/productsFilters';
 
 export class GenericViewService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private logtrace: LogtraceService) { }
 
 
+
+  //fEnd LogTrace
+  fEndError: LogTrace = new LogTrace;
 
   //get all items in the view
   allItems: GeneralView[] = [];
@@ -24,13 +29,23 @@ export class GenericViewService {
     this.GetAllFromView(whichView)
     .subscribe({
         next: (Data: any) => { 
-          if (Data.$values) { this.allItems = Data.$values; } 
+          if (Data.$values) { 
+            this.allItems = Data.$values;   
+            this.allItems.forEach(element => {
+              element.largeImage = `data:image/png;base64, ${element.largeImage}`
+            })
+          }
           else { 
             console.error("Response format is not as expected"); 
             alert("Siamo spiacenti, Errore Inaspettato. Si prega di riprovare più tardi.");
           }         
         },
         error: (errore: any) => {
+          this.fEndError = new LogTrace;
+          this.fEndError.Level = 'GeneralViewService';
+          this.fEndError.Message = `An Error Occurred in GetAllItems for ${whichView}`;
+          this.fEndError.Exception = errore.toString();
+          this.logtrace.PostError(this.fEndError);
           console.log(errore);
         }
       })
@@ -52,9 +67,8 @@ export class GenericViewService {
   weightIntervals: string[] = [];
 
   GetResearchOptions(whichView: HttpParams, nPriceIntervals: number, nWeightIntervals: number){
-
     this.GetPropertiesFromView(whichView)
-    .subscribe({
+      .subscribe({
         next: (Data: any) => { 
           //available colors and available categories
           this.viewProperties.availableColors = Data.availableColors.$values;
@@ -94,6 +108,11 @@ export class GenericViewService {
 
         },
         error: (errore: any) => {
+          this.fEndError = new LogTrace;
+          this.fEndError.Level = 'GeneralViewService';
+          this.fEndError.Message = `An Error Occurred in GetResearchOptions for ${whichView}`;
+          this.fEndError.Exception = errore.toString();
+          this.logtrace.PostError(this.fEndError);
           console.log(errore);
         }
       })    
@@ -115,6 +134,11 @@ export class GenericViewService {
            }         
         },
         error: (errore: any) => {
+          this.fEndError = new LogTrace;
+          this.fEndError.Logger = 'GeneralViewService';
+          this.fEndError.Message = `An Error Occurred in GetWithFilters for ${whichView}`;
+          this.fEndError.Exception = errore.Message.toString();
+          this.logtrace.PostError(this.fEndError);
           console.log(errore);
         }
       })
@@ -173,5 +197,6 @@ export class GenericViewService {
     return this.http.post(`https://localhost:7228/api/GenericViews/GetWithFilters`, filters, 
     { params: whichview, observe: 'response' });
   }
+  
   
 }

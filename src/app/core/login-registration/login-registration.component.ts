@@ -8,6 +8,8 @@ import { Credentials } from '../../shared/models/credentials';
 import { LoginHttpService } from '../../shared/services/loginHttp.service';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { Router } from '@angular/router';
+import { LogtraceService } from '../../shared/services/logtrace.service';
+import { LogTrace } from '../../shared/models/LogTraceData';
 
 @Component({
   selector: 'app-login-registration',
@@ -22,13 +24,21 @@ export class LoginRegistrationComponent {
   constructor(
     private router: Router,
 
+    // per gestione errori centralizzata
+    private logtrace: LogtraceService,
+
     // per la registration:
     private UserHttp: NewUserHttp, 
 
     // per il login:
-    private http: LoginHttpService, private auth: AuthenticationService) {}
+    private http: LoginHttpService, private auth: AuthenticationService
+  
+  ) {}
 
 
+
+  //fEnd LogTrace
+  fEndError: LogTrace = new LogTrace;
 
 
 
@@ -115,6 +125,11 @@ export class LoginRegistrationComponent {
       }
     },
     error: (err: any) => {
+      this.fEndError = new LogTrace;
+      this.fEndError.Level = 'login-registration';
+      this.fEndError.Message = 'An Error Occurred in PostRegistration';
+      this.fEndError.Exception = err.toString();
+      this.logtrace.PostError(this.fEndError);
       console.log(err)
       if (err.status === 409) { // Conflitto (Utente già nel DB)
         alert("Utente già presente nel database.");
@@ -169,6 +184,12 @@ export class LoginRegistrationComponent {
           }
         },
         error: (err: any) => {
+          this.fEndError = new LogTrace;
+          this.fEndError.Level = 'login-registration';
+          this.fEndError.Message = 'An Error Occurred in Loginn';
+          this.fEndError.Exception = err.toString();
+          this.logtrace.PostError(this.fEndError);
+      
           // if (this.auth.TypeOfAuthorization ===  'basic') 
           //   { this.auth.setLoginStatusBasic(false); }
           if (this.auth.TypeOfAuthorization ===  'jwt') 
