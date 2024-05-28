@@ -51,7 +51,7 @@
     <div *ngIf="view.allItems">
         <div class="product-card" *ngFor="let a of view.allItems">
             <div class="product-img">
-                <img [src]="a.img" alt="{{a.productName}}" />
+                <img [src]="a.largeImage" alt="{{a.productName}}" />
             </div>
             <div class="product-text">
                 <h3>{{a.productName}}</h3>
