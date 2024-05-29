@@ -7,6 +7,7 @@ import { Properties } from '../../shared/models/productProperties';
 import { Filters } from '../../shared/models/productsFilters';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { LogTrace } from '../models/LogTraceData';
 
 export class GenericViewService {
 
-  constructor(private http: HttpClient, private logtrace: LogtraceService) { }
+  constructor(private http: HttpClient, private logtrace: LogtraceService, private Authentication: AuthenticationService) { }
 
 
 
@@ -125,7 +126,10 @@ export class GenericViewService {
     .subscribe({
         next: (Data: any) => { 
           if (Data.body.$values.length > 0) { 
-            this.allItems = Data.body.$values; 
+            this.allItems = Data.body.$values;
+            this.allItems.forEach(element => {
+              element.largeImage = `data:image/png;base64, ${element.largeImage}`
+            }) 
           } 
           else { 
             alert("Siamo spiacenti, " +
@@ -195,7 +199,8 @@ export class GenericViewService {
 
   GetWithFiltersFromView(whichview: HttpParams, filters: Filters): Observable<any>{
     return this.http.post(`https://localhost:7228/api/GenericViews/GetWithFilters`, filters, 
-    { params: whichview, observe: 'response' });
+    { headers: this.Authentication.authHeader,
+      params: whichview, observe: 'response' });
   }
   
   

@@ -15,7 +15,7 @@ export class AuthenticationService {
   jwtToken: string = '';
   private name: string = window.btoa("jwt_token");
   private isLogged: boolean = false;
-  private authHeader = new HttpHeaders({
+  public  authHeader = new HttpHeaders({
     contentType: 'application/json',
     responseType: 'text'
   });
