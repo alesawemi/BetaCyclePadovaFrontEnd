@@ -1,14 +1,7 @@
 /* Generale */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    margin-top: 10%;
-  }
-  
+
   .bikes-container {
-    height: 100vh;
+    height: 100%;
   }
   
   mat-drawer-container {
@@ -29,9 +22,9 @@ body {
   mat-drawer-content {
     padding: 20px;
     flex-grow: 1;
-    background-color: #fff;
   }
   
+
   button {
     display: block;
     margin-bottom: 10px;
@@ -54,8 +47,11 @@ body {
   }
   
   .child {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
   }
+  
   
   ul {
     list-style-type: none;
@@ -79,6 +75,8 @@ body {
   .product-card {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -115,3 +113,15 @@ body {
     background-color: #45a049;
   }
   
+   .stileDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  } 
+
+  .stileDiv .product-card {
+    flex: 1 0 calc(27% - 10px);
+    margin-bottom: 20px;
+    margin: 6px 6px 6px 6px;
+  } 
