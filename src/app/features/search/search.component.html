@@ -5,13 +5,16 @@
         <p>Hai cercato "{{searchParameter}}"</p>
         <p>{{filteredResult.length}} Risultati Trovati</p>
     <div class="container">
-    <li *ngFor="let r of filteredResult" > 
+    <li *ngFor="let r of filteredResult, index as j" > 
     {{r.productName}} 
-    {{r.listPrice}}$ 
+    {{r.listPrice}} $ 
     {{r.productModel}} in {{r.productCategory}} ({{r.mainCategory}})
     {{r.color}} - {{r.size}} - {{(r.weight/1000).toFixed(1)}} kg 
     <div class="product-img">
     <img [src]="r.largeImage" alt="{{r.productName}}" />
+    </div>
+    <div class="product-cart">
+        <button (click)="cart.AddProductToCart(filteredResult[j])" type="submit">Add to cart</button>
     </div>
     </li>
     </div>
