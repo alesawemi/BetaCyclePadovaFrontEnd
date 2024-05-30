@@ -1,39 +1,39 @@
-<div id="cookie-banner" *ngIf="!cookieConsent">
+<div id="cookie-banner" *ngIf="!cookieConsent" (click)="a($event)">
     <div id="cookie-banner-content">
       <button id="cookie-banner-close" (click)="rejectCookies()">X</button>
-      <h4>Informativa</h4>
+      <h4>Cookies Banner</h4>
       <p>
-        <span>Noi utilizziamo cookie o tecnologie simili per finalità tecniche e, con il tuo consenso, 
-          anche per le finalità di misurazione e marketing (con annunci personalizzati) 
+        <span>Noi utilizziamo cookies e tecnologie simili per finalità tecniche e, con il tuo consenso, 
+          anche per le finalità statistiche e di marketing (con annunci personalizzati) 
           come specificato nella <a (click)="redirectToPolicy()">cookie policy</a>.
         </span>
         <br>
         <span>
           Puoi liberamente prestare, rifiutare o revocare il tuo consenso, in qualsiasi momento, accedendo al pannello delle preferenze.
         <br>  
-          Il rifiuto del consenso può rendere non disponibili le relative funzioni.
+          Il rifiuto del consenso impedisce l'utilizzo dei dati per finalità statistiche e di marketing.
         <br>  
           Usa il pulsante "Accetta" per acconsentire. Usa il pulsante "Rifiuta" o premi "X" per continuare senza accettare.
         </span>
       </p>
       <div id="cookie-banner-buttons">
-        <button id="customize-button" (click)="choosePreferences()">Scopri di più e Personalizza</button>
-        <button id="accept-button" (click)="acceptCookies()">Accetta</button>
+        <button id="customize-button" (click)="choosePreferences($event)">Scopri di più e Personalizza</button>
+        <button id="accept-button" (click)="acceptCookies($event)">Accetta</button>
         <button id="reject-button" (click)="rejectCookies()">Rifiuta</button>
       </div>
-      <div id="preferences-section" *ngIf="showPreferences">
-        <h5>Preferenze dei cookie</h5>
+      <div id="preferences-section" *ngIf="showPreferences" (click)="a($event)">
+        <h5 (click)="a($event)">Preferenze dei cookie</h5>
         <div class="preference">
-          <input type="checkbox" id="necessary" checked disabled>
-          <label for="necessary">Strettamente necessari</label>
+          <input type="checkbox" id="necessary" checked disabled (click)="a($event)">
+          <label for="necessary" (click)="a($event)">Strettamente necessari</label>
         </div>
         <div class="preference">
-          <input type="checkbox" id="statistical">
-          <label for="statistical">Statistical</label>
+          <input type="checkbox" id="statistical" (click)="a($event)">
+          <label for="statistical" (click)="a($event)">Statistical</label>
         </div>
         <div class="preference">
-          <input type="checkbox" id="marketing">
-          <label for="marketing">Marketing</label>
+          <input type="checkbox" id="marketing" (click)="a($event)">
+          <label for="marketing" (click)="a($event)">Marketing</label>
         </div>
       </div>
     </div>

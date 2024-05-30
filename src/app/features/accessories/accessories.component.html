@@ -49,10 +49,10 @@
                       <p>color: {{a.color}}</p>
                       <p>category: {{a.productCategory}}</p>
                       <p>model: {{a.productModel}}</p>
-                      <p>price: {{a.listPrice}}</p>
+                      <p>price: {{a.listPrice}} $</p>
                     </div>
                     <div class="product-cart">
-                      <button type="submit">Add to cart</button>
+                        <button (click)="cart.AddToCart(view.allItems[j])" type="submit">Add to cart</button>
                     </div>
                   </div> 
             </div>

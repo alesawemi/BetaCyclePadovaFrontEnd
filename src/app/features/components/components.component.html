@@ -69,10 +69,10 @@
                 <p>model: {{a.productModel}}</p>
                 <p>size: {{a.size}}</p>
                 <p>weight: {{(a.weight/1000).toFixed(1)}} kg</p>
-                <p>price: {{a.listPrice}}</p>
+                <p>price: {{a.listPrice}} $</p>
             </div>
             <div class="product-cart">
-                <button type="submit">Add to cart</button>
+                <button (click)="cart.AddToCart(view.allItems[j])" type="submit">Add to cart</button>
             </div>
         </div> 
     </div>

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { LogtraceService } from '../../shared/services/logtrace.service';
 import { LogTrace } from '../../shared/models/LogTraceData';
+import { CartService } from '../../shared/services/cart.service';
 
 @Component({
   selector: 'app-search',
@@ -18,7 +19,8 @@ import { LogTrace } from '../../shared/models/LogTraceData';
 
 export class SearchComponent {
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private logtrace: LogtraceService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, public cart: CartService,
+    private logtrace: LogtraceService) {}
 
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace;

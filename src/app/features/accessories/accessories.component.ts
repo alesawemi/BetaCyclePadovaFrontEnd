@@ -7,6 +7,7 @@ import { Filters } from '../../shared/models/productsFilters';
 import { Interval } from '../../shared/models/intervalsData';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CartService } from '../../shared/services/cart.service';
 
 @Component({
   selector: 'app-accessories',
@@ -20,7 +21,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 export class AccessoriesComponent {
 
-  constructor(public view: GenericViewService) {}
+  constructor(public view: GenericViewService, public cart: CartService) {}
 
   whichView: HttpParams = new HttpParams().set('view', 'accessories');
 
