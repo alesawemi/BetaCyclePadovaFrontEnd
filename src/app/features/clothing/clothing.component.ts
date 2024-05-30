@@ -13,7 +13,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   standalone: true,
   imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './clothing.component.html',
-  styleUrl: './clothing.component.css',
+  styleUrls: ['../../features/Stili/shared.css', './clothing.component.css'],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })

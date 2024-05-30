@@ -1,0 +1,183 @@
+/* Generale */
+body {
+  background-color: rgb(0, 0, 0);
+  margin: 0;
+  padding: 10px;
+  height: auto;
+}  
+
+.title {
+  color: white;
+  background-color: red; 
+}
+
+.mat {
+  width: 1000px; 
+  height: 1410px;
+  border-radius: 15px;
+}
+
+.bikes-container {
+  height: auto;
+  margin: 0px;
+  margin-top: 80px;
+}
+
+mat-drawer-container {
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+
+mat-drawer {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 10px;
+}
+
+mat-drawer h2 {
+  margin-top: 0;
+}
+
+mat-drawer-content {
+  padding: 20px;
+  flex-grow: 1;
+  background-color: black; 
+  border-radius: 10px;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Generale */
+::-webkit-scrollbar {
+  width: 12px; /* Larghezza della scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f2f2f2; /* Colore dello sfondo della traccia */
+  border-radius: 10px; /* Bordi arrotondati della traccia */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Colore del thumb della scrollbar */
+  border-radius: 10px; /* Bordi arrotondati del thumb */
+  border: 3px solid #f2f2f2; /* Bordo del thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Colore del thumb della scrollbar al passaggio del mouse */
+}
+
+
+button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+  background-color: #303f9f;
+  transform: translateY(-2px);
+}
+
+/* Stile per i filtri */
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.child {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+p {
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Stile per i prodotti */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+}
+
+.product-img img {
+  max-width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.product-text h3 {
+  margin: 0 0 10px;
+}
+
+.product-text p {
+  margin: 5px 0;
+}
+
+.product-cart button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.product-cart button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.stileDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+} 
+
+.stileDiv .product-card {
+  flex: 1 0 calc(27% - 10px);
+  margin-bottom: 20px;
+  margin: 6px 6px 6px 6px;
+}

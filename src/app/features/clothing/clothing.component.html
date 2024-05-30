@@ -1,6 +1,6 @@
 <body>
-<mat-drawer-container class="clothing-container">
-<mat-drawer mode="side" opened>
+<mat-drawer-container class="bikes-container">
+<mat-drawer mode="side" opened class="mat">
     <h2>Abbigliamento</h2>
 
     <button (click)="GetFiltered()">Filtra</button>  
@@ -47,8 +47,8 @@
     </div>
 </mat-drawer>   
 
-<mat-drawer-content>
-    <div *ngIf="view.allItems">
+<mat-drawer-content class="contdraw">
+    <div *ngIf="view.allItems" class="stileDiv">
         <div class="product-card" *ngFor="let a of view.allItems">
             <div class="product-img">
                 <img [src]="a.largeImage" alt="{{a.productName}}" />
