@@ -33,13 +33,13 @@ export class CookieBannerComponent implements OnInit {
 
   acceptCookies(event: MouseEvent): void { //ha premuto il pulsante "Accetta"
     event.stopPropagation() //evita di intercettare il click sul bottone come se fosse fuori dal banner
-    this.setCookie('user_consent', 'accepted', 1);  //ho messo 10 min ai fini della presentazione finale anche se la durata massima è di 365 giorni (1 anno)
+    this.setCookie('user_consent', 'accepted', 30);  //ho messo 30 min ai fini della presentazione finale anche se la durata massima è di 365 giorni (1 anno)
     this.cookieConsent = 'accepted';  //mi salvo nella variabile che ha accettato i cookies
     window.location.reload();
   }
 
   rejectCookies(): void {
-    this.setCookie('user_consent', 'rejected', 1) //ho messo 10 min ai fini della presentazione finale
+    this.setCookie('user_consent', 'rejected', 30) //ho messo 30 min ai fini della presentazione finale
     this.cookieConsent = 'rejected';  //mi salvo nella variabile che ha rifiutato i cookies
     window.location.reload();
   }
