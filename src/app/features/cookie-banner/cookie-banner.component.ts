@@ -28,33 +28,33 @@ export class CookieBannerComponent implements OnInit {
       this.renderer.listen('document', 'click', this.handleOutsideClick.bind(this));
     }
     else{ //serve per togliere l'intercettazione del click
-
     }
   }
 
-  acceptCookies(): void { //ha premuto il pulsante "Accetta"
-    this.setCookie('user_consent', 'accepted', 10);  //ho messo 10 min ai fini della presentazione finale anche se la durata massima è di 365 giorni (1 anno)
+  acceptCookies(event: MouseEvent): void { //ha premuto il pulsante "Accetta"
+    event.stopPropagation() //evita di intercettare il click sul bottone come se fosse fuori dal banner
+    this.setCookie('user_consent', 'accepted', 1);  //ho messo 10 min ai fini della presentazione finale anche se la durata massima è di 365 giorni (1 anno)
     this.cookieConsent = 'accepted';  //mi salvo nella variabile che ha accettato i cookies
-    //this.router.navigate(['home']); // Redirect alla home per salvare il cookie (emulo un refresh)
     window.location.reload();
   }
 
   rejectCookies(): void {
-    this.setCookie('user_consent', 'rejected', 10) //ho messo 10 min ai fini della presentazione finale
+    this.setCookie('user_consent', 'rejected', 1) //ho messo 10 min ai fini della presentazione finale
     this.cookieConsent = 'rejected';  //mi salvo nella variabile che ha rifiutato i cookies
-    //this.router.navigate(['home']); // Redirect alla home per salvare il cookie (emulo un refresh)
     window.location.reload();
   }
 
-  choosePreferences(): void {
+  choosePreferences(event: MouseEvent): void {
     this.showPreferences = !this.showPreferences;
+    event.stopPropagation() //evita di intercettare il click sul bottone come se fosse fuori dal banner
   }
 
 
   setCookie(name: string, value: string, days: number) : void {
     const date = new Date();
     //prendo la data di oggi e gli aggiungo il tempo di permanenza settato nel formato giorni, ore, minuti, secondo, millisecondi
-    date.setTime(date.getTime() + (days *60*1000));//(days * 24 *60 *60 *1000)); //in realtà dovrei usare questo ma siccome per la presentazione finale ho bisogno dei minuti l'ho commentato
+    date.setTime(date.getTime() + (days *60*1000));//(days * 24 *60 *60 *1000)); //in realtà dovrei usare questo ma siccome per la 
+                                                                      //presentazione finale ho bisogno dei minuti l'ho commentato
 
     const expires = "Expires=" + date.toUTCString(); //gli metto la data con il nostro fusorario.
     document.cookie = name + "=" + value + ";" + expires + ";path=/"; //me lo costruisco così
@@ -79,6 +79,10 @@ export class CookieBannerComponent implements OnInit {
     if (!clickedInside) { //altrimenti sarà false e quindi di default rifiuta i cookies
       this.rejectCookies();
     }
+  }
+
+  a(event: MouseEvent) : void {
+    event.stopPropagation()
   }
 
 
