@@ -10,6 +10,8 @@ import { ClothingComponent } from './features/clothing/clothing.component';
 import { SearchComponent } from './features/search/search.component';
 import { BlogComponent } from './features/blog/blog.component';
 
+import { CartComponent } from './features/cart/cart.component';
+
 import { LoginRegistrationComponent } from './core/login-registration/login-registration.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { FooterComponent } from './core/footer/footer.component';
@@ -27,7 +29,7 @@ import { CommonModule } from '@angular/common';
     imports: [RouterOutlet, NavbarComponent,
       HomeComponent, 
       BikesComponent,  AccessoriesComponent, ClothingComponent, ComponentsComponent, SearchComponent, 
-      BlogComponent, 
+      BlogComponent, CartComponent,
       LoginRegistrationComponent, LogoutComponent, FooterComponent,
       FormsModule, CommonModule, ReactiveFormsModule]
 })

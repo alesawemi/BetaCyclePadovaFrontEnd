@@ -9,6 +9,8 @@ import { ClothingComponent } from './features/clothing/clothing.component';
 import { SearchComponent } from './features/search/search.component';
 import { BlogComponent } from './features/blog/blog.component';
 
+import { CartComponent } from './features/cart/cart.component';
+
 import { LoginRegistrationComponent } from './core/login-registration/login-registration.component';
 import { MyAccountComponent } from './features/my-account/my-account.component';
 import { LogoutComponent } from './core/logout/logout.component';
@@ -28,6 +30,8 @@ export const routes: Routes = [
     {path: 'clothing', component: ClothingComponent},
     {path: 'search', component: SearchComponent},
     {path: 'blog', component: BlogComponent},    
+
+    {path: 'cart', component: CartComponent},
 
     {path: 'chat', component: ChatComponent}, //SIGNAL R 24/05/2024
     
