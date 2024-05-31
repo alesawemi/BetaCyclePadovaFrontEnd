@@ -12,9 +12,13 @@ body {
 }
 
 .mat {
-  width: 1000px; 
-  height: 1410px;
-  border-radius: 15px;
+  border-radius: 15px 0px 0px 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Per consentire lo scorrimento se il contenuto è troppo grande */
+  max-height: 100vh; /* Limita l'altezza massima al 100% della finestra */
+  min-width: 300px; /* Imposta una larghezza minima per evitare che si schiacci troppo */
+  max-width: 600px; /* Imposta una larghezza massima per un aspetto migliore */
 }
 
 .bikes-container {

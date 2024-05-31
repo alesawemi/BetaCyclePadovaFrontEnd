@@ -14,7 +14,7 @@ import { CartService } from '../../shared/services/cart.service';
   standalone: true,
   imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './components.component.html',
-  styleUrl: './components.component.css',
+  styleUrls:['./components.component.css','../../features/Stili/shared.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 

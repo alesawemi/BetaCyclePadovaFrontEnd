@@ -40,7 +40,7 @@
 </mat-drawer>   
 <mat-drawer-content class="contdraw">
             <div *ngIf="view.allItems" class="stileDiv">
-                <div class="product-card" *ngFor="let a of view.allItems">
+                <div class="product-card" *ngFor="let a of view.allItems, index as j">
                     <div class="product-img">
                         <img [src]="a.largeImage" alt="{{a.productName}}" />
                       </div>
