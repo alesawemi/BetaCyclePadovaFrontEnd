@@ -1,6 +1,6 @@
 <body>
 <mat-drawer-container class="bikes-container">
-<mat-drawer mode="side" opened>
+<mat-drawer mode="side" opened  class="mat">
     <h2>Biciclette</h2>
 
     <button (click)="GetFiltered()">Filtra</button>  
@@ -61,9 +61,9 @@
 
 
     
-<mat-drawer-content>
-    <div *ngIf="view.allItems">
-        <div class="product-card" *ngFor="let a of view.allItems">
+<mat-drawer-content class="contdraw">
+    <div *ngIf="view.allItems" class="stileDiv">
+        <div class="product-card" *ngFor="let a of view.allItems, index as j">
             <div class="product-img">
                 <img [src]="a.largeImage" alt="{{a.productName}}" />
             </div>
@@ -74,15 +74,13 @@
                 <p>model: {{a.productModel}}</p>
                 <p>size: {{a.size}}</p>
                 <p>weight: {{(a.weight/1000).toFixed(1)}} kg</p>
-                <p>price: {{a.listPrice}}</p>
+                <p>price: {{a.listPrice}} $</p>
             </div>
             <div class="product-cart">
-                <button type="submit">Add to cart</button>
+                <button (click)="cart.AddToCart(view.allItems[j])" type="submit">Add to cart</button>
             </div>
         </div> 
     </div>
 </mat-drawer-content>
-
-
 </mat-drawer-container>
 </body>

@@ -83,3 +83,16 @@ li .weight {
     column-gap: 5px;
    }
 
+   .product-cart button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-cart button:hover {
+    background-color: #45a049;
+  }

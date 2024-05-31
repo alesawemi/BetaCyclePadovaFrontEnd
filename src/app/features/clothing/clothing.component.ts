@@ -7,20 +7,22 @@ import { Filters } from '../../shared/models/productsFilters';
 import { Interval } from '../../shared/models/intervalsData';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CartService } from '../../shared/services/cart.service';
 
 @Component({
   selector: 'app-clothing',
   standalone: true,
   imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './clothing.component.html',
-  styleUrl: './clothing.component.css',
+  styleUrls: ['../../features/Stili/shared.css', './clothing.component.css'],
+
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 
 export class ClothingComponent {
 
-  constructor(public view: GenericViewService) {}
+  constructor(public view: GenericViewService, public cart: CartService) {}
 
   whichView: HttpParams = new HttpParams().set('view', 'clothing');
 
