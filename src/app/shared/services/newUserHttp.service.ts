@@ -22,7 +22,7 @@ import { NewCustomer } from '../models/newCustomersdata';
       return this.http.get<NewCustomer>(`${this.private_Url_New_Customer}/api/Users`);
     }
 
-    GetNewCustomerrById(id: number) : Observable<any>{
+    GetNewCustomerById(id: number) : Observable<any>{
       return this.http.get<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/${id}`);
     }
 

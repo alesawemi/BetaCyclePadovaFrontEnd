@@ -1,24 +1,43 @@
 <body>
 
-    <h2>Totale ordine: {{(cart.total).toFixed(2)}} $</h2>
+    <h1>CARRELLO</h1>
 
-    <div *ngIf="cart.selectedItems">
-        <li *ngFor="let i of cart.selectedItems, index as n"> 
-            <h3>{{i.productName}}</h3>
-            <p>color: {{i.color}}</p>
-            <p>size: {{i.size}}</p>
-            <p>price: {{i.listPrice}} $</p>
-            <button (click)="cart.RemoveItem(cart.selectedItems[n])" type="submit">Remove</button>
-        </li>
-    </div>
-    <div *ngIf="cart.selectedProduct">
-        <li *ngFor="let p of cart.selectedProduct, index as m"> 
-            <h3>{{p.productName}}</h3>
-            <p>color: {{p.color}}</p>
-            <p>size: {{p.size}}</p>
-            <p>price: {{p.listPrice}} $</p>
-            <button (click)="cart.RemoveProduct(cart.selectedProduct[m])" type="submit">Remove</button>
-        </li>
+    <div class="cart-container">
+        <div *ngIf="cart.selectedItems" class="cart-items">
+            <ul>
+                <li *ngFor="let i of cart.selectedItems; index as n">
+                    <div class="product-info">
+                        <h3>{{i.productName}}</h3>
+                        <p>Color: {{i.color}}</p>
+                        <p>Size: {{i.size}}</p>
+                        <p>Price: {{i.listPrice}} $</p>
+                    </div>
+                    <img *ngIf="i.largeImage" [src]="i.largeImage" alt="Product Image" class="product-image">
+                    <button (click)="cart.RemoveItem(cart.selectedItems[n])" type="submit">Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <div *ngIf="cart.selectedProduct" class="cart-items">
+            <ul>
+                <li *ngFor="let p of cart.selectedProduct; index as m">
+                    <div class="product-info">
+                        <h3>{{p.productName}}</h3>
+                        <p>Color: {{p.color}}</p>
+                        <p>Size: {{p.size}}</p>
+                        <p>Price: {{p.listPrice}} $</p>
+                    </div>
+                    <img *ngIf="p.largeImage" [src]="p.largeImage" alt="Product Image" class="product-image">
+                    <button (click)="cart.RemoveProduct(cart.selectedProduct[m])" type="submit">Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="cart-summary">
+            <h2>Totale ordine: {{(cart.total).toFixed(2)}} $</h2>
+            <button (click)="cart.OrderAndPay()" type="submit">Ordina & Paga</button>
+        </div>
+
     </div>
 
-</body>>
+</body>
