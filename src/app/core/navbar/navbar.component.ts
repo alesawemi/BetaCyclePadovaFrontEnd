@@ -6,6 +6,8 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { AuthenticationService } from "../../shared/services/authentication.service";
 import { ReactiveFormsModule } from '@angular/forms';
+import { RoleService } from "../../shared/services/role.service";
+import { OnInit } from "@angular/core";
 
 @Component({
   selector: 'app-navbar',
@@ -17,8 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class NavbarComponent {
 
   showDropdown = false;
-
-  constructor(public auth: AuthenticationService, private router: Router) {}
+  userRole: boolean =false;
+  constructor(public auth: AuthenticationService, private router: Router, public roleService: RoleService) {}
 
   searchParameter: string = '';
 
@@ -27,5 +29,12 @@ export class NavbarComponent {
       this.router.navigate(['/search'], { queryParams: { param: parameter } });
     }
   }
+
+
+ 
+
+
+  
+
 
 }

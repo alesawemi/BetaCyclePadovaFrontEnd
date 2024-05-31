@@ -20,6 +20,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { CookiePolicyComponent } from './features/cookie-policy/cookie-policy.component';
 import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
 import { ChatComponent } from './features/chat/chat.component';
+import { AdminPanelComponent } from './features/admin-panel/admin-panel.component';
 
 export const routes: Routes = [
 
@@ -43,6 +44,7 @@ export const routes: Routes = [
 
     {path: 'cookie-policy', component: CookiePolicyComponent},
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
+    {path: 'admin-panel',component:AdminPanelComponent},
 
     {path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];

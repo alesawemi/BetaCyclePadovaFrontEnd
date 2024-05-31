@@ -3,7 +3,8 @@ import { HttpHeaders } from '@angular/common/http'
 import {CookieService, SameSite} from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { RoleService } from './role.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthenticationService {
   });
 
   private jwtExpirationTimer: any; //è un timer che mi tiene conto della sessione
-
+  private jwtHelper: JwtHelperService = new JwtHelperService();
   
   //nel mio backend ho due tipi di autenticazione - al momento sto usando la jwt (migliore)
   public TypeOfAuthorization: string = 'jwt'; // 'basic'
@@ -30,7 +31,8 @@ export class AuthenticationService {
   
 //#region COSTRUTTORE
   //è la prima cosa che esegue al caricamento della pagina e al refresh
-  constructor(private cookie: CookieService, private router: Router) {
+
+  constructor(private cookie: CookieService, private router: Router, private role:RoleService) {
     if (this.cookie.check(this.name)) { //vado a vedere se il cookie esiste già
       //vado a calcolarmi la scadenza del token e del cookie
       this.jwtToken = this.cookie.get(this.name);
@@ -38,6 +40,12 @@ export class AuthenticationService {
       //se la data intesa come giorno e ore minuti e secondi è minore della scadenza
       if (new Date() < tokenExpirationDate) { //vuol dire che il token è ancora valido
         this.isLogged = true;
+
+        //Aggiorno il ruolo
+        const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
+        const role = decodedToken.role;
+        this.setRole(role);
+
         this.authHeader = this.authHeader.set(
           'Authorization',
           'Bearer ' + this.jwtToken
@@ -57,6 +65,10 @@ export class AuthenticationService {
     return this.isLogged;
   }
 
+  //Imposto il ruolo
+  setRole(role: string) {
+    console.log(this.role.setUserRole(role))
+   }
   
   //#region BASIC
   //Questo serve ad impostare true o false per la basic (che al momento sono sto usando)
@@ -196,6 +208,9 @@ private notifyTokenExpiring() {
     if (this.TypeOfAuthorization === 'jwt') {
         //this.setLoginStatusJwt(false , this.jwtToken);
         this.isLogged = false;
+        const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
+        const role = decodedToken.role;
+        this.setRole('user');
         this.cookie.delete(this.name);
         this.authHeader = new HttpHeaders({
             contentType: 'application/json',

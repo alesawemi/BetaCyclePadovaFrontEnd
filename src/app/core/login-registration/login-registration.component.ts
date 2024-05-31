@@ -10,11 +10,13 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 import { Router } from '@angular/router';
 import { LogtraceService } from '../../shared/services/logtrace.service';
 import { LogTrace } from '../../shared/models/LogTraceData';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { RoleService } from '../../shared/services/role.service';
+import { AdminPanelComponent } from '../../features/admin-panel/admin-panel.component';
 @Component({
   selector: 'app-login-registration',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,AdminPanelComponent],
   templateUrl: './login-registration.component.html',
   styleUrl: './login-registration.component.css'
 })
@@ -31,8 +33,8 @@ export class LoginRegistrationComponent {
     private UserHttp: NewUserHttp, 
 
     // per il login:
-    private http: LoginHttpService, private auth: AuthenticationService
-  
+    private http: LoginHttpService, private auth: AuthenticationService,
+    private roleService:RoleService
   ) {}
 
 
@@ -153,9 +155,9 @@ export class LoginRegistrationComponent {
 
   // LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
   loginCredentials: Credentials = new Credentials();
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   jwtToken: string = '';
-  
   Login(usr: HTMLInputElement, pwd: HTMLInputElement)
   {
       if(usr.value != '' && pwd.value != '') //controllo ripetuto nel backend
@@ -174,6 +176,11 @@ export class LoginRegistrationComponent {
               {
                 this.jwtToken = response.body.token;
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
+                const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
+                const role = decodedToken.role;
+                this.setRole(role);
+              ;
+                
               }
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
               this.router.navigate(['home']); // Redirect alla home
@@ -214,8 +221,10 @@ export class LoginRegistrationComponent {
   }
 
 
-
-
+//Imposto il ruolo
+  setRole(role: string) {
+   console.log(this.roleService.setUserRole(role))
+  }
 
 
 
