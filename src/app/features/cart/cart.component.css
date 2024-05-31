@@ -1,3 +1,141 @@
 body {
-    margin-top: 10%;
+    
+    font-family: Arial, sans-serif;
+    margin: 0;
+    
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;  
+    border-bottom: 1px solid #ddd;
+    font-size: 24px;
+    color: #333;
+    position: sticky;
+    top: 9%; /* Aggiungi questa proprietà */
+    z-index: 1000; /* Assicura che l'elemento rimanga sopra gli altri */
+}
+
+
+
+h2 {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.cart-items, .cart-summary {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.cart-items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-items li:last-child {
+    border-bottom: none;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.product-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.cart-items button {
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+.cart-items button:hover {
+    background-color: #e68a00;
+}
+
+.cart-summary h2 {
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    color: #333;
+}
+
+.cart-summary button {
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.cart-summary button:hover {
+    background-color: #e68a00;
+}
+
+.product-image {
+    width: 200px; 
+    height: auto;
+    margin-right: 20%;
+    
+}
+
+.product-info {
+    flex: 1;
+    white-space: nowrap; /* Aggiunta della nuova proprietà per impedire il wrap del testo */
+}
+
+
+.cart-summary {
+    position: sticky;
+    bottom: 0;
+    z-index: 1000; /* Assicura che l'elemento rimanga sopra gli altri */
 }

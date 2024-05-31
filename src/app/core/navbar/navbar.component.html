@@ -7,8 +7,9 @@
   <nav>
     <ul>
       <!-- si può usare il logo betacycle come anchor per la home? e far sparire la voce home -->
-      <li ><a id="logo" routerLink="/home"><span class="blue">Beta</span>cycle</a></li>
-      <!-- <li><a routerLink="/home">Home</a></li>       -->
+      <a [routerLink]="['/home']">
+        <img src="assets/logo.png" style="height: 60px; margin-right: 5px;">
+      </a>
       <li><a routerLink="/bikes">Bikes</a></li>
       <li><a routerLink="/components">Components</a></li>
       <li><a routerLink="/accessories">Accesories</a></li>
