@@ -1,3 +1,5 @@
+import { GeneralView } from "./viewsData";
+
 export class productSearch {
 
     productId: number = 0;

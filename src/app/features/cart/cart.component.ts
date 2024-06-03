@@ -15,7 +15,9 @@ export class CartComponent {
   constructor(public cart: CartService) {}
 
   ngOnInit(){
-    this.cart.CalculateTotal();
+    this.cart.syncCart();    
   }
+
+
 
 }

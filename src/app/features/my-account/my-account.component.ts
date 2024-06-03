@@ -93,11 +93,6 @@ export class MyAccountComponent implements OnInit {
         }
       }, error => {
         console.error('Error fetching user:', error);
-        this.fEndError = new LogTrace;
-        this.fEndError.Level = 'my-account';
-        this.fEndError.Message = 'An Error Occurred in loadData';
-        this.fEndError.Exception = error.toString();
-        this.logtrace.PostError(this.fEndError);
       });
     }
   }

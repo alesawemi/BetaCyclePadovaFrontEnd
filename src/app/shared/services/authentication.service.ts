@@ -32,7 +32,11 @@ export class AuthenticationService {
 //#region COSTRUTTORE
   //è la prima cosa che esegue al caricamento della pagina e al refresh
 
-  constructor(private cookie: CookieService, private router: Router, private role:RoleService) {
+  constructor(
+    private cookie: CookieService, 
+    private router: Router, 
+    private role: RoleService
+  ) {
     if (this.cookie.check(this.name)) { //vado a vedere se il cookie esiste già
       //vado a calcolarmi la scadenza del token e del cookie
       this.jwtToken = this.cookie.get(this.name);
@@ -219,7 +223,8 @@ private notifyTokenExpiring() {
         alert("Ti sei sloggato!"); //da capire se tenerlo attivo oppure no
         this.stopJwtExpirationTimer();
 
-        window.localStorage.clear();
+        //window.localStorage.clear();
+        
         this.router.navigate(['home']); // Redirect alla home
     }
   }

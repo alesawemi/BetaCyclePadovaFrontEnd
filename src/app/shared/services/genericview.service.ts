@@ -43,11 +43,18 @@ export class GenericViewService {
         },
         error: (errore: any) => {
           this.fEndError = new LogTrace;
-          this.fEndError.Level = 'GeneralViewService';
+          this.fEndError.Level = 'error';
           this.fEndError.Message = `An Error Occurred in GetAllItems for ${whichView}`;
+          this.fEndError.Logger = 'GeneralViewService';
           this.fEndError.Exception = errore.toString();
-          this.logtrace.PostError(this.fEndError);
-          console.log(errore);
+          this.logtrace.PostError(this.fEndError).subscribe({
+            next: (Data: any) => { 
+              console.log('post frontend error to db:'); console.log(Data);
+            },
+            error: (err: any) => {
+              console.log('post frontend error to db:'); console.log(err);
+            }
+          })
         }
       })
   }
@@ -110,11 +117,18 @@ export class GenericViewService {
         },
         error: (errore: any) => {
           this.fEndError = new LogTrace;
-          this.fEndError.Level = 'GeneralViewService';
+          this.fEndError.Level = 'error';
           this.fEndError.Message = `An Error Occurred in GetResearchOptions for ${whichView}`;
-          this.fEndError.Exception = errore.toString();
-          this.logtrace.PostError(this.fEndError);
-          console.log(errore);
+          this.fEndError.Logger = 'GeneralViewService';
+          this.fEndError.Exception = errore.message;
+          this.logtrace.PostError(this.fEndError).subscribe({
+            next: (Data: any) => { 
+              console.log('post frontend error to db:'); console.log(Data);
+            },
+            error: (err: any) => {
+              console.log('post frontend error to db:'); console.log(err);
+            }
+          })
         }
       })    
   }
@@ -139,11 +153,18 @@ export class GenericViewService {
         },
         error: (errore: any) => {
           this.fEndError = new LogTrace;
-          this.fEndError.Logger = 'GeneralViewService';
+          this.fEndError.Logger = 'error';
           this.fEndError.Message = `An Error Occurred in GetWithFilters for ${whichView}`;
-          this.fEndError.Exception = errore.Message.toString();
-          this.logtrace.PostError(this.fEndError);
-          console.log(errore);
+          this.fEndError.Logger = 'GeneralViewService';
+          this.fEndError.Exception = errore.message;
+          this.logtrace.PostError(this.fEndError).subscribe({
+            next: (Data: any) => { 
+              console.log('post frontend error to db:'); console.log(Data);
+            },
+            error: (err: any) => {
+              console.log('post frontend error to db:'); console.log(err);
+            }
+          })
         }
       })
   }

@@ -1,29 +1,48 @@
 import { Injectable } from '@angular/core';
-import { CookieService, SameSite } from 'ngx-cookie-service';
 import { GeneralView } from '../models/viewsData';
-import { SalesOrderHttp } from './salesOrder.service';
 import { productSearch } from '../models/productSearchData';
 import { SalesOrderDetail } from '../models/salesOrderDetail';
 import { SalesOrderHeader } from '../models/salesOrderHeader';
-import { AuthenticationService } from './authentication.service';
 import { NewUserHttp } from './newUserHttp.service';
 import { AddressHttp } from './address.service';
 import { AddressCustomer } from '../models/addressData';
+import { SalesOrderHttp } from './salesOrder.service';
+import { AuthenticationService } from './authentication.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { LogtraceService } from './logtrace.service';
+import { LogTrace } from '../models/LogTraceData';
+import { ThisReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+
+  email: string = '';
+  cartName = '';
   
   userID: number= 0;
   addressID: number = 0;
-  
-  constructor(private salesOrders: SalesOrderHttp, private cookie: CookieService
-    ,private auth: AuthenticationService, private user: NewUserHttp, private adrs: AddressHttp
-  ) {// Ottieni l'email dal JWT
-    const email = this.auth.getEmailFromJwt();
 
-    this.user.GetNewCustomerByMail(email).subscribe(user => {
+  selectedProducts: productSearch[] = [];
+
+  //ho creato un service per gestire gli SalesOrders sia gli Headers che i Details. 
+  constructor(
+    private salesOrders: SalesOrderHttp,
+    private auth: AuthenticationService, 
+    private user: NewUserHttp, 
+    private adrs: AddressHttp,
+    private http: HttpClient,
+    private logtrace: LogtraceService)   
+  {
+    //Ottieni l'email dal JWT
+    this.email = this.auth.getEmailFromJwt();
+    console.log(this.email);
+
+    this.cartName = `cart_${this.email}`;  //useremo window.btoa
+
+    this.user.GetNewCustomerByMail(this.email).subscribe(user => {
       this.userID = user.id;
       console.log(this.userID);
     
@@ -31,98 +50,71 @@ export class CartService {
         this.addressID = adrsCust.addressId;
         console.log(this.addressID);
       });
-    }); } //ho creato un service per gestire gli SalesOrders sia gli Headers che i Details.
+    }); 
+
+    this.selectedProducts = JSON.parse(localStorage.getItem(this.cartName) ||'[]');
+  }
+   
 
 
-  selectedItems: GeneralView[] = [];
+  //fEnd LogTrace
+  fEndError: LogTrace = new LogTrace;
+  
+  
+  
+  new: productSearch = new productSearch; //dummy element : serve per convertire item from view in search product --> in questo modo carrello deve gestire un solo array di selected products/items
+  
+  
 
   AddToCart(item: GeneralView) {
-    this.selectedItems.push(item);
-    console.log(this.selectedItems);
+    this.itemIntoProduct(this.new, item);
+    this.selectedProducts.push(this.new);
+    this.new = new productSearch;
+    this.syncCart();
   }
-
-
-
-
-  deleteItem: number = 0;
-
-  RemoveItem(item: GeneralView) {
-    this.selectedItems.forEach((element, index) => {
-      if (element.productId == item.productId) { this.deleteItem = index; } 
-    })
-    this.selectedItems.splice(this.deleteItem, 1);
-    this.total = this.total - this.selectedItems[this.deleteItem].listPrice;
-  }
-
-
-
-  selectedProduct: productSearch[] = [];
 
   AddProductToCart(product: productSearch) {
-    this.selectedProduct.push(product);
-    console.log(this.selectedProduct);
+    this.selectedProducts.push(product);
+    this.syncCart();
   }
 
-  deleteProduct: number = 0;
+  
 
-  RemoveProduct(product: productSearch) {
-    this.selectedProduct.forEach((element, index) => {
-      if (element.productId == product.productId) { this.deleteProduct = index; } 
-    })
-    this.selectedProduct.splice(this.deleteProduct, 1);
-    this.total = this.total - this.selectedProduct[this.deleteProduct].listPrice;
+  Remove(product: productSearch) {
+
+    const p_index = this.selectedProducts.indexOf(product);
+
+    if (this.selectedProducts.length>1) { this.total = this.total - this.selectedProducts[p_index].listPrice; }
+    else if (this.selectedProducts.length==1) { this.total = 0; }
+
+    this.selectedProducts.splice(p_index,1);
+    
+    this.syncCart();
   }
 
 
 
-  total: number = 0;
+  syncCart(){
+    localStorage.setItem(this.cartName, JSON.stringify(this.selectedProducts)); 
+    this.CalculateTotal();
+  }
+
+
+
+  total: number = 0.00;
 
   CalculateTotal(){
-    console.log(this.total)
-    this.selectedItems.forEach(element => {
-      this.total = this.total + element.listPrice;
-    })
-    this.selectedProduct.forEach(element => {
+    this.total = 0;
+    this.selectedProducts.forEach(element => {
       this.total = this.total + element.listPrice;
     })
   }
-
-  // private name: string = window.btoa("cart_cookie");
-  // cart_structure: [ GeneralView[], productSearch[] ] = [ [], [] ]; // ??
-
-  // public setCartCookie(cart_items: GeneralView[], cart_products: productSearch[]){
-  //   this.cart_structure[0] = cart_items;
-  //   this.cart_structure[1] = cart_products;
-  //   //Utilizzo di Cookies      
-  //   let expires: Date = new Date();
-  //   expires.setDate( expires.getDate() + 30 ); //carrello scade dopo 1 mese
-  //   let path: string = "/";
-  //   let domain: string = "localhost"
-  //   let secure: boolean = true;
-  //   let sameSite : SameSite = "Lax" //le opzioni sono "Strict" | "Lax" | "None"
-
-  //   //Parametri del cookie: Name(index)|Value|Domain|Path|Exipers/Max-Age|Size|HttpOnly|Secure!SameSite|Partition Key|Priority
-  //   this.cookie.set(
-  //     this.name,         //Nome
-  //     this.cart_structure.toString(),     // cart_structur (items, products)
-  //     expires,      // Data di scadenza (opzionale)
-  //     path,         // Percorso (opzionale)
-  //     domain,       // Dominio (opzionale)
-  //     secure,       // Secure (opzionale)
-  //     sameSite,     // SameSite (opzionale)
-  //     //partitioned?   // Partizionato (opzionale)
-  //   );
-  // }
-
 
   
 
   OrderAndPay(): void {
     // Calcola il totale dell'ordine
-    this.CalculateTotal();
-  
-    
-    
+    // this.CalculateTotal(); // il totale viene già aggiornato automaticamente ogni volta che si aggiungono o tolgono prodotti dal carrello
 
     // Crea un nuovo SalesOrderHeader
     let newOrderHeader: SalesOrderHeader = {
@@ -132,7 +124,7 @@ export class CartService {
       dueDate: new Date(new Date().setDate(new Date().getDate() + 12)),  // Imposta una data di scadenza appropriata
       shipDate: new Date(new Date().setDate(new Date().getDate() + 7)),  // La data di spedizione può essere impostata in seguito
       status: 1,  // Stato dell'ordine
-      onlineOrderFlag: false,
+      onlineOrderFlag: true, // ?
       salesOrderNumber: undefined,  //SO+salesOrderID
       purchaseOrderNumber: undefined, //PO+salesOrderID
       accountNumber: null,
@@ -147,6 +139,10 @@ export class CartService {
       totalDue: this.total + (this.total * 0.22) + 5.00,
       comment: null
     };
+
+    console.log(newOrderHeader)
+
+    
   
     // Posta il nuovo SalesOrderHeader e ottieni l'ID dell'ordine creato
     this.salesOrders.PostHeader(newOrderHeader).subscribe(response => {
@@ -154,25 +150,12 @@ export class CartService {
   
       // Crea SalesOrderDetails per ogni articolo nel carrello
       let orderDetails: SalesOrderDetail[] = [];
-  
-      this.selectedItems.forEach(item => {
-        let detail: SalesOrderDetail = {
-          salesOrderID: createdOrderID,
-          salesOrderDetailID: undefined, //lo mette in automatico il db
-          orderQty: this.selectedItems.length,  // vado a leggere la quantità dalla lista?
-          productID: item.productId,
-          unitPrice: item.listPrice,
-          unitPriceDiscount: 0.00,
-          lineTotal: item.listPrice  // Imposta il totale della riga appropriato
-        };
-        orderDetails.push(detail);
-      });
-  
-      this.selectedProduct.forEach(product => {
+   
+      this.selectedProducts.forEach(product => {
         let detail: SalesOrderDetail = {
           salesOrderID: createdOrderID,
           salesOrderDetailID: undefined,
-          orderQty: this.selectedProduct.length,  // Imposta la quantità appropriata
+          orderQty: this.selectedProducts.length,  // Imposta la quantità appropriata
           productID: product.productId,
           unitPrice: product.listPrice,
           unitPriceDiscount: 0.00,
@@ -192,10 +175,26 @@ export class CartService {
       alert("Ordine effettuato con successo!");
   
       // Svuota il carrello
-      this.selectedItems = [];
-      this.selectedProduct = [];
+      this.selectedProducts = [];
       this.total = 0;
     });
   }
-  
+
+
+
+  // per convertire item from view in product (c'è un campo di differenza = main Category di product search che non è presente in generic item from view)
+  itemIntoProduct(product: productSearch, item: GeneralView){
+    product.productId = item.productId;
+    product.productName = item.productName;
+    product.color = item.color;
+    product.standardCost = item.standardCost;
+    product.listPrice = item.listPrice;
+    product.size = item.size;
+    product.weight = item.weight;
+    product.productCategory = item.productCategory;
+    product.productModel = item.productModel;
+    product.largeImage = item.largeImage;
+    product.mainCategory = 'any';  
+  }
+
 }

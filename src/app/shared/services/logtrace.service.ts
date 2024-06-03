@@ -11,7 +11,7 @@ export class LogtraceService {
 
   constructor(private http: HttpClient) { }
 
-  PostError(errorInfo: LogTrace){
+  PostError(errorInfo: LogTrace) : Observable<any>{
     return this.http.post(`https://localhost:7228/api/FrontendErrors`, errorInfo)
   }
 }

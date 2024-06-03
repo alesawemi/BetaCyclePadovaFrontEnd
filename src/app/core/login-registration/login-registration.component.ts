@@ -128,17 +128,24 @@ export class LoginRegistrationComponent {
     },
     error: (err: any) => {
       this.fEndError = new LogTrace;
-      this.fEndError.Level = 'login-registration';
+      this.fEndError.Level = 'error';
       this.fEndError.Message = 'An Error Occurred in PostRegistration';
-      this.fEndError.Exception = err.toString();
-      this.logtrace.PostError(this.fEndError);
-      console.log(err)
+      this.fEndError.Logger = 'login-registration';
+      this.fEndError.Exception = err.message;
+      this.logtrace.PostError(this.fEndError).subscribe({
+        next: (Data: any) => {
+          console.log('post frontend error to db:'); console.log(Data);
+        },
+        error: (err: any) => {
+          console.log('post frontend error to db:'); console.log(err);
+        }
+      })
       if (err.status === 409) { // Conflitto (Utente già nel DB)
         alert("Utente già presente nel database.");
-    } else {
+      } else {
         // Gestisci altri casi di errore
         console.error('Si è verificato un errore:', err);
-    }
+      }
     }
    })
   }
@@ -158,62 +165,68 @@ export class LoginRegistrationComponent {
   private jwtHelper: JwtHelperService = new JwtHelperService();
 
   jwtToken: string = '';
-  Login(usr: HTMLInputElement, pwd: HTMLInputElement)
-  {
-      if(usr.value != '' && pwd.value != '') //controllo ripetuto nel backend
-      {
-        this.loginCredentials.username = usr.value;
-        this.loginCredentials.password = pwd.value;
+  Login(usr: HTMLInputElement, pwd: HTMLInputElement) {
+    if (usr.value != '' && pwd.value != '') //controllo ripetuto nel backend
+    {
+      this.loginCredentials.username = usr.value;
+      this.loginCredentials.password = pwd.value;
 
-        // inserisci credenziali e poi clicchi su login --> resettare campi email e psw?
-        this.http.LoginPost(this.loginCredentials).subscribe({
+      // inserisci credenziali e poi clicchi su login --> resettare campi email e psw?
+      this.http.LoginPost(this.loginCredentials).subscribe({
         next: (response: any) => {
-          switch(response.status) {
+          switch (response.status) {
             case HttpStatusCode.Ok:
               // if (this.auth.TypeOfAuthorization ===  'basic') 
               //   { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
-              if (this.auth.TypeOfAuthorization ===  'jwt') 
-              {
+              if (this.auth.TypeOfAuthorization === 'jwt') {
                 this.jwtToken = response.body.token;
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
                 const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
                 const role = decodedToken.role;
                 this.setRole(role);
-              ;
-                
+                ;
+
               }
               console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
               this.router.navigate(['home']); // Redirect alla home
               break;
             case HttpStatusCode.NoContent:
-              
+
               break;
           }
         },
         error: (err: any) => {
           this.fEndError = new LogTrace;
-          this.fEndError.Level = 'login-registration';
-          this.fEndError.Message = 'An Error Occurred in Loginn';
-          this.fEndError.Exception = err.toString();
-          this.logtrace.PostError(this.fEndError);
-      
+          this.fEndError.Level = 'error';
+          this.fEndError.Message = 'An Error Occurred in Login';
+          this.fEndError.Logger = 'login-registration';
+          this.fEndError.Exception = err.message;
+          this.logtrace.PostError(this.fEndError)
+            .subscribe({
+              next: (Data: any) => {
+                console.log('post frontend error to db:'); console.log(Data);
+              },
+              error: (err: any) => {
+                console.log('post frontend error to db:'); console.log(err);
+              }
+            })
+
           // if (this.auth.TypeOfAuthorization ===  'basic') 
           //   { this.auth.setLoginStatusBasic(false); }
-          if (this.auth.TypeOfAuthorization ===  'jwt') 
-            { this.auth.setLoginStatusJwt(false); }
-          
-          
+          if (this.auth.TypeOfAuthorization === 'jwt') { this.auth.setLoginStatusJwt(false); }
+
+
           //trovare soluzione alternativa a alert --> popup con finestra di dialogo?
           if (err.status === 404) {
-              //alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
-              const container = document.getElementById('container');
-              if (container) {
-                container.classList.add("right-panel-active");
-              } else {
-                console.error("Container element is null.");
-              }
+            //alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
+            const container = document.getElementById('container');
+            if (container) {
+              container.classList.add("right-panel-active");
+            } else {
+              console.error("Container element is null.");
+            }
           }
-          if (err.status === 400) alert(err.error.message);            
+          if (err.status === 400) alert(err.error.message);
         }
       });
     }

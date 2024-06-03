@@ -64,11 +64,18 @@ export class SearchComponent {
         },          
         error: (errore: any) => {
           this.fEndError = new LogTrace;
-          this.fEndError.Level = 'SearchComponent';
+          this.fEndError.Level = 'error';
           this.fEndError.Message = 'An Error Occurred in SearchByParam';
-          this.fEndError.Exception = errore.toString();
-          this.logtrace.PostError(this.fEndError);
-          console.log(errore);
+          this.fEndError.Logger = 'SearchComponent';
+          this.fEndError.Exception = errore.message;
+          this.logtrace.PostError(this.fEndError).subscribe({
+            next: (Data: any) => { 
+              console.log('post frontend error to db:'); console.log(Data);
+            },
+            error: (err: any) => {
+              console.log('post frontend error to db:'); console.log(err);
+            }
+          })
         }
       })
   }
