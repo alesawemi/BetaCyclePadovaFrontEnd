@@ -166,6 +166,7 @@ export class ClothingComponent {
 
 
   ngOnInit() {
+    this.view.allItems = [];
     this.GetAll();
     this.GetOptions();
   }

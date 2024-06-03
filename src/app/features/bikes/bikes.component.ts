@@ -165,6 +165,7 @@ export class BikesComponent {
 
 
   ngOnInit() {
+    this.view.allItems = [];
     this.GetAll();
     this.GetOptions();
   }

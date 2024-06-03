@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
 import { ThisReceiver } from '@angular/compiler';
+import { quantity } from '../models/quantityCart';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,7 @@ export class CartService {
     console.log(this.email);
 
     this.cartName = `cart_${this.email}`;  //useremo window.btoa
+    console.log(this.cartName)
 
     this.user.GetNewCustomerByMail(this.email).subscribe(user => {
       this.userID = user.id;
@@ -64,8 +66,6 @@ export class CartService {
   
   new: productSearch = new productSearch; //dummy element : serve per convertire item from view in search product --> in questo modo carrello deve gestire un solo array di selected products/items
   
-  
-
   AddToCart(item: GeneralView) {
     this.itemIntoProduct(this.new, item);
     this.selectedProducts.push(this.new);
@@ -88,7 +88,7 @@ export class CartService {
     else if (this.selectedProducts.length==1) { this.total = 0; }
 
     this.selectedProducts.splice(p_index,1);
-    
+        
     this.syncCart();
   }
 
@@ -99,7 +99,13 @@ export class CartService {
     this.CalculateTotal();
   }
 
+  
 
+  count: number = 0;
+
+  Count() {
+    this.count = this.selectedProducts.length;
+  }
 
   total: number = 0.00;
 
@@ -108,6 +114,8 @@ export class CartService {
     this.selectedProducts.forEach(element => {
       this.total = this.total + element.listPrice;
     })
+    this.Count();
+    
   }
 
   

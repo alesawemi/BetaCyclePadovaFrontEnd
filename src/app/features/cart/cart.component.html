@@ -3,20 +3,6 @@
     <h1>CARRELLO</h1>
 
     <div class="cart-container">
-        <!-- <div *ngIf="cart.selectedItems" class="cart-items">
-            <ul>
-                <li *ngFor="let i of cart.selectedItems; index as n">
-                    <div class="product-info">
-                        <h3>{{i.productName}}</h3>
-                        <p>Color: {{i.color}}</p>
-                        <p>Size: {{i.size}}</p>
-                        <p>Price: {{i.listPrice}} $</p>
-                    </div>
-                    <img *ngIf="i.largeImage" [src]="i.largeImage" alt="Product Image" class="product-image">
-                    <button (click)="cart.RemoveItem(cart.selectedItems[n])" type="submit">Remove</button>
-                </li>
-            </ul>
-        </div> -->
 
         <div *ngIf="cart.selectedProducts" class="cart-items">
             <ul>
@@ -28,14 +14,15 @@
                         <p>Price: {{p.listPrice}} $</p>
                     </div>
                     <img *ngIf="p.largeImage" [src]="p.largeImage" alt="Product Image" class="product-image">
-                    <button (click)="cart.Remove(cart.selectedProducts[m])" type="submit">Remove</button>
+                    <button (click)="cart.Remove(cart.selectedProducts[m])" type="submit">Rimuovi</button>
+                    
                 </li>
             </ul>
         </div>
 
         <div class="cart-summary">
             <h2>Totale ordine: {{(cart.total).toFixed(2)}} $</h2>
-            <h2>aggiungere un riepilogo per tasse, spedizione e totale complessivo prima di "ordina e paga"?</h2>>
+            <h2>aggiungere un riepilogo per tasse, spedizione e totale complessivo prima di "ordina e paga"?</h2>
             <button (click)="cart.OrderAndPay()" type="submit">Ordina & Paga</button>
         </div>
 

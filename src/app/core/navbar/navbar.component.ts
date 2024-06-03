@@ -8,6 +8,7 @@ import { AuthenticationService } from "../../shared/services/authentication.serv
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoleService } from "../../shared/services/role.service";
 import { OnInit } from "@angular/core";
+import { CartService } from "../../shared/services/cart.service";
 
 @Component({
   selector: 'app-navbar',
@@ -20,7 +21,8 @@ export class NavbarComponent {
 
   showDropdown = false;
   userRole: boolean =false;
-  constructor(public auth: AuthenticationService, private router: Router, public roleService: RoleService) {}
+  constructor(public auth: AuthenticationService, private router: Router, public roleService: RoleService, 
+    public cart: CartService) {    }
 
   searchParameter: string = '';
 
@@ -30,11 +32,8 @@ export class NavbarComponent {
     }
   }
 
-
- 
-
-
-  
-
+  ngOnInit() {
+    this.cart.Count();
+  }
 
 }

@@ -165,6 +165,7 @@ export class AccessoriesComponent {
 
 
   ngOnInit() {
+    this.view.allItems = [];
     this.GetAll();
     this.GetOptions();
   }
