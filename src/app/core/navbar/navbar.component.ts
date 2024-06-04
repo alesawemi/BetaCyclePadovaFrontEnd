@@ -33,6 +33,7 @@ export class NavbarComponent {
   }
 
   ngOnInit() {
+    this.cart.cartName = `cart_${this.cart.email}`; //?
     this.cart.Count();
   }
 

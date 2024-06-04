@@ -12,6 +12,9 @@ import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
 
 
+import { Observable, elementAt } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
+import { pWithQuantity } from '../models/cartQuantities';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +27,8 @@ export class CartService {
   userID: number= 0;
   addressID: number = 0;
 
-  selectedProducts: productSearch[] = [];
+  //selectedProducts: productSearch[] = [];
+  selectedProducts: pWithQuantity[] = [];
 
   //ho creato un service per gestire gli SalesOrders sia gli Headers che i Details. 
   constructor(
@@ -52,6 +56,9 @@ export class CartService {
       });
     }); 
 
+    
+ 
+
     this.selectedProducts = JSON.parse(localStorage.getItem(this.cartName) ||'[]');
   }
    
@@ -62,31 +69,52 @@ export class CartService {
   
   
   
-  new: productSearch = new productSearch; //dummy element : serve per convertire item from view in search product --> in questo modo carrello deve gestire un solo array di selected products/items
+  tempProduct: productSearch = new productSearch; //dummy element : serve per convertire item from view in search product --> in questo modo carrello deve gestire un solo array di selected products/items
+  dummyPWithQuantity: pWithQuantity = new pWithQuantity;
+  dummyIndex: number = 0;
   
   AddToCart(item: GeneralView) {
-    this.itemIntoProduct(this.new, item);
-    this.selectedProducts.push(this.new);
-    this.new = new productSearch;
-    this.syncCart();
+    this.itemIntoProduct(item, this.tempProduct);  
+    this.AddProductToCart(this.tempProduct);
+    this.tempProduct = new productSearch;
   }
 
   AddProductToCart(product: productSearch) {
-    this.selectedProducts.push(product);
+
+    if (this.contains(product.productId)) { 
+      this.dummyIndex = this.findIndex(product.productId);
+      this.selectedProducts[this.dummyIndex].quantity = 1 + this.selectedProducts[this.dummyIndex].quantity;
+    }
+    else { 
+      this.dummyPWithQuantity.product = product; 
+      this.dummyPWithQuantity.id = product.productId;
+      this.selectedProducts.push(this.dummyPWithQuantity);
+    }
+
+    this.dummyPWithQuantity = new pWithQuantity;
+    this.dummyIndex = 0; 
     this.syncCart();
+  }
+
+  Add(pq: pWithQuantity) {
+    this.AddProductToCart(pq.product);
   }
 
   
 
-  Remove(product: productSearch) {
+  Remove(product: pWithQuantity) {
 
     const p_index = this.selectedProducts.indexOf(product);
 
-    if (this.selectedProducts.length>1) { this.total = this.total - this.selectedProducts[p_index].listPrice; }
-    else if (this.selectedProducts.length==1) { this.total = 0; }
+    if (this.selectedProducts[p_index].quantity>1) { 
+      this.selectedProducts[p_index].quantity = this.selectedProducts[p_index].quantity - 1;
+      this.total = this.total - this.selectedProducts[p_index].product.listPrice; 
+    }
+    else if (this.selectedProducts[p_index].quantity==1) {
+      this.total = this.total - this.selectedProducts[p_index].product.listPrice;
+      this.selectedProducts.splice(p_index,1);
+    }
 
-    this.selectedProducts.splice(p_index,1);
-        
     this.syncCart();
   }
 
@@ -110,10 +138,9 @@ export class CartService {
   CalculateTotal(){
     this.total = 0;
     this.selectedProducts.forEach(element => {
-      this.total = this.total + element.listPrice;
+      this.total = this.total + element.quantity * (element.product.listPrice);
     })
-    this.Count();
-    
+    this.Count();    
   }
 
   
@@ -161,11 +188,13 @@ export class CartService {
           let detail: SalesOrderDetail = {
             salesOrderId: response.salesOrderId,
             salesOrderDetailId: undefined,
-            orderQty: this.selectedProducts.length,  // Da integrare con le modifiche di MARTINA
-            productId: product.productId,
-            unitPrice: product.listPrice,
+            // INIZIO modifiche integrate - quantity
+            orderQty: product.quantity,  
+            productId: product.id,
+            unitPrice: product.product.listPrice,
             unitPriceDiscount: 0.00,
-            lineTotal: product.listPrice *this.selectedProducts.length // Da integrare con le modifiche di MARTINA
+            lineTotal: product.product.listPrice *this.selectedProducts.length 
+            // FINE modifiche integrate - quantity
           };
           orderDetails.push(detail);
         });
@@ -194,7 +223,7 @@ export class CartService {
 
 
   // per convertire item from view in product (c'è un campo di differenza = main Category di product search che non è presente in generic item from view)
-  itemIntoProduct(product: productSearch, item: GeneralView){
+  itemIntoProduct(item: GeneralView, product: productSearch){
     product.productId = item.productId;
     product.productName = item.productName;
     product.color = item.color;
@@ -207,5 +236,26 @@ export class CartService {
     product.largeImage = item.largeImage;
     product.mainCategory = 'any';  
   }
+
+
+
+
+
+  contains(id: number) : boolean {
+    let outcome: boolean = false;
+    this.selectedProducts.forEach(element => {
+      if (element.id == id) { outcome = true; }
+    })
+    return outcome;
+  }
+
+  findIndex(id: number) : number {
+    let index: number = 0;
+    this.selectedProducts.forEach((element, j) => {
+      if (element.id == id) { index = j; }
+    })
+    return index;
+  }
+  
 
 }

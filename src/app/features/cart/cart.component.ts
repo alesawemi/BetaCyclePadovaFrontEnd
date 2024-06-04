@@ -18,6 +18,4 @@ export class CartComponent {
     this.cart.syncCart();
   }
 
-
-
 }

@@ -8,13 +8,14 @@
             <ul>
                 <li *ngFor="let p of cart.selectedProducts; index as m">
                     <div class="product-info">
-                        <h3>{{p.productName}}</h3>
-                        <p>Color: {{p.color}}</p>
-                        <p>Size: {{p.size}}</p>
-                        <p>Price: {{p.listPrice}} $</p>
+                        <h3>{{p.product.productName}}</h3>
+                        <p>Color: {{p.product.color}}</p>
+                        <p>Size: {{p.product.size}}</p>
+                        <p>Price: {{p.product.listPrice}} $</p>
+                        <h3>Quantità: {{p.quantity}}</h3>
                     </div>
-                    <img *ngIf="p.largeImage" [src]="p.largeImage" alt="Product Image" class="product-image">
-                    <button (click)="cart.Remove(cart.selectedProducts[m])" type="submit">Rimuovi</button>
+                    <img *ngIf="p.product.largeImage" [src]="p.product.largeImage" alt="Product Image" class="product-image">
+                    <button (click)="cart.Remove(cart.selectedProducts[m])" type="submit">-</button> <button (click)="cart.Add(cart.selectedProducts[m])" type="submit">+</button>
                     
                 </li>
             </ul>
