@@ -13,6 +13,7 @@ import { LogTrace } from '../../shared/models/LogTraceData';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { RoleService } from '../../shared/services/role.service';
 import { AdminPanelComponent } from '../../features/admin-panel/admin-panel.component';
+
 @Component({
   selector: 'app-login-registration',
   standalone: true,

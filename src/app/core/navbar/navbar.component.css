@@ -69,7 +69,6 @@ nav li a {
   overflow: hidden; /* Nasconde eventuali testi che escono dalla larghezza massima */
   text-overflow: ellipsis; /* Aggiunge i puntini di sospensione per testi che escono */
   transition: font-size 0.3s; /* Aggiungi una transizione alla dimensione del carattere */
-  border: 2px solid blue;
 }
 
 
@@ -82,7 +81,6 @@ nav li a {
 }
 
 svg{
-  border: 2px solid red;
   width: 1.1vw;
   height: 1.1vw;
 }

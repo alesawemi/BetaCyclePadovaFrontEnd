@@ -1,19 +1,12 @@
 
-    
-
+<body>
 <header role="banner">
-    <h1>Admin Panel</h1>
-    <ul class="utilities">
-      <br>
-      <li class="users">Welcome, Admin </li>
-      <li class="logout warn"><a href="">Log Out</a></li>
-    </ul>
-  </header>
+</header>
   
   <nav role='navigation'>
     <ul class="main">
-      <li class="dashboard"><a href="#">Dashboard</a></li>
-      <li class="edit"><a href="#">Manage Products</a></li>
+      <li class="dashboard" routerLink=''><a>Dashboard</a></li>
+      <li class="edit"><a routerLink="/addProduct">Manage Products</a></li>
       <li class="users"><a href="#">Manage Users</a></li>
       <li class="write"><a href="#">Manage News</a></li>
     </ul>
@@ -118,3 +111,6 @@
 
     </section>
   </main>
+</body>
+
+<router-outlet></router-outlet>

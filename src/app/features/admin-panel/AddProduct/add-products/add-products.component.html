@@ -1,0 +1,11 @@
+<p>add-products works!</p>
+<div style="height: 2000px; margin-top: 100px; width: 100%; background-color:aliceblue">
+    <div>
+        <input type="text" placeholder="productName"  [(ngModel)]="newProduct.Name">
+        <input type="text" placeholder="productNumber"[(ngModel)]="newProduct.ProductNumber"> 
+        <input type="text" placeholder="standardCost" [(ngModel)]="newProduct.ListPrice">
+        <input type="text" placeholder="listPrice"    [(ngModel)]="newProduct.StandardCost">
+        <button (click)="addProduct()">Add</button>
+    </div>
+    
+</div>
