@@ -14,5 +14,6 @@ export class productSearch {
     largeImage: any;
     mainCategoryID: number = 0;
     mainCategory: string = '';
+  quantity: number | undefined;
 
 }

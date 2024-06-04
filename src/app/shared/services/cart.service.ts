@@ -5,15 +5,13 @@ import { SalesOrderDetail } from '../models/salesOrderDetail';
 import { SalesOrderHeader } from '../models/salesOrderHeader';
 import { NewUserHttp } from './newUserHttp.service';
 import { AddressHttp } from './address.service';
-import { AddressCustomer } from '../models/addressData';
 import { SalesOrderHttp } from './salesOrder.service';
 import { AuthenticationService } from './authentication.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
-import { ThisReceiver } from '@angular/compiler';
-import { quantity } from '../models/quantityCart';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -120,21 +118,20 @@ export class CartService {
 
   
 
-  OrderAndPay(): void {
+  OrderAndPay() {
     // Calcola il totale dell'ordine
     // this.CalculateTotal(); // il totale viene già aggiornato automaticamente ogni volta che si aggiungono o tolgono prodotti dal carrello
 
+   
+
     // Crea un nuovo SalesOrderHeader
     let newOrderHeader: SalesOrderHeader = {
-      salesOrderID: undefined,
+      salesOrderId: undefined,
       revisionNumber: 2,
-      orderDate: new Date(),
-      dueDate: new Date(new Date().setDate(new Date().getDate() + 12)),  // Imposta una data di scadenza appropriata
-      shipDate: new Date(new Date().setDate(new Date().getDate() + 7)),  // La data di spedizione può essere impostata in seguito
       status: 1,  // Stato dell'ordine
       onlineOrderFlag: true, // ?
-      salesOrderNumber: undefined,  //SO+salesOrderID
-      purchaseOrderNumber: undefined, //PO+salesOrderID
+      salesOrderNumber: 'undefined',  //SO+salesOrderID
+      purchaseOrderNumber: 'undefined', //PO+salesOrderID
       accountNumber: null,
       customerID: this.userID,  // Imposta l'ID del cliente appropriato
       shipToAddressID: this.addressID,
@@ -151,41 +148,47 @@ export class CartService {
     console.log(newOrderHeader)
 
     
-  
+   // Crea SalesOrderDetails per ogni articolo nel carrello
+   let orderDetails: SalesOrderDetail[] = [];
+
     // Posta il nuovo SalesOrderHeader e ottieni l'ID dell'ordine creato
-    this.salesOrders.PostHeader(newOrderHeader).subscribe(response => {
-      const createdOrderID = response.salesOrderID;
-  
-      // Crea SalesOrderDetails per ogni articolo nel carrello
-      let orderDetails: SalesOrderDetail[] = [];
-   
-      this.selectedProducts.forEach(product => {
-        let detail: SalesOrderDetail = {
-          salesOrderID: createdOrderID,
-          salesOrderDetailID: undefined,
-          orderQty: this.selectedProducts.length,  // Imposta la quantità appropriata
-          productID: product.productId,
-          unitPrice: product.listPrice,
-          unitPriceDiscount: 0.00,
-          lineTotal: product.listPrice  // Imposta il totale della riga appropriato
-        };
-        orderDetails.push(detail);
-      });
-  
-      // Posta ogni SalesOrderDetail al server
-      orderDetails.forEach(detail => {
-        this.salesOrders.PostDetail(detail).subscribe(response => {
-          console.log("Order detail posted successfully:", response);
+    this.salesOrders.PostHeaderFE(newOrderHeader).subscribe({
+      next: response => {
+
+        console.log(response.salesOrderId)
+            
+        this.selectedProducts.forEach(product => {
+          let detail: SalesOrderDetail = {
+            salesOrderId: response.salesOrderId,
+            salesOrderDetailId: undefined,
+            orderQty: this.selectedProducts.length,  // Da integrare con le modifiche di MARTINA
+            productId: product.productId,
+            unitPrice: product.listPrice,
+            unitPriceDiscount: 0.00,
+            lineTotal: product.listPrice *this.selectedProducts.length // Da integrare con le modifiche di MARTINA
+          };
+          orderDetails.push(detail);
         });
-      });
-  
-      // Mostra un messaggio di conferma all'utente
-      alert("Ordine effettuato con successo!");
-  
-      // Svuota il carrello
-      this.selectedProducts = [];
-      this.total = 0;
-    });
+
+     // Debugging log for orderDetails
+    console.log("Order Details:", orderDetails);
+
+        this.salesOrders.PostDetailFE(orderDetails).subscribe({
+          next: response => {
+              // Mostra un messaggio di conferma all'utente
+            alert("Ordine effettuato con successo!");
+        
+            // Svuota il carrello
+            this.selectedProducts = [];
+            this.total = 0;
+            localStorage.removeItem('cart_'+this.email);
+          }
+        })
+
+        
+      }, 
+      
+      error: (error: any) => {console.log(error)}});
   }
 
 

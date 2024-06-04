@@ -30,6 +30,10 @@ import { SalesOrderDetail } from '../models/salesOrderDetail';
     return this.http.post<SalesOrderHeader>(`${this.private_Url_SalesOrderHeaders}`, postHeader);
     }
 
+    PostHeaderFE(postHeader: SalesOrderHeader){
+      return this.http.post<SalesOrderHeader>(`${this.private_Url_SalesOrderHeaders}/FrontEnd`, postHeader);
+    }
+
     UpdateHeaderById(id: number, updHeader: SalesOrderHeader)
     {
     return this.http.put<SalesOrderHeader>(`${this.private_Url_SalesOrderHeaders}/${id}`, updHeader);
@@ -54,6 +58,10 @@ import { SalesOrderDetail } from '../models/salesOrderDetail';
 
     PostDetail(postDetail: SalesOrderDetail){
     return this.http.post<SalesOrderDetail>(`${this.private_Url_SalesOrderDetails}`, postDetail);
+    }
+
+    PostDetailFE(postDetail: SalesOrderDetail[]){
+      return this.http.post<SalesOrderDetail>(`${this.private_Url_SalesOrderDetails}/FrontEnd`, postDetail);
     }
 
     UpdateDetailById(id: number, updDetail: SalesOrderDetail)

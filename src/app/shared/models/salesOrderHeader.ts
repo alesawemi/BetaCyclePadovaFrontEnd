@@ -1,10 +1,10 @@
 export class SalesOrderHeader {
 
-    salesOrderID: number | undefined;
+    salesOrderId: number | undefined;
     revisionNumber: number | undefined;
-    orderDate: Date | undefined;
-    dueDate: Date | undefined;
-    shipDate: Date | undefined;
+    // orderDate: Date | undefined|null;
+    // dueDate: Date | undefined|null;
+    // shipDate: Date | undefined|null;
     status: number = 5;
     onlineOrderFlag: boolean = false;
     salesOrderNumber: string | undefined;
