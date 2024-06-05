@@ -17,9 +17,9 @@ import { CategoryComponent } from '../carousels/category/category/category.compo
 
 export class HomeComponent implements OnInit{
   phrases: string[] = [
-    "Scegli la tua strada, scegli la tua bicicletta",
-    "Ogni pedalata è un'avventura",
-    "Libera la tua mente e il tuo spirito: pedala con noi!"
+    "Choose your road, choose your bike!",
+    "Every ride is an adventure!",
+    "Free your mind and your spirit: ride with us!"
   ];
   currentPhrase: string = '';
   currentIndex: number = 0;
