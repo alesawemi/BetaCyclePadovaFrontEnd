@@ -56,8 +56,6 @@ export class CartService {
       });
     }); 
 
-    
- 
 
     this.selectedProducts = JSON.parse(localStorage.getItem(this.cartName) ||'[]');
   }

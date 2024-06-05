@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
 import { Registration } from '../../shared/models/registrationdata';
 import { NewUserHttp } from '../../shared/services/newUserHttp.service';
@@ -14,6 +15,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { RoleService } from '../../shared/services/role.service';
 import { AdminPanelComponent } from '../../features/admin-panel/admin-panel.component';
 
+
 @Component({
   selector: 'app-login-registration',
   standalone: true,
@@ -21,6 +23,8 @@ import { AdminPanelComponent } from '../../features/admin-panel/admin-panel.comp
   templateUrl: './login-registration.component.html',
   styleUrl: './login-registration.component.css'
 })
+
+
 
 export class LoginRegistrationComponent {
   
@@ -51,7 +55,7 @@ export class LoginRegistrationComponent {
 
 
 
-  // REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
+  //#region REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
   
   [x: string]: any;
   confirmPassword: string ='';  
@@ -146,11 +150,13 @@ export class LoginRegistrationComponent {
       } else {
         // Gestisci altri casi di errore
         console.error('Si è verificato un errore:', err);
+        alert('Si è verificato un errore. Riprova!')
       }
     }
    })
   }
 
+//#endregion
 
 
 
@@ -160,13 +166,18 @@ export class LoginRegistrationComponent {
 
 
 
-
-  // LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#region LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
   loginCredentials: Credentials = new Credentials();
   private jwtHelper: JwtHelperService = new JwtHelperService();
+  isLoading: boolean = false; // Variabile di stato per il caricamento
 
   jwtToken: string = '';
   Login(usr: HTMLInputElement, pwd: HTMLInputElement) {
+
+     // Aggiungi la classe spinner al corpo del documento
+    this.isLoading = true;
+    
+
     if (usr.value != '' && pwd.value != '') //controllo ripetuto nel backend
     {
       this.loginCredentials.username = usr.value;
@@ -179,24 +190,24 @@ export class LoginRegistrationComponent {
             case HttpStatusCode.Ok:
               // if (this.auth.TypeOfAuthorization ===  'basic') 
               //   { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
-              if (this.auth.TypeOfAuthorization === 'jwt') {
+              if (this.auth.TypeOfAuthorization === 'jwt') {                             
                 this.jwtToken = response.body.token;
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
                 const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
                 const role = decodedToken.role;
-                this.setRole(role);
-                ;
-
+                this.setRole(role);               
               }
-              console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)
+              console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)              
+              this.isLoading = false;
               this.router.navigate(['home']); // Redirect alla home
               break;
             case HttpStatusCode.NoContent:
-
+              this.isLoading = false;
               break;
           }
         },
         error: (err: any) => {
+          this.isLoading = false;
           this.fEndError = new LogTrace;
           this.fEndError.Level = 'error';
           this.fEndError.Message = 'An Error Occurred in Login';
@@ -219,7 +230,7 @@ export class LoginRegistrationComponent {
 
           //trovare soluzione alternativa a alert --> popup con finestra di dialogo?
           if (err.status === 404) {
-            //alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
+            alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
             const container = document.getElementById('container');
             if (container) {
               container.classList.add("right-panel-active");
@@ -240,8 +251,10 @@ export class LoginRegistrationComponent {
    console.log(this.roleService.setUserRole(role))
   }
 
-
-
+  isPageLoading() {
+    return this.isLoading;
+  }
+//#endregion
 
 
 
@@ -267,6 +280,7 @@ export class LoginRegistrationComponent {
     }
   }
   
-
-
 }
+
+
+
