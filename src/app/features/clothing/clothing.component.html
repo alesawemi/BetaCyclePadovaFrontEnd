@@ -1,15 +1,15 @@
 <body>
 <mat-drawer-container class="bikes-container">
 <mat-drawer mode="side" opened class="mat">
-    <h2>Abbigliamento</h2>
+    <h2>Clothing</h2>
 
-    <button (click)="GetFiltered()">Filtra</button>  
+    <button (click)="GetFiltered()">Filter</button>  
     
-    <button (click)="GetAll()">Rimuovi Tutti i Filtri</button>
+    <button (click)="GetAll()">Remove All Filters</button>
 
     <div class='parent'>
         <div class='child'>
-            <ul> <p>Colore</p> 
+            <ul> <p>Color</p> 
                 <li *ngFor="let col of view.viewProperties.availableColors">
                     <input type="checkbox" [(ngModel)]="selectedColors[col]"> {{col}}
                 </li>
@@ -17,7 +17,7 @@
         </div>
         
         <div class='child'>
-            <ul> <p>Categoria</p> 
+            <ul> <p>Category</p> 
                 <li *ngFor="let cat of view.viewProperties.availableCategories">
                     <input type="checkbox" [(ngModel)]="selectedCategories[cat]"> {{cat}}
                 </li>
@@ -25,7 +25,7 @@
         </div>
 
         <div class='child'>
-            <ul> <p>Taglia</p> 
+            <ul> <p>Size</p> 
                 <li *ngFor="let s of view.viewProperties.availableSizes">
                     <input type="checkbox" [(ngModel)]="selectedSizes[s]"> {{s}}
                 </li>
@@ -33,13 +33,13 @@
         </div>
 
         <div class='child'>
-            <ul> <p>Prezzo</p> 
-                <li> <input  type="checkbox" [(ngModel)] = "priceAscending" [disabled]="priceDescending"> Prezzo Crescente </li>
+            <ul> <p>Price</p> 
+                <li> <input  type="checkbox" [(ngModel)] = "priceAscending" [disabled]="priceDescending"> Price Ascending </li>
                 <!-- (change)="ifAscending($event)" -->
-                <li> <input  type="checkbox" [(ngModel)] = "priceDescending" [disabled]="priceAscending"> Prezzo Decrescente </li>          
+                <li> <input  type="checkbox" [(ngModel)] = "priceDescending" [disabled]="priceAscending"> Price Descending </li>          
                 <!-- (change)="ifDescending($event)" -->
                 <li *ngFor="let pRange of view.priceIntervals, index as i">
-                    <input type="checkbox" [(ngModel)]="selectedPriceRange[i]"> Da {{pRange}} $
+                    <input type="checkbox" [(ngModel)]="selectedPriceRange[i]"> From {{pRange}} $
                         <!-- (change)="checkPrice($event)" [disabled]="checkedPrices[i]" -->                        
                 </li>
             </ul>          
