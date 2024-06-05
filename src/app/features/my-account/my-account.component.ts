@@ -25,6 +25,8 @@ export class MyAccountComponent implements OnInit {
   updId: number = 0;
   adrsId: number = 0;
 
+  isLoading: boolean = false; // Variabile di stato per il caricamento
+
   // Per avere i valori sempre aggiornati nel form
   originalProfileValues: any;
   originalAddressValues: any;
@@ -47,6 +49,8 @@ export class MyAccountComponent implements OnInit {
   ngOnInit(): void {
     this.initForms(); //imposta i Validator dei vari campi form
     this.loadData(); //carico i dati che ci sono nel database
+
+    
   }
 
   initForms() {
@@ -69,6 +73,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   loadData() { 
+    this.isLoading = true
     this.email = this.auth.getEmailFromJwt();
     console.log('email: ' + this.email)
 
@@ -90,6 +95,7 @@ export class MyAccountComponent implements OnInit {
             this.setAddressPlaceholder('','','','','','','');
             this.found = false;
           });
+          this.isLoading = false
         }
       }, error => {
         console.error('Error fetching user:', error);
@@ -97,6 +103,9 @@ export class MyAccountComponent implements OnInit {
     }
   }
 
+  isPageLoading() {
+    return this.isLoading;
+  }
   
   setUserPlaceholder(email: string, firstName: string, lastName: string, phone: string) {
     // Imposta i placeholder per i campi del form

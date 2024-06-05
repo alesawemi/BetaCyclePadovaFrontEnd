@@ -209,6 +209,7 @@ export class CartService {
             this.selectedProducts = [];
             this.total = 0;
             localStorage.removeItem('cart_'+this.email);
+            this.Count(); 
           }
         })
 

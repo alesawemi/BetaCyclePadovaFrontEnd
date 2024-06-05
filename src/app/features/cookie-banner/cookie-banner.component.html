@@ -1,4 +1,49 @@
 <div id="cookie-banner" *ngIf="!cookieConsent" (click)="a($event)">
+  <div id="cookie-banner-content">
+    <button id="cookie-banner-close" (click)="rejectCookies()">X</button>
+    <h4>Cookies Banner</h4>
+    <p>
+      <span>We use cookies and similar technologies for technical purposes and, with your consent, 
+        also for statistical and marketing purposes (with personalized ads) 
+        as specified in the <a (click)="redirectToPolicy()">cookie policy</a>.
+      </span>
+      <br>
+      <span>
+        You can freely give, refuse, or withdraw your consent at any time by accessing the preferences panel.
+      <br>  
+        Refusing consent prevents the use of data for statistical and marketing purposes.
+      <br>  
+        Use the "Accept" button to consent. Use the "Reject" button or press "X" to continue without accepting.
+      </span>
+    </p>
+    <div id="cookie-banner-buttons">
+      <button id="customize-button" (click)="choosePreferences($event)">Learn More and Customize</button>
+      <button id="accept-button" (click)="acceptCookies($event)">Accept</button>
+      <button id="reject-button" (click)="rejectCookies()">Reject</button>
+    </div>
+    <div id="preferences-section" *ngIf="showPreferences" (click)="a($event)">
+      <h5 (click)="a($event)">Cookie Preferences</h5>
+      <div class="preference">
+        <input type="checkbox" id="necessary" checked disabled (click)="a($event)">
+        <label for="necessary" (click)="a($event)">Strictly Necessary</label>
+      </div>
+      <div class="preference">
+        <input type="checkbox" id="statistical" (click)="a($event)">
+        <label for="statistical" (click)="a($event)">Statistical</label>
+      </div>
+      <div class="preference">
+        <input type="checkbox" id="marketing" (click)="a($event)">
+        <label for="marketing" (click)="a($event)">Marketing</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Italian Version-->
+<!-- <div id="cookie-banner" *ngIf="!cookieConsent" (click)="a($event)">
     <div id="cookie-banner-content">
       <button id="cookie-banner-close" (click)="rejectCookies()">X</button>
       <h4>Cookies Banner</h4>
@@ -37,5 +82,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   

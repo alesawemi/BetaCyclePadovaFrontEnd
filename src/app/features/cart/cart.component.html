@@ -1,6 +1,6 @@
 <body>
 
-    <h1>CARRELLO</h1>
+    <h1>YOUR ONLINE CART</h1>
 
     <div class="cart-container">
 
@@ -22,9 +22,9 @@
         </div>
 
         <div class="cart-summary">
-            <h2>Totale ordine: {{(cart.total).toFixed(2)}} $</h2>
-            <h2>aggiungere un riepilogo per tasse, spedizione e totale complessivo prima di "ordina e paga"?</h2>
-            <button (click)="cart.OrderAndPay()" type="submit">Ordina & Paga</button>
+            <h2>Total: {{(cart.total).toFixed(2)}} $</h2>
+            <!-- <h2>aggiungere un riepilogo per tasse, spedizione e totale complessivo prima di "ordina e paga"?</h2> -->
+            <button (click)="cart.OrderAndPay()" type="submit">Order & Pay</button>
         </div>
 
     </div>

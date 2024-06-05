@@ -133,3 +133,7 @@ body {
     }
   }
   
+
+  body.waiting-cursor {
+    cursor: wait !important;
+    }
