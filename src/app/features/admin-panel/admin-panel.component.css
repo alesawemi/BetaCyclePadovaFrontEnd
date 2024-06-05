@@ -307,4 +307,58 @@ td {
   .panel.secondary {
     width: 23%;
   }
+
+
+
+
+  /* Submenu styles */
+  nav[role="navigation"] .submenu {
+    display: none;
+    background: #3b4a59;
+    /* Submenu background color */
+    padding-left: 15px;
+    /* Indentation for submenu */
+  }
+
+  nav[role="navigation"] .submenu li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  nav[role="navigation"] .submenu li a {
+    padding: 0.5em 0.7em;
+    /* Adjust padding for submenu items */
+  }
+
+  nav[role="navigation"] .submenu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Submenu hover effect */
+  }
+
+  /* Submenu item icons */
+  nav[role="navigation"] .add-product a:before {
+    content: "\f067";
+    /* FontAwesome icon for 'plus' (Add) */
+    font-family: FontAwesome;
+    padding-right: 0.6em;
+  }
+
+  nav[role="navigation"] .edit-product a:before {
+    content: "\f044";
+    /* FontAwesome icon for 'edit' (Edit) */
+    font-family: FontAwesome;
+    padding-right: 0.6em;
+  }
+
+  nav[role="navigation"] .delete-product a:before {
+    content: "\f1f8";
+    /* FontAwesome icon for 'trash' (Delete) */
+    font-family: FontAwesome;
+    padding-right: 0.6em;
+  }
+
+  /* Show submenu on hover */
+  nav[role="navigation"] .edit:hover .submenu {
+    display: block;
+  }
+  
 }

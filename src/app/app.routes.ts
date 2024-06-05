@@ -22,6 +22,7 @@ import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy
 import { ChatComponent } from './features/chat/chat.component';
 import { AdminPanelComponent } from './features/admin-panel/admin-panel.component';
 import { AddProductsComponent } from './features/admin-panel/AddProduct/add-products/add-products.component';
+import { UpdateProductComponent } from './features/admin-panel/update-product/update-product.component';
 
 
 
@@ -50,6 +51,7 @@ export const routes: Routes = [
 
     {path: 'admin-panel',component:AdminPanelComponent},
     {path:'addProduct',component:AddProductsComponent},
+    {path: 'updateProduct', component:UpdateProductComponent},
 
     {path: '', redirectTo: 'home', pathMatch: 'full' }, //Reindirizza alla pagina home 
 ];

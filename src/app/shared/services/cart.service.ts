@@ -15,6 +15,7 @@ import { LogTrace } from '../models/LogTraceData';
 import { Observable, elementAt } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
 import { pWithQuantity } from '../models/cartQuantities';
+import { cartDB } from '../models/cartData';
 
 @Injectable({
   providedIn: 'root'
@@ -120,8 +121,10 @@ export class CartService {
 
   syncCart(){
     localStorage.setItem(this.cartName, JSON.stringify(this.selectedProducts)); 
-    this.CalculateTotal();
+    this.CalculateTotal();    
   }
+
+  
 
   
 
@@ -238,8 +241,6 @@ export class CartService {
 
 
 
-
-
   contains(id: number) : boolean {
     let outcome: boolean = false;
     this.selectedProducts.forEach(element => {
@@ -255,6 +256,100 @@ export class CartService {
     })
     return index;
   }
+
+
+
+  //#region  We apologize, this feature is not complete yet
+  // CART TO AND FROM DB -- LOGIN FROM MULTIPLE DEVICES -- IN PROGRESS 
+
+  // postCartToDb() {    
+  //   console.log("let's try post cart to db")
+    
+  //   this.selectedProducts.forEach(element => {
+  //     let cartToPost: cartDB = new cartDB;
+  //     cartToPost.ProductId = element.id;
+  //     cartToPost.Quantity = element.quantity;
+  //     cartToPost.UserEmail = this.email;
+  //     this.PostCartToDb(cartToPost);
+  //   })
+  // }
+
+  // dbCart: cartDB[] = [];
+
+  // GetCartFromDb(email: string){
+  //   this.GetCart(email)
+  //   .subscribe({
+  //       next: (Data: any) => { 
+  //         console.log(Data)
+  //         if(Data.$values.length>0) {
+  //           this.dbCart = Data.$values.map((item: any) => this.mapToCartDB(item));        
+  //           console.log(this.dbCart);
+  //         }
+  //         else { 
+          
+  //         }
+  //       },
+  //       error: (errore: any) => { console.log(errore.message);
+  //         // this.fEndError = new LogTrace;
+  //         // this.fEndError.Logger = 'error';
+  //         // this.fEndError.Message = `An Error Occurred`;
+  //         // this.fEndError.Logger = '';
+  //         // this.fEndError.Exception = errore.message;
+  //         // this.logtrace.PostError(this.fEndError).subscribe({
+  //         //   next: (Data: any) => { 
+  //         //     console.log('post frontend error to db:'); console.log(Data);
+  //         //   },
+  //         //   error: (err: any) => {
+  //         //     console.log('post frontend error to db:'); console.log(err);
+  //         //   }
+  //         // })
+  //       }
+  //     })
+  // }
+
+  // PostCartToDb(cart: cartDB){
+  //   this.PostCart(cart)
+  //   .subscribe({
+  //       next: (Data: any) => { console.log(Data); },
+  //       error: (errore: any) => { console.log(errore.message);
+  //         // this.fEndError = new LogTrace;
+  //         // this.fEndError.Logger = 'error';
+  //         // this.fEndError.Message = `An Error Occurred`;
+  //         // this.fEndError.Logger = '';
+  //         // this.fEndError.Exception = errore.message;
+  //         // this.logtrace.PostError(this.fEndError).subscribe({
+  //         //   next: (Data: any) => { 
+  //         //     console.log('post frontend error to db:'); console.log(Data);
+  //         //   },
+  //         //   error: (err: any) => {
+  //         //     console.log('post frontend error to db:'); console.log(err);
+  //         //   }
+  //         // })
+  //       }
+  //     })
+  // }
   
+
+
+  // GetCart(email: string): Observable<any>{
+  //   return this.http.get(`https://localhost:7228/api/CompleteCart/GetByEmail/${email}`);
+  // }
+
+  // PostCart(cart: cartDB): Observable<any>{
+  //   return this.http.post(`https://localhost:7228/api/CompleteCart`, cart);
+  // }
+
+
+
+  // mapToCartDB(item: any): cartDB {
+  //   const cartItem = new cartDB();
+  //   cartItem.EntryId = item.entryId;
+  //   cartItem.UserEmail = item.userEmail;
+  //   cartItem.ProductId = item.productId;
+  //   cartItem.Quantity = item.quantity;
+  //   cartItem.LastUpdateOn = new Date(item.lastUpdateOn);
+  //   return cartItem;
+  // }
+  //#endregion
 
 }

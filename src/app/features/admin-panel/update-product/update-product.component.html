@@ -1,0 +1,45 @@
+<body>
+
+    <section>
+      <input type="checkbox" [(ngModel)]="bikes" (change)="Filters($event)" /> Bikes
+      <input type="checkbox" [(ngModel)]="components" (change)="Filters($event)" /> Components
+      <input type="checkbox" [(ngModel)]="accessories" (change)="Filters($event)" /> Accessories
+      <input type="checkbox" [(ngModel)]="clothing" (change)="Filters($event)" /> Clothing
+    </section>
+  
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>Select</th> -->
+          <th>Product ID</th>
+          <th>Product Name</th>
+          <th>Color</th>
+          <th>Standard Cost</th>
+          <th>List Price</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Product Category</th>
+          <th>Product Model</th>
+          <th>Action</th> <!-- New column for the submit button -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of allProducts">
+          <!-- <td>
+            <input type="checkbox" (change)="onCheckboxChange(product, $event)" />
+          </td> -->
+          <td>{{ product.productId }}</td>
+          <td contenteditable="true">{{ product.productName }}</td> <!-- Editable cell -->
+          <td contenteditable="true">{{ product.color }}</td> <!-- Editable cell -->
+          <td contenteditable="true">{{ product.standardCost }}</td> <!-- Editable cell -->
+          <td contenteditable="true">{{ product.listPrice }}</td> <!-- Editable cell -->
+          <td contenteditable="true">{{ product.size }}</td> <!-- Editable cell -->
+          <td contenteditable="true">{{ product.weight }}</td> <!-- Editable cell -->
+          <td>{{ product.productCategory }}</td>
+          <td>{{ product.productModel }}</td>
+          <td><button (click)="submitUpdate(product)">Submit</button></td> <!-- Submit button -->
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  
