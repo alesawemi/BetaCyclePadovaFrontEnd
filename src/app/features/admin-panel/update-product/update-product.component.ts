@@ -3,11 +3,10 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { LogtraceService } from '../../../shared/services/logtrace.service';
 import { LogTrace } from '../../../shared/models/LogTraceData';
-import { DBproduct, productSearch } from '../../../shared/models/productSearchData';
+import { productSearch } from '../../../shared/models/productSearchData';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
-import { SearchComponent } from '../../search/search.component';
-import { AddProduct } from '../../../shared/models/product';
+
 
 @Component({
   selector: 'app-update-product',
@@ -18,50 +17,36 @@ import { AddProduct } from '../../../shared/models/product';
 })
 export class UpdateProductComponent {
 
-  constructor (private http: HttpClient, private logtrace: LogtraceService) { }
+  updateId: number = 0; // To store the entered product ID
+  productInfo: productSearch = new productSearch; // To store the product information
+
+  constructor (private http: HttpClient, private logtrace: LogtraceService) 
+  { }
 
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
 
-
-  selectedIDs: number[] = [];
-
-  onCheckboxChange(product: productSearch, event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    const isChecked = inputElement?.checked;
-    if (isChecked !== undefined && isChecked !== null) {
-      if (isChecked) {
-        this.selectedIDs.push(product.productId);
-      } else {
-        this.selectedIDs = this.selectedIDs.filter(p => p !== product.productId);
-      }
-    }
-    console.log(this.selectedIDs)
-  }
-
-  modified: DBproduct = new DBproduct;
-  submitUpdate(product: productSearch){
-    this.convert(product);
-    this.PostProduct(product.productId).subscribe({
+  getProductInfo(id: HTMLInputElement) {
+    this.updateId=parseInt(id.value)
+    // Find the product in allProducts array based on productId
+    this.GetProductById(this.updateId).subscribe({
       next: (Data:any) => {
-        console.log(Data)
+        console.log(Data);
+        this.productInfo.productId = Data.productId;
+        this.productInfo.color = Data.color;
+        this.productInfo.listPrice = Data.listPrice;
+        this.productInfo.productName = Data.name;
+        this.productInfo.size = Data.size;
+        this.productInfo.weight = Data.weight; 
       },
       error: (err:any) => {
         console.log(err)
-        console.log(err.message)
       }
     })
+    console.log(this.productInfo)
   }
 
-  convert(p: productSearch){
-    this.modified = new DBproduct;
-    this.modified.Name = p.productName;
-    this.modified.Color = p.color;
-    this.modified.Size = p.size;
-    this.modified.ListPrice = p.listPrice;
-    this.modified.Weight = p.weight;
-  }
-
+  
 
   bikes: boolean = false;
   components: boolean = false;
@@ -144,7 +129,11 @@ export class UpdateProductComponent {
     return this.http.get(`https://localhost:7228/api/ProductsView`);
   }
 
-  PostProduct(id: number): Observable<any>{
-    return this.http.put(`https://localhost:7228/api/Products/${id}`, this.modified)
+  GetProductById(id: number): Observable<any>{
+    return this.http.get(`https://localhost:7228/api/Products/${id}`)
   }
+
+  // PostProduct(id: number): Observable<any>{
+  //   return this.http.put(`https://localhost:7228/api/Products/${id}`, this.modified)
+  // }
 }
