@@ -2,221 +2,179 @@
     <div id="wrap">
         <div id="grid">
             <div class="column column1">
-            <div class="step" id="step2">
-                <div class="number">
-                    <span>1</span>
+                <div class="step" id="step1">
+                    <div class="number">
+                        <span>1</span>
+                    </div>
+                    <div class="title">
+                        <h1>Edit your address</h1>
+                    </div>
                 </div>
-                <div class="title">
-                    <h1>Shipping Information</h1>
-                </div>
-            </div>
-            <div class="content" id="address">
-                <form class="go-right">
-                    <div>
-                    <input type="name" name="first_name" value="" id="first_name" placeholder="First Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your First Name"/><label for="first_name">First Name</label>
-            </div>
-            
-                    <div>
-                    <input type="name" name="last_name" value="" id="last_name" placeholder="Last Name" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Last Name"/><label for="last_name">Last Name</label>
-                    </div>
-                    <div>
-                    <input type="phone" name="telephone" value="" id="telephone" placeholder="Phone(555)-555-5555" data-trigger="change" data-validation-minlength="1" data-type="number" data-required="true" data-error-message="Enter Your Telephone Number"/><label for="telephone">Telephone</label>
-                    </div>
-                    <div>
-                    <input type="text" name="company" value="" id="company" placeholder="Company" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="false"/>
-              <label for="Company">Company</label>
-                    </div>
-                    <div>
-                    <input type="text" name="address" value="" id="address" placeholder="Address" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing Address"/><label for="Address">Address</label>
-                    </div>
-                    <div>
-                    <input type="text" name="city" value="" id="city" placeholder="City" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing City"/><label for="city">City</label>
-                    </div>
-                    <div>
-                    <div class="state_options">
-                        <div class="select">
-                             <select id="state">
-                                   <option value = "1">Alabama</option>
-                                   <option value = "2">Alaska</option>
-                                   <option value = "3">Arkansas</option>
-                                   <option value = "4">Etc.</option>
-                             </select>
-                         </div>
-                              <label class="state" for="state">State</label>
-                      </div>
-                    </div>
-                    <div>
-                    <input type="text" name="zip" value="" id="zip" placeholder="Zip Code" data-trigger="change" data-validation-minlength="1" data-type="text" data-required="true" data-error-message="Enter Your Billing Zip Code"/><label for="zip">Zip Code</label>
-                    </div>
-                    <div>
-                    <div class="country_options">
-                        <div class="select">
-                             <select id="country">
-                                   <option value = "1">United States</option>
-                                   <option value = "2">United Kingdom</option>
-                                   <option value = "3">Uganda</option>
-                                   <option value = "4">Etc.</option>
-                             </select>
-                         </div>
-                    <label class="country" for="country">Country</label>
-                      </div>
-                    </div>
-                    <div>
-                    <input type="checkbox"/>
-                    <label class="same" for="same_as_shipping">Same As Shipping Address</label><span></span>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="column column2">
-            <div class="step" id="step3">
-                <div class="number">
-                    <span>2</span>
-                </div>
-                <div class="title">
-                    <h1>Shipping Costs</h1>
-                </div>
-                <div class="modify">
-                    <i class="fa fa-plus-circle"></i>
-                </div>
-            </div>
-            <div class="content" id="shipping">
-                <form action="" method="" name="">
-                    <div>
-                        <input type="radio" id="shipping_1" value="1"/><label for="shipping_1"> Standard Shipping <span class="price">$4.00</span></label>
-                    </div>
-                    <p>		
-                        <input type="radio" id="shipping_2" value="2"/><label for="shipping_2"> Express Shipping <span class="price">$8.00</span></label>
-                    </p>
-                </form>
-            </div>
-            <div class="step" id="step4">
-                <div class="number">
-                    <span>3</span>
-                </div>
-                <div class="title">
-                    <h1>Payment Information</h1>
-                </div>
-                <div class="modify">
-                    <i class="fa fa-plus-circle"></i>
-                </div>
-            </div>
-            <div class="content" id="payment">
-                <div class="left">
-                <form class="go-right">
-                    <div>
-                    <input type="text" name="card_number" value="" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Number"/><label for="card_number">Card Number</label>
-                    </div>
-                    <div>
-                      <div class="expiry">	
-                          <div class="month_select">
-                            <select name="exp_month" value="" id="exp_month" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
-                                <option value = "1">01 </option>
-                                   <option value = "2">02 </option>
-                                   <option value = "3">03 </option>
-                                   <option value = "4">04 </option>
-                                   <option value = "5">05 </option>
-                                   <option value = "6">06 </option>
-                                   <option value = "7">07 </option>
-                                   <option value = "8">08 </option>
-                                   <option value = "9">09 </option>
-                                   <option value = "10">10 </option>
-                                   <option value = "11">11 </option>
-                                   <option value = "12">12 </option>
-                            </select>
-                          </div>
-                          <div class="year_select">
-                            <select name="exp_year" value="" id="exp_year" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
-                                 <option value = "1">2023    </option>
-                                   <option value = "2">2024 </option>
-                                   <option value = "3">2025 </option>
-                                   <option value = "4">2026 </option>
-                                   <option value = "5">2027 </option>
-                                   <option value = "6">2028 </option>
-                            </select>
-                          </div>
-                      <label class="exp_date" for="Exp_Date">Exp Date</label>
+                <div class="content" id="shipping">
+                    <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+                        <div>
+                            <input type="text" formControlName="addressLine1" id="addressLine1" placeholder="AddressLine1" [ngClass]="{'untouched-field': addressForm.get('addressLine1')?.pristine}">
+                            <label for="addressLine1">AddressLine1</label>
                         </div>
-                      </div>
-                    <div class="sec_num">
-                  <div>
-                            <input type="text" name="ccv" value="" id="ccv" placeholder="123" data-trigger="change" data-validation-minlength="3" data-type="name" data-required="true" data-error-message="Enter Your Card Security Code"/><label for="ccv">Security Code</label>
-                          </div>
-                          </div>
-                      </form>
-                </div>
-                <div class="right">
-                    <div class="accepted">
-                        <span><img src="https://i.imgur.com/Z5HVIOt.png"></span>
-                        <span><img src="https://i.imgur.com/Pu4e7AT.png"></span>
-                        <span><img src="https://i.imgur.com/ewMjaHv.png"></span>
-                        <span><img src="https://i.imgur.com/3LmmFFV.png"></span>
-                    </div>
-                </div>
-             </div>
-         </div>
-         <div class="column column3">
-             <div class="step" id="step5">
-                <div class="number">
-                    <span>4</span>
-                </div>
-                <div class="title">
-                    <h1>Finalize Order</h1>
-                </div>
-                <div class="modify">
-                    <i class="fa fa-plus-circle"></i>
+                        <div>
+                            <input type="text" formControlName="addressLine2" id="addressLine2" placeholder="AddressLine2" [ngClass]="{'untouched-field': addressForm.get('addressLine2')?.pristine}">
+                            <label for="addressLine2">AddressLine2</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="city" id="city" placeholder="City" [ngClass]="{'untouched-field': addressForm.get('city')?.pristine}">
+                            <label for="city">City</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="stateProvince" id="stateProvince" placeholder="StateProvince" [ngClass]="{'untouched-field': addressForm.get('stateProvince')?.pristine}">
+                            <label for="stateProvince">StateProvince</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="countryRegion" id="countryRegion" placeholder="CountryRegion" [ngClass]="{'untouched-field': addressForm.get('countryRegion')?.pristine}">
+                            <label for="countryRegion">CountryRegion</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="postalCode" id="postalCode" placeholder="Postal Code" [ngClass]="{'untouched-field': addressForm.get('postalCode')?.pristine}">
+                            <label for="postalCode">Postal Code</label>
+                        </div>
+                        <div>
+                            <input type="text" formControlName="addressType" id="addressType" placeholder="Address Type" [ngClass]="{'untouched-field': addressForm.get('addressType')?.pristine}">
+                            <label for="addressType">Address Type</label>
+                        </div>
+                        
+                        <button type="submit" [disabled]="addressForm.invalid || addressForm.pristine">Update Address</button>
+                        <button type="button" (click)="cancelAddressChanges()">Undo</button>
+                    </form>
                 </div>
             </div>
-            <div class="content" id="final_products">
-                <div class="left" id="ordered">
-                    <div class="products">
-                        <div class="product_image">
-                            <img src="data:image/jpeg;base64,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"/>
+
+
+            <div class="column column2">
+                <div class="step" id="step2">
+                    <div class="number">
+                        <span>2</span>
+                    </div>
+                    <div class="title">
+                        <h1>Payment Information</h1>
+                    </div>
+                    <div class="modify">
+                        <i class="fa fa-plus-circle"></i>
+                    </div>
+                </div>
+                <div class="content" id="payment">
+                    <div class="left">
+                    <form class="go-right">
+                        <div>
+                        <input type="text" name="card_number" value="" id="card_number" placeholder="xxxx-xxxx-xxxx-xxxx" data-trigger="change" data-validation-minlength="1" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Number"/><label for="card_number">Card Number</label>
                         </div>
-                        <div class="product_details">
-                            <span class="product_name">Caffettino</span>
-                            <span class="quantity">1</span>
-                            <span class="price">$45.00</span>
+                        <div>
+                        <div class="expiry">	
+                            <div class="month_select">
+                                <select name="exp_month" value="" id="exp_month" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
+                                    <option value = "1">01 </option>
+                                    <option value = "2">02 </option>
+                                    <option value = "3">03 </option>
+                                    <option value = "4">04 </option>
+                                    <option value = "5">05 </option>
+                                    <option value = "6">06 </option>
+                                    <option value = "7">07 </option>
+                                    <option value = "8">08 </option>
+                                    <option value = "9">09 </option>
+                                    <option value = "10">10 </option>
+                                    <option value = "11">11 </option>
+                                    <option value = "12">12 </option>
+                                </select>
+                            </div>
+                            <div class="year_select">
+                                <select name="exp_year" value="" id="exp_year" placeholder="" data-trigger="change" data-type="name" data-required="true" data-error-message="Enter Your Credit Card Expiration Date">
+                                    <option value = "1">2023    </option>
+                                    <option value = "2">2024 </option>
+                                    <option value = "3">2025 </option>
+                                    <option value = "4">2026 </option>
+                                    <option value = "5">2027 </option>
+                                    <option value = "6">2028 </option>
+                                </select>
+                            </div>
+                        <label class="exp_date" for="Exp_Date">Exp Date</label>
+                            </div>
+                        </div>
+                        <div class="sec_num">
+                    <div>
+                                <input type="text" name="ccv" value="" id="ccv" placeholder="123" data-trigger="change" data-validation-minlength="3" data-type="name" data-required="true" data-error-message="Enter Your Card Security Code"/><label for="ccv">Security Code</label>
+                            </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="right">
+                        <div class="accepted">
+                            <span><img src="https://i.imgur.com/Z5HVIOt.png"></span>
+                            <span><img src="https://i.imgur.com/Pu4e7AT.png"></span>
+                            <span><img src="https://i.imgur.com/ewMjaHv.png"></span>
+                            <span><img src="https://i.imgur.com/3LmmFFV.png"></span>
                         </div>
                     </div>
-                    <div class="totals">
-                        <span class="subtitle">Subtotal <span id="sub_price">$45.00</span></span>
-                        <span class="subtitle">Shipping <span id="sub_ship">$4.00</span></span>
-                    </div>
-                    <div class="final">
-                        <span class="title">Total <span id="calculated_total">$51.00</span></span>
-                    </div>
-                </div>	
-                <div class="right" id="reviewed">
-                    <div class="billing">
-                        <span class="title">Billing:</span>
-                        <div class="address_reviewed">
-                            <span class="name">Test</span>
-                            <span class="address">123 Main Street</span>
-                            <span class="location">Padova, USA, 12345</span>
-                            <span class="phone">(123)867-5309</span>
-                        </div>
-                    </div>
-                    <div class="shipping">
-                        <span class="title">Shipping:</span>
-                        <div class="address_reviewed">
-                            <span class="name">Test</span>
-                            <span class="address">123 Main Street</span>
-                            <span class="location">Padova, USA, 12345</span>
-                            <span class="phone">(123)867-5309</span>
-                        </div>
-                    </div>
-                    <div class="payment">
-                        <span class="title">Payment:</span>
-                        <div class="payment_reviewed">
-                            <span class="method">Visa</span>
-                            <span class="number_hidden">xxxx-xxxx-xxxx-1111</span>
-                        </div>
-                    </div>
-                    <div id="complete">
-                    <a class="big_button" id="complete" href="#">Complete Order</a>
-                    <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span> 
                 </div>
             </div>
+
+
+            <div class="column column3">
+                <div class="step" id="step3">
+                    <div class="number">
+                        <span>3</span>
+                    </div>
+                    <div class="title">
+                        <h1>Finalize Order</h1>
+                    </div>
+                    <div class="modify">
+                        <i class="fa fa-plus-circle"></i>
+                    </div>
+                </div>
+                <div class="content" id="final_products">
+                    <div class="left" id="ordered">
+                        <div class="products">
+                            <div *ngFor="let product of orderedProducts">
+                                <span>{{ product.product.productName }}</span>
+                                <span> - Quantity: {{ product.quantity }} - </span>
+                                <span>Price: {{ product.product.listPrice }}</span>
+                            </div>
+                        </div>
+                        <div class="totals">
+                            <span class="subtitle">Subtotal <span id="sub_price">{{ subtotal }}</span></span>
+                            <span class="subtitle">Shipping <span id="sub_ship">{{ shippingCost }}</span></span>
+                        </div>
+                        <div class="final">
+                            <span class="title">Total <span id="calculated_total">{{ total }}</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="right" id="reviewed">
+                        <div class="billing">
+                            <span class="title">Billing & Shipping:</span>
+                            <div class="address_reviewed">
+                                <span class="name">{{ profileForm.get('name')?.value }} {{ profileForm.get('surname')?.value }}</span>
+                                <span class="address">{{ addressForm.get('addressLine1')?.value }}</span>
+                                <span class="location">{{ addressForm.get('city')?.value }}, {{ addressForm.get('countryRegion')?.value }}, {{ addressForm.get('postalCode')?.value }}</span>
+                                <span class="phone">{{ profileForm.get('phone')?.value }}</span>
+                            </div>
+                        </div>
+                        <div class="payment">
+                            <span class="title">Payment:</span>
+                            <div class="payment_reviewed">
+                                <span class="method">Visa</span>
+                                <span class="number_hidden">xxxx-xxxx-xxxx-1111</span>
+                            </div>
+                        </div>
+                        <div id="complete">
+                        <button class="big_button" id="complete" (click)="FinishOrder()">Complete Order</button>
+                        <!-- <span class="sub">By selecting this button you agree to the purchase and subsequent payment for this order.</span>  -->
+                    </div>
+                </div>
+                </div>
+        
+            </div>
+        
+        
+
         </div>
     </div>
+</body>
+    

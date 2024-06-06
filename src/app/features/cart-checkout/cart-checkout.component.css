@@ -1,15 +1,16 @@
 body{
+    margin-top: 80px;
     background:#f1f2f3;
     font-size:62.5%;
-    padding:0;
-    margin:0;
     font-family: 'Open Sans', sans-serif;
 }
 *{
+    
     box-sizing:border-box;
     -webkit-box-sizing:border-box;
 }
 form > div {
+    
 position: relative;
 overflow: hidden;
 width:100%;
@@ -91,7 +92,7 @@ img{
 .number{
     width:50px;
     height:50px;
-    background:#80c0ff;
+    background:#5080b2;
     color:#FFF;
     font-size:36px;
     text-align: center;
@@ -103,7 +104,7 @@ img{
 .step {
     width: 100%;
     height: auto;
-    color: #80c0ff;
+    color: #5080b2;
     padding-left: 1%;
     padding-top: 20px;
     float: left;
@@ -113,7 +114,7 @@ img{
     content:'';
     width:80%;
     height:3px;
-    background:#80c0ff;
+    background:#5080b2;
     position:absolute;
     bottom:0;
     right:0;
@@ -154,13 +155,13 @@ img{
     display:block;
     float:none;
     margin:5px auto;
-    background:#80c0ff;
+    background:#5080b2;
     width:200px;
     border:0;
     padding:5px 15px;
     font-size:1.6em;
     color:#FFF;
-    border-bottom:3px solid #4da7ff;
+    border-bottom:3px solid #5080b2;
     border-radius:2px;
     clear:both;
 }
@@ -400,9 +401,9 @@ span.method{
     color:#fff;
     font-size:2em;
     text-decoration: none;
-    background:#80c0ff;
+    background:#5080b2;
     text-align:center;
-    border-bottom: 3px solid #4da7ff;
+    border-bottom: 3px solid #5080b2;
     border-radius: 2px;
     margin-bottom:20px;
     margin-top:20px;
@@ -459,7 +460,7 @@ form input:focus, form textarea:focus {
 border-color: #f06d06;
 }
 form input:focus + label, form textarea:focus + label {
-background:#80c0ff;
+background:#5080b2;
 color: white;
 font-size: 70%;
 padding: 1px 6px;

@@ -10,12 +10,7 @@ import { AuthenticationService } from './authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
-
-
-import { Observable, elementAt } from 'rxjs';
-import { ThisReceiver } from '@angular/compiler';
 import { pWithQuantity } from '../models/cartQuantities';
-import { cartDB } from '../models/cartData';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +33,10 @@ export class CartService {
     private user: NewUserHttp, 
     private adrs: AddressHttp,
     private http: HttpClient,
-    private logtrace: LogtraceService)   
+    private logtrace: LogtraceService,
+    
+     )
+    
   {
     //Get email from JWT
     this.email = this.auth.getEmailFromJwt();
@@ -147,7 +145,7 @@ export class CartService {
   //#region ORDER AND PAY
 
   OrderAndPay() {
-      
+    
     // Create new SalesOrderHeader
     let newOrderHeader: SalesOrderHeader = {
       salesOrderId: undefined,
@@ -253,6 +251,12 @@ export class CartService {
     return index;
   }
 
+
+  //#region CHECKOUT COMPONENT
+  CheckOut(){
+
+  }
+  //#endregion
 
 
   //#region  We apologize, this feature is not complete yet

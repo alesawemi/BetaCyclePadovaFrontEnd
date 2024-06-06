@@ -24,7 +24,7 @@ import { AdminPanelComponent } from './features/admin-panel/admin-panel.componen
 import { AddProductsComponent } from './features/admin-panel/AddProduct/add-products/add-products.component';
 import { UpdateProductComponent } from './features/admin-panel/update-product/update-product.component';
 
-
+import { CartCheckoutComponent } from './features/cart-checkout/cart-checkout.component';
 
 export const routes: Routes = [
 
@@ -37,6 +37,7 @@ export const routes: Routes = [
     {path: 'blog', component: BlogComponent},    
 
     {path: 'cart', component: CartComponent},
+    {path: 'checkout', component: CartCheckoutComponent},
 
     {path: 'chat', component: ChatComponent}, //SIGNAL R 24/05/2024
     

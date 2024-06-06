@@ -24,7 +24,7 @@
         <div class="cart-summary">
             <h2>Total: {{(cart.total).toFixed(2)}} $</h2>
             <!-- <h2>aggiungere un riepilogo per tasse, spedizione e totale complessivo prima di "ordina e paga"?</h2> -->
-            <button (click)="cart.OrderAndPay()" type="submit">Order & Pay</button>
+            <button (click)="RedirectToCheckout()" type="submit">Order & Pay</button>
         </div>
 
     </div>
