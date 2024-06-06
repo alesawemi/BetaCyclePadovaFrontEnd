@@ -37,22 +37,38 @@
   }
   
   .img-one {
-    background-image: url(https://images.unsplash.com/photo-1517394834181-95ed159986c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1506&q=80);
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=749&size=large);
   }
   
   .img-two {
-    background-image: url(https://images.unsplash.com/photo-1523889310790-cb91a98b017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=774&size=large);
   }
   
   .img-three {
-    background-image: url(https://images.unsplash.com/photo-1566940973973-d499f3993bf4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80);
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=953&size=large);
+  }
+
+  .img-four {
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=792&size=large);
+  }
+
+  .img-five {
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=788&size=large);
+  }
+
+  .img-six {
+    background-image: url(https://demos.componentone.com/aspnet/adventureworks/ProductImage.ashx?ProductID=881&size=large);
   }
   
+  .img-six,
+  .img-five,
+  .img-four,
   .img-one,
   .img-two,
   .img-three {
-    background-size: cover;
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
   }
   
   .product-text {
