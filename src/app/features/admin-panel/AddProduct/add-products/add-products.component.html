@@ -16,6 +16,16 @@
             (ngModelChange)="newProduct.ListPrice = $event || 0">
         <input type="number" placeholder="ListPrice" [ngModel]="newProduct.StandardCost || null"
             (ngModelChange)="newProduct.StandardCost = $event || 0">
+          
+            <select [(ngModel)]="newProduct.ProductCategoryID">
+                <option value="" disabled selected hidden>Categoria</option>
+                <option *ngFor="let category of productCategories" [value]="category.id">{{category.name}}</option>
+            </select>
+            
+
+            <input type="number" placeholder="productModelId" [ngModel]="newProduct.productModelId || null"
+            (ngModelChange)="newProduct.productModelId = $event || 0">
+      
         <button (click)="addProduct()">Add</button>
     </div>
 

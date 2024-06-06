@@ -8,7 +8,7 @@ export class AddProduct{
     ProductCategoryID:number = 0;  
     thumbNailPhoto: string = '';
     largeImage: string = '';
-    productModelId: number =25
+    productModelId: number = 0;
 
 }
 

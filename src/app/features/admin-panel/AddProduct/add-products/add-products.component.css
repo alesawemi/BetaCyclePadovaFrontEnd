@@ -1,3 +1,4 @@
+/* General styles for the text */
 p {
     font-size: 20px;
     color: darkblue;
@@ -6,15 +7,16 @@ p {
     font-weight: bold;
 }
 
+/* Container styling */
 .container {
     height: 2000px;
     margin-top: 100px;
     width: 100%;
     background-color: aliceblue;
     padding: 10px;
-
 }
 
+/* Card styling */
 .card {
     background-color: white;
     border: 1px solid #ccc;
@@ -25,6 +27,7 @@ p {
     text-align: center;
 }
 
+/* Input styling */
 .card input {
     margin: 10px 0;
     padding: 10px;
@@ -34,6 +37,7 @@ p {
     box-sizing: border-box;
 }
 
+/* Button styling */
 .card button {
     margin-top: 20px;
     padding: 10px 20px;
@@ -49,7 +53,8 @@ p {
     background-color: navy;
 }
 
-.contImage{
+/* Image container styling */
+.contImage {
     height: 200px;
     display: flex;
     align-items: center;
@@ -63,12 +68,34 @@ p {
     display: block; /* remove extra space below image */
     margin: auto; /* optional centering of image */
     border-radius: 47px;
-  }
+}
 
-
-  h2{
-    border: 2px solid ;
+/* Heading styling */
+h2 {
+    border: 2px solid;
     margin-top: 15px;
     border-radius: 10px;
-  }
-  
+}
+
+/* Dropdown menu styling */
+.card select {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+}
+
+/* Option group styling */
+.card optgroup {
+    font-weight: bold;
+    color: darkblue;
+}
+
+.card option {
+    padding: 5px;
+}
