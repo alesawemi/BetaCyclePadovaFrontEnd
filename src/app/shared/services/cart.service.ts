@@ -31,7 +31,7 @@ export class CartService {
   //selectedProducts: productSearch[] = [];
   selectedProducts: pWithQuantity[] = [];
 
-  //ho creato un service per gestire gli SalesOrders sia gli Headers che i Details. 
+  
   constructor(
     private salesOrders: SalesOrderHttp,
     private auth: AuthenticationService, 
@@ -40,7 +40,7 @@ export class CartService {
     private http: HttpClient,
     private logtrace: LogtraceService)   
   {
-    //Ottieni l'email dal JWT
+    //Get email from JWT
     this.email = this.auth.getEmailFromJwt();
     console.log(this.email);
 
@@ -144,31 +144,27 @@ export class CartService {
     this.Count();    
   }
 
-  
+  //#region ORDER AND PAY
 
   OrderAndPay() {
-    // Calcola il totale dell'ordine
-    // this.CalculateTotal(); // il totale viene già aggiornato automaticamente ogni volta che si aggiungono o tolgono prodotti dal carrello
-
-   
-
-    // Crea un nuovo SalesOrderHeader
+      
+    // Create new SalesOrderHeader
     let newOrderHeader: SalesOrderHeader = {
       salesOrderId: undefined,
       revisionNumber: 2,
-      status: 1,  // Stato dell'ordine
-      onlineOrderFlag: true, // ?
-      salesOrderNumber: 'undefined',  //SO+salesOrderID
-      purchaseOrderNumber: 'undefined', //PO+salesOrderID
+      status: 1,  
+      onlineOrderFlag: true, 
+      salesOrderNumber: 'undefined',  
+      purchaseOrderNumber: 'undefined', 
       accountNumber: null,
-      customerID: this.userID,  // Imposta l'ID del cliente appropriato
+      customerID: this.userID, 
       shipToAddressID: this.addressID,
       billToAddressID: this.addressID,
-      shipMethod: 'CARGO TRANSPORT 5',  // Imposta il metodo di spedizione appropriato
+      shipMethod: 'CARGO TRANSPORT 5',  
       creditCardApprovalCode: null,
       subTotal: this.total,
-      taxAmt: this.total * 0.22,  // Esempio: IVA al 22%
-      freight: 5.00,  // Esempio: costo di spedizione fisso
+      taxAmt: this.total * 0.22,  
+      freight: 5.00,  
       totalDue: this.total + (this.total * 0.22) + 5.00,
       comment: null
     };
@@ -176,10 +172,10 @@ export class CartService {
     console.log(newOrderHeader)
 
     
-   // Crea SalesOrderDetails per ogni articolo nel carrello
+   // Create SalesOrderDetails for each item in the cart
    let orderDetails: SalesOrderDetail[] = [];
 
-    // Posta il nuovo SalesOrderHeader e ottieni l'ID dell'ordine creato
+    // Post the new SalesOrderHeader and get the ID of the created order
     this.salesOrders.PostHeaderFE(newOrderHeader).subscribe({
       next: response => {
 
@@ -189,13 +185,13 @@ export class CartService {
           let detail: SalesOrderDetail = {
             salesOrderId: response.salesOrderId,
             salesOrderDetailId: undefined,
-            // INIZIO modifiche integrate - quantity
+            // START integrated changes - quantity
             orderQty: product.quantity,  
             productId: product.id,
             unitPrice: product.product.listPrice,
             unitPriceDiscount: 0.00,
             lineTotal: product.product.listPrice *this.selectedProducts.length 
-            // FINE modifiche integrate - quantity
+            // END integrated changes - quantity
           };
           orderDetails.push(detail);
         });
@@ -205,14 +201,14 @@ export class CartService {
 
         this.salesOrders.PostDetailFE(orderDetails).subscribe({
           next: response => {
-              // Mostra un messaggio di conferma all'utente
-            alert("Ordine effettuato con successo!");
+              // Show a confirmation message to the user
+              alert("Ordine effettuato con successo!");
         
-            // Svuota il carrello
-            this.selectedProducts = [];
-            this.total = 0;
-            localStorage.removeItem('cart_'+this.email);
-            this.Count(); 
+              // Empty the cart
+              this.selectedProducts = [];
+              this.total = 0;
+              localStorage.removeItem('cart_'+this.email);
+              this.Count(); 
           }
         })
 
@@ -222,9 +218,9 @@ export class CartService {
       error: (error: any) => {console.log(error)}});
   }
 
+  //#endregion
 
-
-  // per convertire item from view in product (c'è un campo di differenza = main Category di product search che non è presente in generic item from view)
+  // to convert item from view in product (main Category di product search not in generic item from view)
   itemIntoProduct(item: GeneralView, product: productSearch){
     product.productId = item.productId;
     product.productName = item.productName;

@@ -2,9 +2,9 @@ export class SalesOrderHeader {
 
     salesOrderId: number | undefined;
     revisionNumber: number | undefined;
-    // orderDate: Date | undefined|null;
-    // dueDate: Date | undefined|null;
-    // shipDate: Date | undefined|null;
+    // orderDate: Date | undefined|null;    //i define it in the backend
+    // dueDate: Date | undefined|null;      //i define it in the backend
+    // shipDate: Date | undefined|null;     //i define it in the backend
     status: number = 5;
     onlineOrderFlag: boolean = false;
     salesOrderNumber: string | undefined;

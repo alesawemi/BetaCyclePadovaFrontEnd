@@ -31,20 +31,20 @@ export class LoginRegistrationComponent {
   constructor(
     private router: Router,
 
-    // per gestione errori centralizzata
+    // for centralized error management
     private logtrace: LogtraceService,
 
-    // per la registration:
+    // for registration:
     private UserHttp: NewUserHttp, 
 
-    // per il login:
+    // for login:
     private http: LoginHttpService, private auth: AuthenticationService,
     private roleService:RoleService
   ) {}
 
 
 
-  //fEnd LogTrace
+  // fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
 
 
@@ -59,9 +59,9 @@ export class LoginRegistrationComponent {
   
   [x: string]: any;
   confirmPassword: string ='';  
-  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}$/; //mi sono fatto aiutare da ChatGPT qui
+  passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$!%*?&])[A-Za-z\d$!%*?&]{8,}$/; //I got some help from ChatGPT here
 
-  newRegistration: Registration = new Registration(); //il nuovo user registrato ha solo la password in chiaro
+  newRegistration: Registration = new Registration(); //the new registered user has only the password in plain text
 
   Registrated: Registration[] = []
 
@@ -80,21 +80,21 @@ export class LoginRegistrationComponent {
 
       
 
-      // Verifica se la password soddisfa i criteri richiesti
+      // Check if the password meets the required criteria
       if (!this.isPasswordValid(frm.value.passwordInput)) {
-        alert('La password deve contenere almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale.');
+        alert('The password must be at least 8 characters long and include one uppercase letter, one lowercase letter, and one special character.');
         return;
       }
 
-    // Verifica se la conferma della password corrisponde alla password
+      // Check if the password confirmation matches the password
       if (frm.value.passwordInput !== frm.value.confirmPasswordInput) {
-        alert('La password e la conferma della password non corrispondono.');
+        alert('The password and confirmation password do not match.');
         return;
       }
 
-      // Invia i dati del modulo al server 
+      // Send the form data to the server 
 
-      // Copia solo i campi necessari dalla form all'istanza di newRegistration
+      // Copy only the necessary fields from the form to the newRegistration instance
       this.newRegistration.firstName = frm.value.nameInput;
       this.newRegistration.lastName = frm.value.surnameInput;
       this.newRegistration.emailAddress = frm.value.emailInput;
@@ -103,30 +103,30 @@ export class LoginRegistrationComponent {
 
       this.newRegistration.password = window.btoa(this.pass); 
 
-      //ora che ho criptato posso inviare al backend il nuovo user
+      // now that I have encrypted it, I can send the new user to the backend
       this.PostRegistration();
 
     } else {
-      // Mostra un alert o un messaggio di errore appropriato
-      alert('Per favore, compila tutti i campi obbligatori correttamente.');
+      // Show an appropriate alert or error message
+      alert('Please fill out all required fields correctly.');
     }
   }
 
-  // Funzione per verificare se la password soddisfa i criteri richiesti
+  // Function to check if the password meets the required criteria
   isPasswordValid(password: string): boolean {
-    // Almeno 8 caratteri, una maiuscola, una minuscola e un carattere speciale
+    // At least 8 characters, one uppercase, one lowercase, and one special character
     
     return this.passwordRegex.test(password);
   }
 
-  //Ok- ora ho il mio user con la password in chiaro e devo criptarla - non so se farlo lato back-end
+  // Ok - now I have my user with the plain text password and I need to encrypt it - not sure whether to do it on the backend
   PostRegistration(){
     this.UserHttp.PostNewRegistration(this.newRegistration).subscribe({
      next: (response: any) => {
       switch(response.status) {
         case HttpStatusCode.Ok:
-          alert("Benvenuto! Per favore, esegui l'accesso al tuo account nella sezione Login");
-          this.router.navigate(['login&registration']); // Redirect alla pagina di login
+          alert("Welcome! Please log in to your account in the Login section.");
+          this.router.navigate(['login&registration']); // Redirect to the login page
           break;
         default: break;
       }
@@ -145,12 +145,12 @@ export class LoginRegistrationComponent {
           console.log('post frontend error to db:'); console.log(err);
         }
       })
-      if (err.status === 409) { // Conflitto (Utente già nel DB)
-        alert("Utente già presente nel database.");
+      if (err.status === 409) { // Conflict (User already in the DB)
+        alert("User already exists in the database.");
       } else {
-        // Gestisci altri casi di errore
-        console.error('Si è verificato un errore:', err);
-        alert('Si è verificato un errore. Riprova!')
+        // Handle other error cases
+        console.error('An error occurred:', err);
+        alert('An error occurred. Please try again!')
       }
     }
    })
@@ -169,21 +169,21 @@ export class LoginRegistrationComponent {
   //#region LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
   loginCredentials: Credentials = new Credentials();
   private jwtHelper: JwtHelperService = new JwtHelperService();
-  isLoading: boolean = false; // Variabile di stato per il caricamento
+  isLoading: boolean = false; // Loading state variable
 
   jwtToken: string = '';
   Login(usr: HTMLInputElement, pwd: HTMLInputElement) {
 
-     // Aggiungi la classe spinner al corpo del documento
+     // Add the spinner class to the document body
     this.isLoading = true;
     
 
-    if (usr.value != '' && pwd.value != '') //controllo ripetuto nel backend
+    if (usr.value != '' && pwd.value != '') // check repeated on the backend
     {
       this.loginCredentials.username = usr.value;
       this.loginCredentials.password = pwd.value;
 
-      // inserisci credenziali e poi clicchi su login --> resettare campi email e psw?
+      // enter credentials and then click login --> reset email and password fields?
       this.http.LoginPost(this.loginCredentials).subscribe({
         next: (response: any) => {
           switch (response.status) {
@@ -197,9 +197,9 @@ export class LoginRegistrationComponent {
                 const role = decodedToken.role;
                 this.setRole(role);               
               }
-              console.log("LOGIN OK!"); //in questo caso non serve "notifica" di loginOk perché si attivano voci di menu prima nascoste (logout, carrello etc)              
+              console.log("LOGIN OK!"); //in this case there is no need for "loginOk" notification because menu items previously hidden (logout, cart, etc.) will be activated              
               this.isLoading = false;
-              this.router.navigate(['home']); // Redirect alla home
+              this.router.navigate(['home']); // Redirect to home
               break;
             case HttpStatusCode.NoContent:
               this.isLoading = false;
@@ -228,9 +228,9 @@ export class LoginRegistrationComponent {
           if (this.auth.TypeOfAuthorization === 'jwt') { this.auth.setLoginStatusJwt(false); }
 
 
-          //trovare soluzione alternativa a alert --> popup con finestra di dialogo?
+          // find alternative solution to alert --> popup with dialog window?
           if (err.status === 404) {
-            alert("REGISTRATI!");  //fare redirect alla pagina di login/registrazione
+            alert("REGISTER!");  // redirect to the login/registration page
             const container = document.getElementById('container');
             if (container) {
               container.classList.add("right-panel-active");
@@ -242,11 +242,11 @@ export class LoginRegistrationComponent {
         }
       });
     }
-    else alert('Attenzione! Username e Password Obbligatori.');
+    else alert('Attention! Username and Password are mandatory.');
   }
 
 
-//Imposto il ruolo
+// Set the role
   setRole(role: string) {
    console.log(this.roleService.setUserRole(role))
   }
@@ -259,14 +259,14 @@ export class LoginRegistrationComponent {
 
 
 
-  // CODICE PER L'ANIMAZIONE ///////////////////////////////////////////////////////////////////////////////////
-  //Esegue codice javascript dopo l'inizializzazione dei componenti 
+  // CODE FOR ANIMATION ///////////////////////////////////////////////////////////////////////////////////
+  // Execute JavaScript code after the components have been initialized 
   ngOnInit(): void {
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
   
-    // Controllo di nullità prima di utilizzare gli elementi
+    // Null check before using the elements
     if (signUpButton && signInButton && container) {
       signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
@@ -281,6 +281,3 @@ export class LoginRegistrationComponent {
   }
   
 }
-
-
-

@@ -10,8 +10,8 @@ export class Address{
 }
 
 export class AddressCustomer{
-    //Old Database - CUSTOMER ADDRESS - uso la mail come se fosse una chiave primaria per capire
-    customerId: number = 0; // essendo nuovi user devo partire da un numero più alto - 40.000 (per essere sicuri)
-    addressId: number = 0; //essendo nuovi devo partire da un numero più alto - 13.000
+    //Old Database - CUSTOMER ADDRESS - i use email as unique key
+    customerId: number = 0; // new user -> ID >= 40.000
+    addressId: number = 0; //new addresses -> ID >= 13.000
     addressType: string = '';
 }

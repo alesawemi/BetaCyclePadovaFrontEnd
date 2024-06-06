@@ -15,6 +15,7 @@ import { Address, AddressCustomer } from '../models/addressData';
     private_Url_Address = `https://localhost:7228/api/Addresses`;
     private_Url_Address_Customer = `https://localhost:7228/api/CustomerAddresses`;
 
+    //#region ADDRESS
     GetAddress() : Observable<any>{
       return this.http.get<Address>(`${this.private_Url_Address}`);
     }
@@ -40,6 +41,7 @@ import { Address, AddressCustomer } from '../models/addressData';
     DeleteAddressById(id: number){
       return this.http.delete<Address>(`${this.private_Url_Address}/${id}`);
     }
+    //#endregion
 
     //#region  ADDRESS - CUSTOMER
     GetAddressCustomerByCustId(id: number) : Observable<any>{

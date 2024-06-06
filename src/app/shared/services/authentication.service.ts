@@ -11,7 +11,7 @@ import { RoleService } from './role.service';
 })
 export class AuthenticationService {
   
-//#region DICHIARAZIONE DELLE VARIABILI
+//#region VARIABLE DECLARATIONS
 
   jwtToken: string = '';
   private name: string = window.btoa("jwt_token");
@@ -21,31 +21,31 @@ export class AuthenticationService {
     responseType: 'text'
   });
 
-  private jwtExpirationTimer: any; //è un timer che mi tiene conto della sessione
+  private jwtExpirationTimer: any; // This is a timer that keeps track of the session
   private jwtHelper: JwtHelperService = new JwtHelperService();
   
-  //nel mio backend ho due tipi di autenticazione - al momento sto usando la jwt (migliore)
+  // In my backend, I have two types of authentication - currently using jwt (better)
   public TypeOfAuthorization: string = 'jwt'; // 'basic'
 
   //#endregion
   
-//#region COSTRUTTORE
-  //è la prima cosa che esegue al caricamento della pagina e al refresh
+//#region CONSTRUCTOR
+  // This is the first thing that runs when the page loads and on refresh
 
   constructor(
     private cookie: CookieService, 
     private router: Router, 
     private role: RoleService
   ) {
-    if (this.cookie.check(this.name)) { //vado a vedere se il cookie esiste già
-      //vado a calcolarmi la scadenza del token e del cookie
+    if (this.cookie.check(this.name)) { // Check if the cookie already exists
+      // Calculate the expiration of the token and the cookie
       this.jwtToken = this.cookie.get(this.name);
       const tokenExpirationDate = this.parseJwtExpiration(this.jwtToken);
-      //se la data intesa come giorno e ore minuti e secondi è minore della scadenza
-      if (new Date() < tokenExpirationDate) { //vuol dire che il token è ancora valido
+      // If the current date and time is less than the expiration date and time
+      if (new Date() < tokenExpirationDate) { // It means the token is still valid
         this.isLogged = true;
 
-        //Aggiorno il ruolo
+        // Update the role
         const decodedToken = this.jwtHelper.decodeToken(this.jwtToken);
         const role = decodedToken.role;
         this.setRole(role);
@@ -55,27 +55,27 @@ export class AuthenticationService {
           'Bearer ' + this.jwtToken
         );
         this.startJwtExpirationTimer();
-      } else { //altrimenti esegue il logout
+      } else { // Otherwise, execute the logout
         this.Logout();
       }
     }
   }
 //#endregion
  
-//#region METODI
+//#region METHODS
 
-  //questo metodo mi serve a sapere se sono loggato (isLogged=true) oppure no (isLogged=false)
+  // This method tells me if I am logged in (isLogged=true) or not (isLogged=false)
   getLoginStatus() {
     return this.isLogged;
   }
 
-  //Imposto il ruolo
+  // Set the role
   setRole(role: string) {
     console.log(this.role.setUserRole(role))
    }
   
   //#region BASIC
-  //Questo serve ad impostare true o false per la basic (che al momento sono sto usando)
+  // This sets true or false for basic (which I am currently not using)
   // setLoginStatusBasic(logValue: boolean, usr: string='', psw: string=''){
   //   this.isLogged = logValue;
 
@@ -100,28 +100,28 @@ export class AuthenticationService {
   
   
   //#region JWT TOKEN
-  //Questo serve ad impostare true o false per la JWT (che STO USANDO)
+  // This sets true or false for JWT (which I AM USING)
   setLoginStatusJwt(logValue: boolean, jwtToken: string=''){
     this.isLogged = logValue;
     this.jwtToken = jwtToken;
 
     if (logValue) {    
-       //Utilizzo della localstorage per salvare l'autenticazione - non è una buona soluzione  
+       // Use localstorage to save the authentication - not a good solution  
         // localStorage.setItem('token', jwtToken);
 
-        //se non lo trova me ne generi uno nuovo
+        // If it does not find it, generate a new one
         if (!this.cookie.check(this.name)) {
-          this.router.navigate(['home']); // Redirect alla home
+          this.router.navigate(['home']); // Redirect to home
           this.setJwtCookie(jwtToken);
         }
         else
         {
-          alert("Sei già loggato");
+          alert("You are already logged in");
         }
 
         this.startJwtExpirationTimer();
 
-        //Header dell'autenticazione - lo imposto su Bearer
+        // Authentication header - set to Bearer
         this.authHeader = this.authHeader.set(
         'Authorization',
         'Bearer ' + jwtToken);
@@ -129,7 +129,7 @@ export class AuthenticationService {
 
     else {
       //localStorage.removeItem('token');
-      this.cookie.delete(this.name); //faccio la stessa cosa della local ma con il cookie
+      this.cookie.delete(this.name); // Do the same as localstorage but with the cookie
       this.authHeader = new HttpHeaders({
         'Content-Type': 'application/json',
         'Response-Type': 'text'
@@ -140,65 +140,65 @@ export class AuthenticationService {
 
   //#region COOKIE
   private setJwtCookie(jwtToken: string){
-    //Utilizzo di Cookies      
+    // Use Cookies      
     let expires: Date = new Date();
-    expires.setMinutes(expires.getMinutes() + 30); //10 minuti di scadenza - da prendere dal token
+    expires.setMinutes(expires.getMinutes() + 30); // 10 minutes expiration - take from token
     let path: string = "/";
     let domain: string = "localhost"
     let secure: boolean = true;
-    let sameSite : SameSite = "Lax" //le opzioni sono "Strict" | "Lax" | "None"
+    let sameSite : SameSite = "Lax" // Options are "Strict" | "Lax" | "None"
 
-    //Parametri del cookie: Name(index)|Value|Domain|Path|Exipers/Max-Age|Size|HttpOnly|Secure!SameSite|Partition Key|Priority
+    // Cookie parameters: Name(index)|Value|Domain|Path|Expires/Max-Age|Size|HttpOnly|Secure!SameSite|Partition Key|Priority
     this.cookie.set(
-      this.name,         //Nome
-      jwtToken,     // Token JWT
-      expires,      // Data di scadenza (opzionale)
-      path,         // Percorso (opzionale)
-      domain,       // Dominio (opzionale)
-      secure,       // Secure (opzionale)
-      sameSite,     // SameSite (opzionale)
-    //partitioned?   // Partizionato (opzionale)
+      this.name,         // Name
+      jwtToken,     // JWT Token
+      expires,      // Expiration date (optional)
+      path,         // Path (optional)
+      domain,       // Domain (optional)
+      secure,       // Secure (optional)
+      sameSite,     // SameSite (optional)
+    //partitioned?   // Partitioned (optional)
 );
   }
 
-   // Metodo per avviare il timer di scadenza del cookie JWT
+   // Method to start the JWT cookie expiration timer
    private startJwtExpirationTimer() {
     const expirationDate = this.parseJwtExpiration(this.jwtToken);
-    const expiresIn = expirationDate.getTime() - Date.now(); //calcolo quando scade il token
+    const expiresIn = expirationDate.getTime() - Date.now(); // Calculate when the token expires
 
-    if (expiresIn > 0) { //se è maggiore di 0 vuol dire che è valido
-      this.jwtExpirationTimer = setTimeout(() => { //mi parte poi un countdown e capisce quando scade il token
-        this.Logout(); // Chiama Logout() quando il token è scaduto
+    if (expiresIn > 0) { // If greater than 0, it means it is valid
+      this.jwtExpirationTimer = setTimeout(() => { // Start a countdown and understand when the token expires
+        this.Logout(); // Call Logout() when the token expires
       }, expiresIn);
 
-      // Imposto il timer per avvisare 30 secondi prima della scadenza
-      if (expiresIn > 30000) { // Controllo che manchino almeno 30 secondi
+      // Set the timer to notify 30 seconds before expiration
+      if (expiresIn > 30000) { // Check that at least 30 seconds remain
         setTimeout(() => {
-            this.notifyTokenExpiring(); // Chiama la funzione di notifica
+            this.notifyTokenExpiring(); // Call the notification function
         }, expiresIn - 30000);
     } else {
-        this.notifyTokenExpiring(); // Notifica subito se mancano meno di 30 secondi
+        this.notifyTokenExpiring(); // Notify immediately if less than 30 seconds remain
     }
 
   } else {
-      this.Logout(); // se il token è già scaduto eseguo subito il Logout()
+      this.Logout(); // If the token has already expired, execute Logout() immediately
   }
   }
 
-  // Funzione per la notifica
+  // Notification function
 private notifyTokenExpiring() {
-  alert('Il token sta per scadere, verrai sloggato tra 30 secondi.');
+  alert('The token is about to expire, you will be logged out in 30 seconds.');
 }
 
 
-  //prende il dato Expiration corrispondente al ticket
+  // Get the Expiration data corresponding to the ticket
   private parseJwtExpiration(token: string): Date {
     const jwtPayload = JSON.parse(atob(token.split('.')[1]));
     return new Date(jwtPayload.exp * 1000);
   }
 
 
-  // Metodo per fermare il timer di scadenza del cookie JWT - va fatto - ho chiesto consiglio all'altissimo
+  // Method to stop the JWT cookie expiration timer - this must be done - I asked for advice from the highest authority
   private stopJwtExpirationTimer() {
     if (this.jwtExpirationTimer) {
       clearTimeout(this.jwtExpirationTimer);
@@ -220,12 +220,12 @@ private notifyTokenExpiring() {
             contentType: 'application/json',
             responseType: 'text'
         });
-        alert("Ti sei sloggato!"); //da capire se tenerlo attivo oppure no
+        alert("You have been logged out!"); // To understand if to keep it active or not
         this.stopJwtExpirationTimer();
 
         //window.localStorage.clear();
         
-        this.router.navigate(['home']); // Redirect alla home
+        this.router.navigate(['home']); // Redirect to home
     }
   }
 //#endregion
@@ -233,11 +233,11 @@ private notifyTokenExpiring() {
 
   //#region GET USERNAME FROM JWT TOKEN
 
-  // Metodo per decodificare il JWT e ottenere lo username
+  // Method to decode the JWT and get the username
   getEmailFromJwt(): string {
     if (this.jwtToken) {
       const decodedToken: any = jwtDecode(this.jwtToken);
-      return decodedToken.unique_name || ''; // Assicurati che il nome del claim sia corretto
+      return decodedToken.unique_name || ''; // Make sure the claim name is correct
     }
     return '';
   }

@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit{
     const overlayText = document.querySelector('.overlay-text');
     if (overlayText) {
       overlayText.classList.add('show');
-      overlayText.classList.remove('hide'); // Rimuovi la classe hide se presente
+      overlayText.classList.remove('hide'); // Rimove hide if is set
     }
   }
   
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit{
     const overlayText = document.querySelector('.overlay-text');
     if (overlayText) {
       overlayText.classList.remove('show');
-      overlayText.classList.add('hide'); // Aggiungi la classe hide per far uscire il testo
+      overlayText.classList.add('hide'); // ADD hide to show text
     }
   }
   

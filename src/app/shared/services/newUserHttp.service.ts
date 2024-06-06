@@ -11,13 +11,12 @@ import { NewCustomer } from '../models/newCustomersdata';
   export class NewUserHttp {
     [x: string]: any;
 
-     //ignetto http qui
     constructor(private http: HttpClient) { } 
 
     private_Url_New_Customer = `https://localhost:7228`;
 
-    //METODI NEW USER - QUELLI DAL DB USERS
-    //Metodo GET - prendo tutti
+    //NEW USER - DB USERS
+  
     GetNewCustomer() : Observable<any>{
       return this.http.get<NewCustomer>(`${this.private_Url_New_Customer}/api/Users`);
     }
@@ -49,7 +48,7 @@ import { NewCustomer } from '../models/newCustomersdata';
       return this.http.delete<NewCustomer>(`${this.private_Url_New_Customer}/api/Users/${id}`);
     }
 
-    //Registration - devo mandare al backend le info con la password in chiaro
+    //Registration - send backend info with clear password
     PostNewRegistration(postNewRegistr: Registration){
       console.log("Post: "+ postNewRegistr.firstName + typeof(postNewRegistr.firstName))
       console.log("Post: "+ postNewRegistr.lastName + typeof(postNewRegistr.lastName))

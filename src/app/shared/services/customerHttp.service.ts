@@ -10,13 +10,12 @@ import { OldCustomers } from '../models/oldCustomersdata';
   export class HttprequestService {
     [x: string]: any;
 
-     //ignetto http qui
     constructor(private http: HttpClient) { } 
 
     private_Url_Old_Customer = `https://localhost:7228`;
 
-    //METODI OLD CUSTOMERS - QUELLI DAL DB ADVENTUREWORKSLITE2019
-    //Metodo GET - prendo tutti
+    //OLD CUSTOMERS - DB ADVENTUREWORKSLITE2019
+
     GetOldCustomers() : Observable<any>{
       return this.http.get<OldCustomers>(`${this.private_Url_Old_Customer}/api/OldCustomers`);
     }

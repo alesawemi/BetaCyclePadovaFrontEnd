@@ -1,4 +1,4 @@
-//uso registration anche per la logica della modifica di info per non creare un'altra classe
+// I use registration also for the logic of modifying info to avoid creating another class
 export class Registration{ 
     
     //New Database - Users & Credentials
@@ -7,6 +7,4 @@ export class Registration{
     emailAddress: string = '';
     phone: string = '';
     password: string = '';
-
-    
 }

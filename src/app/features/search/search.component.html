@@ -1,9 +1,9 @@
 <body>
-    <h2>Risultati della Ricerca</h2>
+    <h2>Search bar results</h2>
     
     <pre *ngIf="filteredResult.length>0"> 
-        <p>Hai cercato "{{searchParameter}}"</p>
-        <p>{{filteredResult.length}} Risultati Trovati</p>
+        <p>What you searched: "{{searchParameter}}"</p>
+        <p>{{filteredResult.length}} Found results:</p>
     <div class="container">
     <li *ngFor="let r of filteredResult, index as j" > 
     {{r.productName}} 
