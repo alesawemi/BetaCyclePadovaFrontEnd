@@ -29,6 +29,7 @@ export class NavbarComponent {
   Search(parameter: string): void {
     if (parameter) {
       this.router.navigate(['/search'], { queryParams: { param: parameter } });
+      this.searchParameter = ''; // Clear the search parameter after navigating
     }
   }
 

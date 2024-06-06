@@ -37,8 +37,17 @@ a {
 }
 
 .section_title {
-  margin-top: 3rem;
-  margin-bottom: 4rem;
+    margin-top: 8%;
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: #fff;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 36px;  /* Increased font size for better visibility */
+    letter-spacing: 2px;  /* Added letter spacing for a stylish look */
+    text-transform: uppercase;  /* Transform text to uppercase */
+    border-bottom: 2px solid goldenrod;  /* Added a bottom border for emphasis */
+    margin-bottom: 20px;  /* Added margin at the bottom for spacing */
 }
 
 img {

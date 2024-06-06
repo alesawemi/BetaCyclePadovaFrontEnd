@@ -1,25 +1,37 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: black;
     padding: 20px;
     margin-top: 70px;
 }
 
 h2 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: black;
+    color: #fff;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 36px;  /* Increased font size for better visibility */
+    letter-spacing: 2px;  /* Added letter spacing for a stylish look */
+    text-transform: uppercase;  /* Transform text to uppercase */
+    border-bottom: 2px solid goldenrod;  /* Added a bottom border for emphasis */
+    margin-bottom: 20px;  /* Added margin at the bottom for spacing */
 }
 
 pre p:first-child {
+    text-align: center;
     font-weight: bold;
     color: #555;
-    margin-bottom: 10px;
+    color: goldenrod;
+    font-size: 30px;
 }
 
 pre p:nth-child(2) {
+    text-align: center;
     color: #777;
-    margin-bottom: 10px;
+    color: goldenrod;
+    font-size: 20px;
 }
 
 li {
