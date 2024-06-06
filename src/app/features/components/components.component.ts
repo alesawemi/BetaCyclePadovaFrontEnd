@@ -14,7 +14,7 @@ import { CartService } from '../../shared/services/cart.service';
   standalone: true,
   imports: [CommonModule, FormsModule, MatSlideToggleModule],
   templateUrl: './components.component.html',
-  styleUrls:['./components.component.css','../../features/Stili/shared.css'],
+  styleUrls: ['./components.component.css', '../../features/Stili/shared.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
@@ -22,34 +22,47 @@ export class ComponentsComponent {
   
   constructor(public view: GenericViewService, public cart: CartService) {}
 
+
+  ngOnInit() {
+    this.view.allItems = [];
+    this.GetAll();
+    this.GetOptions();
+  }
+
+
   whichView: HttpParams = new HttpParams().set('view', 'components');
 
-  //change this number to choose how many intervals to show for price and weight
+
+  // change this number to choose how many intervals to show for price and weight
   nPriceIntervals: number = 4;
   nWeightIntervals: number = 6;
 
 
 
+  //#region Get All
   GetAll() {
     this.RemoveAllFilters();
     this.view.GetAllItems(this.whichView);
   }
+  //#endregion
 
 
 
+  //#region Load Options
   GetOptions() {
     this.view.GetResearchOptions(this.whichView, this.nPriceIntervals, this.nWeightIntervals);
 
-    //all checkboxes for price intervals active and not selected
+    // all checkboxes for price intervals active and not selected
     for (let j = 0; j < (this.nPriceIntervals); j++) { this.selectedPriceRange[j] = false; }
-    //all checkboxes for weight intervals active and not selected
+    // all checkboxes for weight intervals active and not selected
     for (let j = 0; j < (this.nWeightIntervals); j++) { this.selectedWeightRange[j] = false; }
-
   }
+  //#endregion
 
 
 
-  //to filter the research
+  //#region Filters
+  // to filter the research
 
   selectedColors: { [key: string]: boolean } = {};
   selectedCategories: { [key: string]: boolean } = {};
@@ -66,7 +79,7 @@ export class ComponentsComponent {
   filtersFromInput: Filters = new Filters();
 
   GetFiltered() {
-    //create string for color selection
+    // create string for color selection
     if (Object.keys(this.selectedColors).length > 0) {
       this.filtersFromInput.color = '';
       for (const color of Object.keys(this.selectedColors)) {
@@ -76,7 +89,7 @@ export class ComponentsComponent {
       }
     }
 
-    //create string for category selection
+    // create string for category selection
     if (Object.keys(this.selectedCategories).length > 0) {
       this.filtersFromInput.productCategory = '';
       for (const cat of Object.keys(this.selectedCategories)) {
@@ -86,7 +99,7 @@ export class ComponentsComponent {
       }
     }
 
-    //create string for size selection
+    // create string for size selection
     if (Object.keys(this.selectedSizes).length > 0) {
       this.filtersFromInput.size = '';
       for (const s of Object.keys(this.selectedSizes)) {
@@ -96,7 +109,7 @@ export class ComponentsComponent {
       }
     }
 
-    //set min/max price - multiple selection allowed   
+    // set min/max price - multiple selection allowed   
     this.filtersFromInput.pIntervals = [];
     for (let z = 0; z < this.selectedPriceRange.length; z++) {
       if (this.selectedPriceRange[z]) {
@@ -107,7 +120,7 @@ export class ComponentsComponent {
       }
     }
 
-    //set min/max weight - multiple selection allowed    
+    // set min/max weight - multiple selection allowed    
     this.filtersFromInput.wIntervals = [];
     for (let z = 0; z < this.selectedWeightRange.length; z++) {
       if (this.selectedWeightRange[z]) {
@@ -118,17 +131,18 @@ export class ComponentsComponent {
       }
     }
 
-    //order by ascending/descending price if corresponding option is selected (checkboxes)
+    // order by ascending/descending price if corresponding option is selected (checkboxes)
     this.filtersFromInput.ascPrice = this.priceAscending;
     this.filtersFromInput.descPrice = this.priceDescending;
 
     this.view.GetWithFilters(this.whichView, this.filtersFromInput);
-
   }
+  //#endregion
 
 
 
-  //to remove all filters and reset all the variables used to manage the checkboxes
+  //#region Clear Filters
+  // to remove all filters and reset all the variables used to manage the checkboxes
   RemoveAllFilters() {
 
     this.filtersFromInput = new Filters;
@@ -136,37 +150,31 @@ export class ComponentsComponent {
     this.priceAscending = false;
     this.priceDescending = false;
 
-    //reset color options
+    // reset color options
     for (const col of Object.keys(this.selectedColors)) { this.selectedColors[col] = false; }
     this.selectedColors = {};
 
-    //reset category options
+    // reset category options
     for (const cat of Object.keys(this.selectedCategories)) { this.selectedCategories[cat] = false; }
     this.selectedCategories = {};
 
-    //reset size options
+    // reset size options
     for (const s of Object.keys(this.selectedSizes)) { this.selectedSizes[s] = false; }
     this.selectedSizes = {};
 
-    //reset price options
+    // reset price options
     for (let j = 0; j < (this.nPriceIntervals); j++) {
       this.selectedPriceRange[j] = false;
-      // this.checkedPrices[j] = false; //you need this when only one interval selection is allowed
+      // this.checkedPrices[j] = false; // you need this when only one interval selection is allowed
     }
 
-    //reset weights options
+    // reset weights options
     for (let j = 0; j < (this.nWeightIntervals); j++) {
       this.selectedWeightRange[j] = false;
-      // this.checkedWeights[j] = false; //you need this when only one interval selection is allowed
+      // this.checkedWeights[j] = false; // you need this when only one interval selection is allowed
     }
   }
+  //#endregion
 
-
-
-  ngOnInit() {
-    this.view.allItems = [];
-    this.GetAll();
-    this.GetOptions();
-  }
-
+  
 }

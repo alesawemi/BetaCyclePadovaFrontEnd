@@ -8,6 +8,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { LogtraceService } from '../../shared/services/logtrace.service';
 import { LogTrace } from '../../shared/models/LogTraceData';
 import { CartService } from '../../shared/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,7 @@ import { CartService } from '../../shared/services/cart.service';
 export class SearchComponent {
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public cart: CartService,
-    private logtrace: LogtraceService) {}
+    private logtrace: LogtraceService, private router: Router) {}
 
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
@@ -36,7 +37,7 @@ export class SearchComponent {
           if (Data.$values.length>0) { 
             this.filteredResult = Data.$values; 
             this.filteredResult.forEach(element => { 
-              switch(element.mainCategoryID) {
+              switch(element.mainCategoryID) { //set string of main category based on its ID
                 case 1:
                   element.mainCategory = 'Bikes';
                   break;
@@ -57,9 +58,8 @@ export class SearchComponent {
             });
           } 
           else { 
-            alert("Siamo spiacenti, " +
-              "al momento non sono presenti prodotti che soddisfano questi parametri di ricerca. " +
-              "Vi invitiamo a modificare i filtri.");              
+            alert("We are sorry, there are currently no products that match these search parameters. " +
+              "Please consider modifying the filters");              
            }   
         },          
         error: (errore: any) => {
@@ -76,17 +76,23 @@ export class SearchComponent {
               console.log('post frontend error to db:'); console.log(err);
             }
           })
+          alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+          this.router.navigate(['home']); // Redirect to home
         }
       })
   }
 
+
+
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(params => { //get search parameter from search bar (@navbar)
       this.searchParameter = params['param'];
       this.SearchByParam();
     });
   }
   
+
+
   GetByParam(parameter: string): Observable<any>{
     return this.http.get(`https://localhost:7228/api/ProductsView/GetByParam/${parameter}`);
   }

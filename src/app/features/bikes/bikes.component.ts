@@ -16,45 +16,60 @@ import { CartService } from '../../shared/services/cart.service';
   templateUrl: './bikes.component.html',
   styleUrls: ['../../features/Stili/shared.css', './bikes.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
 })
-
 export class BikesComponent {
 
   constructor(public view: GenericViewService, public cart: CartService) {}
 
+
+  ngOnInit() {
+    this.view.allItems = []; // Clear this variable to avoid any leaking from previous views
+    this.GetAll();
+    this.GetOptions();
+  }
+
+
   whichView: HttpParams = new HttpParams().set('view', 'bikes');
 
-  //change this number to choose how many intervals to show for price and weight
+
+  // Change this number to choose how many intervals to show for price and weight
   nPriceIntervals: number = 4; 
   nWeightIntervals: number = 6;
 
 
 
-  GetAll(){
+  //#region Get All
+  GetAll(){ // Clear all filters and get all products in the view
     this.RemoveAllFilters();
     this.view.GetAllItems(this.whichView);
   }
+  //#endregion
+  
 
-  
-  
+
+  //#region Load Options
   GetOptions() {
     this.view.GetResearchOptions(this.whichView, this.nPriceIntervals, this.nWeightIntervals);
 
-    //all checkboxes for price intervals active and not selected
-    for (let j=0; j<(this.nPriceIntervals); j++) { this.selectedPriceRange[j] = false; }
-    //all checkboxes for weight intervals active and not selected
-    for (let j=0; j<(this.nWeightIntervals); j++) { this.selectedWeightRange[j] = false;}
-    
+    // All checkboxes for price intervals active and not selected
+    for (let j = 0; j < (this.nPriceIntervals); j++) { 
+      this.selectedPriceRange[j] = false; 
+    }
+    // All checkboxes for weight intervals active and not selected
+    for (let j = 0; j < (this.nWeightIntervals); j++) { 
+      this.selectedWeightRange[j] = false;
+    }
   }
+  //#endregion
 
 
 
-  //to filter the research
+  //#region Filters
+  // To filter the research
 
   selectedColors: { [key: string]: boolean } = {};
   selectedCategories: { [key: string]: boolean } = {};
-  selectedSizes: {[key: string]: boolean} = {};
+  selectedSizes: { [key: string]: boolean } = {};
   
   selectedPriceRange: boolean[] = [];
   selectedWeightRange: boolean[] = [];
@@ -67,7 +82,7 @@ export class BikesComponent {
   filtersFromInput: Filters = new Filters();
 
   GetFiltered() {
-    //create string for color selection
+    // Create string for color selection
     if (Object.keys(this.selectedColors).length > 0) {
       this.filtersFromInput.color = '';
       for (const color of Object.keys(this.selectedColors)) {
@@ -77,7 +92,7 @@ export class BikesComponent {
       }
     }    
 
-    //create string for category selection
+    // Create string for category selection
     if (Object.keys(this.selectedCategories).length > 0) {
       this.filtersFromInput.productCategory = '';
       for (const cat of Object.keys(this.selectedCategories)) {
@@ -87,7 +102,7 @@ export class BikesComponent {
       }
     }
 
-    //create string for size selection
+    // Create string for size selection
     if (Object.keys(this.selectedSizes).length > 0) {
       this.filtersFromInput.size = '';
       for (const s of Object.keys(this.selectedSizes)) {
@@ -97,39 +112,40 @@ export class BikesComponent {
       }
     }
 
-    //set min/max price - multiple selection allowed   
+    // Set min/max price - multiple selection allowed   
     this.filtersFromInput.pIntervals = []; 
-    for (let z=0; z<this.selectedPriceRange.length; z++) {
+    for (let z = 0; z < this.selectedPriceRange.length; z++) {
       if (this.selectedPriceRange[z]) {    
         this.newInterval = new Interval;     
         this.newInterval.min = this.view.prices[z];
-        this.newInterval.max = this.view.prices[z+1];
+        this.newInterval.max = this.view.prices[z + 1];
         this.filtersFromInput.pIntervals.push(this.newInterval);
       }
     }  
 
-    //set min/max weight - multiple selection allowed    
+    // Set min/max weight - multiple selection allowed    
     this.filtersFromInput.wIntervals = [];  
-    for (let z=0; z<this.selectedWeightRange.length; z++) {
+    for (let z = 0; z < this.selectedWeightRange.length; z++) {
       if (this.selectedWeightRange[z]) {                 
         this.newInterval = new Interval;   
         this.newInterval.min = this.view.weights[z];
-        this.newInterval.max = this.view.weights[z+1];
+        this.newInterval.max = this.view.weights[z + 1];
         this.filtersFromInput.wIntervals.push(this.newInterval);
       }
     } 
       
-    //order by ascending/descending price if corresponding option is selected (checkboxes)
+    // Order by ascending/descending price if corresponding option is selected (checkboxes)
     this.filtersFromInput.ascPrice = this.priceAscending;
     this.filtersFromInput.descPrice = this.priceDescending;
 
     this.view.GetWithFilters(this.whichView, this.filtersFromInput); 
-
   }
+  //#endregion
 
 
-
-  //to remove all filters and reset all the variables used to manage the checkboxes
+  
+  //#region Clear Filters
+  // To remove all filters and reset all the variables used to manage the checkboxes
   RemoveAllFilters(){
     
     this.filtersFromInput = new Filters;
@@ -137,37 +153,37 @@ export class BikesComponent {
     this.priceAscending = false;
     this.priceDescending = false;
 
-    //reset color options
-    for (const col of Object.keys(this.selectedColors)) { this.selectedColors[col] = false; }
+    // Reset color options
+    for (const col of Object.keys(this.selectedColors)) { 
+      this.selectedColors[col] = false; 
+    }
     this.selectedColors = {};
     
-    //reset category options
-    for (const cat of Object.keys(this.selectedCategories)) { this.selectedCategories[cat] = false; }
-    this.selectedCategories= {};
+    // Reset category options
+    for (const cat of Object.keys(this.selectedCategories)) { 
+      this.selectedCategories[cat] = false; 
+    }
+    this.selectedCategories = {};
 
-    //reset size options
-    for (const s of Object.keys(this.selectedSizes)) { this.selectedSizes[s] = false; }
-    this.selectedSizes= {};
+    // Reset size options
+    for (const s of Object.keys(this.selectedSizes)) { 
+      this.selectedSizes[s] = false; 
+    }
+    this.selectedSizes = {};
 
-    //reset price options
-    for (let j=0; j<(this.nPriceIntervals); j++) {
+    // Reset price options
+    for (let j = 0; j < (this.nPriceIntervals); j++) {
       this.selectedPriceRange[j] = false;
-      // this.checkedPrices[j] = false; //you need this when only one interval selection is allowed
+      // this.checkedPrices[j] = false; // You need this when only one interval selection is allowed
     }
 
-    //reset weights options
-    for (let j=0; j<(this.nWeightIntervals); j++) {
+    // Reset weights options
+    for (let j = 0; j < (this.nWeightIntervals); j++) {
       this.selectedWeightRange[j] = false;
-      // this.checkedWeights[j] = false; //you need this when only one interval selection is allowed
+      // this.checkedWeights[j] = false; // You need this when only one interval selection is allowed
     }
   }
+  //#endregion
 
-
-
-  ngOnInit() {
-    this.view.allItems = [];
-    this.GetAll();
-    this.GetOptions();
-  }
-
+  
 }

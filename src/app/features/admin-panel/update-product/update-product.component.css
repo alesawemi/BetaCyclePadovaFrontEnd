@@ -130,3 +130,7 @@ button:hover {
 .product-info-section .button-group button:first-child {
     margin-left: 0; /* Remove left margin for the first button */
 }
+
+body.waiting-cursor {
+    cursor: wait !important;
+}

@@ -1,4 +1,4 @@
-<body>
+<body [ngClass]="{ 'waiting-cursor': isPageLoading() }">
   <section>
     <input type="checkbox" [(ngModel)]="bikes" (change)="Filters($event)" /> Bikes
     <input type="checkbox" [(ngModel)]="components" (change)="Filters($event)" /> Components

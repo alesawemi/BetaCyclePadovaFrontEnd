@@ -8,6 +8,7 @@ import { Filters } from '../../shared/models/productsFilters';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
 import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,16 @@ import { AuthenticationService } from './authentication.service';
 
 export class GenericViewService {
 
-  constructor(private http: HttpClient, private logtrace: LogtraceService, private Authentication: AuthenticationService) { }
-
+  constructor(private http: HttpClient, private logtrace: LogtraceService, 
+    private Authentication: AuthenticationService, private router: Router) { }
 
 
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
 
+
+
+  //#region Get All
   //get all items in the view
   allItems: GeneralView[] = [];
   
@@ -38,7 +42,8 @@ export class GenericViewService {
           }
           else { 
             console.error("Response format is not as expected"); 
-            alert("Siamo spiacenti, Errore Inaspettato. Si prega di riprovare più tardi.");
+            alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+            this.router.navigate(['home']); // Redirect to home
           }         
         },
         error: (errore: any) => {
@@ -55,12 +60,16 @@ export class GenericViewService {
               console.log('post frontend error to db:'); console.log(err);
             }
           })
+          alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+          this.router.navigate(['home']); // Redirect to home
         }
       })
   }
+  //#endregion
 
 
 
+  //#region Load Options
   //available options to filter the research
   viewProperties: Properties = new Properties();
 
@@ -129,12 +138,16 @@ export class GenericViewService {
               console.log('post frontend error to db:'); console.log(err);
             }
           })
+          alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+          this.router.navigate(['home']); // Redirect to home
         }
       })    
   }
+  //#endregion
 
 
 
+  //#region Get Filtered
   GetWithFilters(whichView: HttpParams, filtersFromInput: Filters){
     this.GetWithFiltersFromView(whichView, filtersFromInput)
     .subscribe({
@@ -146,10 +159,9 @@ export class GenericViewService {
             }) 
           } 
           else { 
-            alert("Siamo spiacenti, " +
-              "al momento non sono presenti prodotti che soddisfano questi parametri di ricerca. " +
-              "Vi invitiamo a modificare i filtri.");              
-           }         
+            alert("We are sorry, there are currently no products that match these search parameters. " +
+              "Please consider modifying the filters");               
+          }         
         },
         error: (errore: any) => {
           this.fEndError = new LogTrace;
@@ -165,14 +177,18 @@ export class GenericViewService {
               console.log('post frontend error to db:'); console.log(err);
             }
           })
+          alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+          this.router.navigate(['home']); // Redirect to home
         }
       })
   }
+  //#endregion
 
 
 
+  //#region Set Intervals
   // create price/weight intervals according to min, max and desired number of intervals 
-  // (tune this value at the beginning of this file)
+  // (tune this value at the beginning of each view component ts file)
   maxIndex: number = 0;
   step: number = 0;
 
@@ -207,9 +223,11 @@ export class GenericViewService {
     
     this.weights[this.maxIndex+1] = wMax; 
   }
+  //#endregion
 
 
 
+  //#region http methods
   GetAllFromView(whichView: HttpParams): Observable<any>{
     return this.http.get(`https://localhost:7228/api/GenericViews`, {params: whichView});
   }
@@ -223,6 +241,7 @@ export class GenericViewService {
     { headers: this.Authentication.authHeader,
       params: whichview, observe: 'response' });
   }
+  //#endregion
   
   
 }

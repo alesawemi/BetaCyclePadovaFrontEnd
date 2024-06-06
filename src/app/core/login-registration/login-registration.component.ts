@@ -43,15 +43,8 @@ export class LoginRegistrationComponent {
   ) {}
 
 
-
   // fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
-
-
-
-
-
-
 
 
 
@@ -156,13 +149,7 @@ export class LoginRegistrationComponent {
    })
   }
 
-//#endregion
-
-
-
-
-
-
+  //#endregion
 
 
 
@@ -174,7 +161,7 @@ export class LoginRegistrationComponent {
   jwtToken: string = '';
   Login(usr: HTMLInputElement, pwd: HTMLInputElement) {
 
-     // Add the spinner class to the document body
+    // Add the spinner class to the document body
     this.isLoading = true;
     
 
@@ -188,8 +175,7 @@ export class LoginRegistrationComponent {
         next: (response: any) => {
           switch (response.status) {
             case HttpStatusCode.Ok:
-              // if (this.auth.TypeOfAuthorization ===  'basic') 
-              //   { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
+              // if (this.auth.TypeOfAuthorization ===  'basic') { this.auth.setLoginStatusBasic(true, usr.value, pwd.value); }
               if (this.auth.TypeOfAuthorization === 'jwt') {                             
                 this.jwtToken = response.body.token;
                 this.auth.setLoginStatusJwt(true, this.jwtToken);
@@ -223,14 +209,12 @@ export class LoginRegistrationComponent {
               }
             })
 
-          // if (this.auth.TypeOfAuthorization ===  'basic') 
-          //   { this.auth.setLoginStatusBasic(false); }
+          // if (this.auth.TypeOfAuthorization ===  'basic') { this.auth.setLoginStatusBasic(false); }
           if (this.auth.TypeOfAuthorization === 'jwt') { this.auth.setLoginStatusJwt(false); }
 
-
-          // find alternative solution to alert --> popup with dialog window?
           if (err.status === 404) {
-            alert("REGISTER!");  // redirect to the login/registration page
+            // redirect to the login/registration page
+            alert("Currently, there is no account associated with this email address. Would you like to register?");  
             const container = document.getElementById('container');
             if (container) {
               container.classList.add("right-panel-active");
@@ -238,7 +222,10 @@ export class LoginRegistrationComponent {
               console.error("Container element is null.");
             }
           }
-          if (err.status === 400) alert(err.error.message);
+          if (err.status === 400) {
+            alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+            this.router.navigate(['home']); // Redirect to home
+          } 
         }
       });
     }
@@ -246,7 +233,7 @@ export class LoginRegistrationComponent {
   }
 
 
-// Set the role
+  // Set the role
   setRole(role: string) {
    console.log(this.roleService.setUserRole(role))
   }
@@ -254,12 +241,12 @@ export class LoginRegistrationComponent {
   isPageLoading() {
     return this.isLoading;
   }
-//#endregion
+  //#endregion
 
 
 
-
-  // CODE FOR ANIMATION ///////////////////////////////////////////////////////////////////////////////////
+  //#region transitions
+  // CODE FOR ANIMATION 
   // Execute JavaScript code after the components have been initialized 
   ngOnInit(): void {
     const signUpButton = document.getElementById('signUp');
@@ -279,5 +266,6 @@ export class LoginRegistrationComponent {
       console.error("One or more elements are null.");
     }
   }
+  //#endregion
   
 }

@@ -7,7 +7,8 @@ import { productSearch } from '../../../shared/models/productSearchData';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { dbProduct } from '../../../shared/models/product';
-import { HttpStatusCode } from '@angular/common/http';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-product',
@@ -18,10 +19,13 @@ import { HttpStatusCode } from '@angular/common/http';
 })
 export class UpdateProductComponent {
 
+  
+
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace();  
 
-  constructor(private http: HttpClient, private logtrace: LogtraceService) { }
+  constructor(private http: HttpClient, private logtrace: LogtraceService, 
+    private router: Router, private auth: AuthenticationService) { }
 
   ngOnInit() {
     //show all editable products
@@ -29,11 +33,20 @@ export class UpdateProductComponent {
   }  
 
 
+  //#region loading icon
+  isLoading: boolean = false; // Variable for "loading" icon
+  isPageLoading() {
+    return this.isLoading;
+  }
+//#endregion
+
+
   //#region Show All Products
   allProducts: productSearch[] = [];
   products: productSearch[] = [];
 
   ShowAll() {
+    this.isLoading = true
     this.GetAll().subscribe({
       next: (Data: any) => {
         if (Data.$values.length > 0) {
@@ -56,6 +69,7 @@ export class UpdateProductComponent {
           });
           console.log(this.allProducts);
           this.products = this.allProducts;
+          this.isLoading = false
         }
       },
       error: (errore: any) => {
@@ -72,6 +86,8 @@ export class UpdateProductComponent {
             console.log('post frontend error to db:'); console.log(err);
           }
         });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
       }
     });
   }
@@ -117,8 +133,8 @@ export class UpdateProductComponent {
   //reset all the values
   reset() {
     this.productInfo = new dbProduct();
-        this.updateId = 0;
-        this.inputId = 0; 
+    this.updateId = 0;
+    this.inputId = 0; 
   }
   //#endregion
 
@@ -133,10 +149,24 @@ export class UpdateProductComponent {
         this.productInfo = Data;
       },
       error: (err: any) => {
-        console.log(err);
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in Show/Recap';
+        this.fEndError.Logger = 'update-product component';
+        this.fEndError.Exception = err.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
       }
     });
-    console.log(this.productInfo);
+    console.log(this.productInfo);    
   }
   //#endregion
   
@@ -165,16 +195,31 @@ export class UpdateProductComponent {
       this.pUpdate.weight = parseInt(updateWeight.value.trim());
     }
     console.log(this.pUpdate);
-
+    this.isLoading = true
     //send updated product to the db
-    this.PostProduct(this.pUpdate.productId, this.pUpdate).subscribe({
+    this.PutProduct(this.pUpdate.productId, this.pUpdate).subscribe({
       next: (response: any) => {
+        this.isLoading = false
         this.reset();
         alert("Product Successfully Updated");
       },
       error: (err: any) => {
-        this.reset();
-        console.log(err);
+        this.reset()
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in Edit/PutProduct';
+        this.fEndError.Logger = 'update-product component';
+        this.fEndError.Exception = err.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
       }
     });
   }
@@ -184,14 +229,30 @@ export class UpdateProductComponent {
 //#region Delete
   Delete() {
     let indexD = this.inputId;
+    this.isLoading = true
     this.DeleteProduct(indexD).subscribe({
       next: (response: any) => {
+        this.isLoading = false
         this.reset();
         alert("Product Successfully Deleted");
       },
       error: (err: any) => {
         this.reset();
-        console.log(err);
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in Delete';
+        this.fEndError.Logger = 'update-product component';
+        this.fEndError.Exception = err.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
       }
     });
   }
@@ -208,12 +269,12 @@ export class UpdateProductComponent {
     return this.http.get(`https://localhost:7228/api/Products/${id}`);
   }
 
-  PostProduct(id: number, up: dbProduct): Observable<any> {
-    return this.http.put(`https://localhost:7228/api/Products/${id}`, up);
+  PutProduct(id: number, up: dbProduct): Observable<any> {
+    return this.http.put(`https://localhost:7228/api/Products/${id}`, up, { headers: this.auth.authHeader});
   }
 
   DeleteProduct(id: number): Observable<any> {
-    return this.http.delete(`https://localhost:7228/api/Products/${id}`);
+    return this.http.delete(`https://localhost:7228/api/Products/${id}`, { headers: this.auth.authHeader});
   }
   //#endregion
 

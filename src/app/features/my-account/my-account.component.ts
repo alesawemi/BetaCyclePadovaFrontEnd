@@ -25,7 +25,7 @@ export class MyAccountComponent implements OnInit {
   updId: number = 0;
   adrsId: number = 0;
 
-  isLoading: boolean = false; // Variabile di stato per il caricamento
+  isLoading: boolean = false; // Variable for "loading" icon
 
   // Per avere i valori sempre aggiornati nel form
   originalProfileValues: any;
@@ -99,6 +99,21 @@ export class MyAccountComponent implements OnInit {
         }
       }, error => {
         console.error('Error fetching user:', error);
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in loadData';
+        this.fEndError.Logger = 'my-account component';
+        this.fEndError.Exception = error.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        //this.router.navigate(['home']); // Redirect to home
       });
     }
   }

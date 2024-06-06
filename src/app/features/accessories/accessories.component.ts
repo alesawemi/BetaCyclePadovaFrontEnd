@@ -23,7 +23,16 @@ export class AccessoriesComponent {
 
   constructor(public view: GenericViewService, public cart: CartService) {}
 
-  whichView: HttpParams = new HttpParams().set('view', 'accessories');
+
+  ngOnInit() {
+    this.view.allItems = []; //clear this variable to avoid lany leaking from previous views
+    this.GetAll();
+    this.GetOptions();
+  }
+
+
+  whichView: HttpParams = new HttpParams().set('view', 'accessories'); 
+
 
   //change this number to choose how many intervals to show for price and weight
   nPriceIntervals: number = 4; 
@@ -31,13 +40,15 @@ export class AccessoriesComponent {
 
 
 
-  GetAll(){
+  //#region Get All
+  GetAll(){ //clear all filters and get all products in the view
     this.RemoveAllFilters();
     this.view.GetAllItems(this.whichView);
   }
-
+  //#endregion
   
   
+  //#region Load Options
   GetOptions() {
     this.view.GetResearchOptions(this.whichView, this.nPriceIntervals, this.nWeightIntervals);
 
@@ -47,8 +58,11 @@ export class AccessoriesComponent {
     for (let j=0; j<(this.nWeightIntervals); j++) { this.selectedWeightRange[j] = false;}
     
   }
+  //#endregion
 
 
+
+  //#region Filters
 
   //to filter the research
 
@@ -126,9 +140,11 @@ export class AccessoriesComponent {
     this.view.GetWithFilters(this.whichView, this.filtersFromInput); 
 
   }
+  //#endregion
 
 
 
+  //#region Clear Filters
   //to remove all filters and reset all the variables used to manage the checkboxes
   RemoveAllFilters(){
     
@@ -161,13 +177,7 @@ export class AccessoriesComponent {
       // this.checkedWeights[j] = false; //you need this when only one interval selection is allowed
     }
   }
+  //#endregion
 
-
-
-  ngOnInit() {
-    this.view.allItems = [];
-    this.GetAll();
-    this.GetOptions();
-  }
 
 }

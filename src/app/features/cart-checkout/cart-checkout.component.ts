@@ -27,7 +27,7 @@ export class CartCheckoutComponent implements OnInit {
   updId: number = 0;
   adrsId: number = 0;
 
-  isLoading: boolean = false; // Variabile di stato per il caricamento
+  isLoading: boolean = false; // state variable for loading
 
 
   orderedProducts: pWithQuantity[] = [];
@@ -35,7 +35,7 @@ export class CartCheckoutComponent implements OnInit {
   shippingCost: number = 0;
   total: number = 0;
 
-  // Per avere i valori sempre aggiornati nel form
+  // values in the form always updated
   originalProfileValues: any;
   originalAddressValues: any;
   originalProfileData: any;
@@ -48,21 +48,22 @@ export class CartCheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private adrs: AddressHttp,
     private cartService: CartService,
-    private logtrace: LogtraceService // per gestione errori centralizzata
+    private logtrace: LogtraceService // frontend errors handling
   ) {}
 
   //fEnd LogTrace
   fEndError: LogTrace = new LogTrace;
 
-  //quando la pagina viene inizializzata compie le seguenti operazioni
+  //on load page following operations are executed
   ngOnInit(): void {
-    this.initForms(); //imposta i Validator dei vari campi form
-    this.loadData(); //carico i dati che ci sono nel database
+    this.initForms(); //set validators of form fields
+    this.loadData(); //load data fetched from database
 
     this.getCartDetails()
     
   }
-//#region Edit My Information
+
+//#region Edit Information
   initForms() {
     this.profileForm = this.fb.group({
       email: [this.email],
@@ -109,6 +110,20 @@ export class CartCheckoutComponent implements OnInit {
         }
       }, error => {
         console.error('Error fetching user:', error);
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in ShowAll';
+        this.fEndError.Logger = 'update-product component';
+        this.fEndError.Exception = error.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
       });
     }
   }
@@ -142,7 +157,7 @@ export class CartCheckoutComponent implements OnInit {
   //#region UPDATE USER DATA
   UpdUser : NewCustomer = new NewCustomer();
   frmvalues: any;
-  //richiamo il metodo quando faccio il submit della form "profileForm"
+  //this method is called when the form "profileForm" is submitted
   updateUser() {
     if (this.profileForm.valid) {
       this.frmvalues = this.profileForm.getRawValue();
@@ -164,7 +179,7 @@ export class CartCheckoutComponent implements OnInit {
 //#region ADDRESS
   address: Address = new Address();
   addressCust : AddressCustomer = new AddressCustomer();
-  //richiamo il metodo quando faccio il submit della form "addressForm"
+  //this method is called when the form "addressForm" is submitted 
   updateAddress() {
     
     if (this.addressForm.valid) {
@@ -179,7 +194,8 @@ export class CartCheckoutComponent implements OnInit {
       this.address.stateProvince = this.addressForm.value.stateProvince;
       this.address.postalCode = this.addressForm.value.postalCode;
 
-      if(this.found){ //se esiste già un indirizzo gli faccio fare l'update - consideriamo i vecchi utenti di cui non conosciamo le psw
+      if(this.found){ 
+        //if an address already exists it is updated - e.g. in case of old customers since we don't know their passwords
         console.log('Sei entrato nel update');
         this.addressCust.customerId = this.updId;
         this.addressCust.addressId = this.adrsId;
@@ -190,15 +206,16 @@ export class CartCheckoutComponent implements OnInit {
           this.adrs.UpdateAddressByadrsId(this.adrsId, this.address).subscribe((respons: any) => {
             //alert('Address updated'); console.log('Address updated', respons); 
             alert('Address Updated successfully')
-            this.cancelAddressChanges(); // Segna il form come non modificato        
+            this.cancelAddressChanges(); // reset the form
           });
         });        
       }
-      else{ //se è la prima volta che inserisco i dati degli address è logicamente giusto fare un post
+      else{ 
+        //post address when it's first time that address data is given
         this.adrs.PostAddress(postAddress).subscribe((a: Address) => {
           //alert('Address posted');
           
-          //devo fare un post anche sulla tabella condivisa da Customer/Users e Address
+          //post on tab linking Customer/User and Address also needed
        
           this.addressCust.customerId = this.updId;
           this.addressCust.addressId = a.addressId;
@@ -208,8 +225,8 @@ export class CartCheckoutComponent implements OnInit {
             //alert('Address - Customer posted');
             alert('Address Updated successfully')
 
-            //disabilitare il pulsante update - perché l'ho appena fatto
-            this.cancelAddressChanges(); // Segna il form come non modificato 
+            //disable "update" button 
+            this.cancelAddressChanges(); // reset the form  
 
           })
         })
@@ -224,12 +241,12 @@ export class CartCheckoutComponent implements OnInit {
 
 cancelProfileChanges() {
   this.loadData();
-  this.profileForm.markAsPristine(); // Segna il form come non modificato
+  this.profileForm.markAsPristine(); // reset form 
 }
 
 cancelAddressChanges() {
   this.loadData();
-  this.addressForm.markAsPristine(); // Segna il form come non modificato
+  this.addressForm.markAsPristine(); // reset form
 }
 
 //#endregion
@@ -247,7 +264,7 @@ FinishOrder(){
 getCartDetails() {
   this.orderedProducts = this.cartService.selectedProducts;
   this.subtotal = this.cartService.total;
-  // Puoi impostare il costo di spedizione in base alla tua logica di business
+  // set here shipping costs
   this.shippingCost = 4.00;
   this.total = this.subtotal + this.shippingCost;
 }

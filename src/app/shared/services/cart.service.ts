@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { LogtraceService } from './logtrace.service';
 import { LogTrace } from '../models/LogTraceData';
 import { pWithQuantity } from '../models/cartQuantities';
+import { Route, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class CartService {
   userID: number= 0;
   addressID: number = 0;
 
-  //selectedProducts: productSearch[] = [];
+  //model class to associate each product added to the cart with the corresponding added quantity
   selectedProducts: pWithQuantity[] = [];
 
   
@@ -34,17 +35,19 @@ export class CartService {
     private adrs: AddressHttp,
     private http: HttpClient,
     private logtrace: LogtraceService,
+    private router: Router
     
-     )
+  )
     
   {
     //Get email from JWT
     this.email = this.auth.getEmailFromJwt();
     console.log(this.email);
 
-    this.cartName = `cart_${this.email}`;  //useremo window.btoa
+    this.cartName = `cart_${this.email}`;  
     console.log(this.cartName)
 
+    //we'll need the address of the customer to complete the order
     this.user.GetNewCustomerByMail(this.email).subscribe(user => {
       this.userID = user.id;
       console.log(this.userID);
@@ -55,7 +58,7 @@ export class CartService {
       });
     }); 
 
-
+    // initialize cart with info in LocalStorage associated with this user
     this.selectedProducts = JSON.parse(localStorage.getItem(this.cartName) ||'[]');
   }
    
@@ -65,19 +68,21 @@ export class CartService {
   fEndError: LogTrace = new LogTrace;
   
   
-  
-  tempProduct: productSearch = new productSearch; //dummy element : serve per convertire item from view in search product --> in questo modo carrello deve gestire un solo array di selected products/items
+  //#region CART
+  //dummy element : convert item from genericView into Product 
+  tempProduct: productSearch = new productSearch; 
+  //dummy to fill in and add to array of selectedProducts
   dummyPWithQuantity: pWithQuantity = new pWithQuantity;
   dummyIndex: number = 0;
   
-  AddToCart(item: GeneralView) {
+  AddToCart(item: GeneralView) { //Add to cart from Views
     this.itemIntoProduct(item, this.tempProduct);  
     this.AddProductToCart(this.tempProduct);
     this.tempProduct = new productSearch;
   }
 
-  AddProductToCart(product: productSearch) {
-
+  AddProductToCart(product: productSearch) { //Add to cart from product search bar
+    //if product to add already exists in the cart increase the corresponding quantity
     if (this.contains(product.productId)) { 
       this.dummyIndex = this.findIndex(product.productId);
       this.selectedProducts[this.dummyIndex].quantity = 1 + this.selectedProducts[this.dummyIndex].quantity;
@@ -93,7 +98,7 @@ export class CartService {
     this.syncCart();
   }
 
-  Add(pq: pWithQuantity) {
+  Add(pq: pWithQuantity) { //when '+' button is clicked in the cart to increase the quantity of a chosen product
     this.AddProductToCart(pq.product);
   }
 
@@ -103,10 +108,12 @@ export class CartService {
 
     const p_index = this.selectedProducts.indexOf(product);
 
+    //if quantity of product to remove is > 1 decrease quantity 
     if (this.selectedProducts[p_index].quantity>1) { 
       this.selectedProducts[p_index].quantity = this.selectedProducts[p_index].quantity - 1;
       this.total = this.total - this.selectedProducts[p_index].product.listPrice; 
-    }
+    } 
+    //if quantity of product to remove is = 1 remove product
     else if (this.selectedProducts[p_index].quantity==1) {
       this.total = this.total - this.selectedProducts[p_index].product.listPrice;
       this.selectedProducts.splice(p_index,1);
@@ -121,11 +128,11 @@ export class CartService {
     localStorage.setItem(this.cartName, JSON.stringify(this.selectedProducts)); 
     this.CalculateTotal();    
   }
-
+  //#endregion
   
 
   
-
+  //#region total
   count: number = 0;
 
   Count() {
@@ -141,6 +148,7 @@ export class CartService {
     })
     this.Count();    
   }
+  //#endregion
 
   //#region ORDER AND PAY
 
@@ -207,18 +215,40 @@ export class CartService {
               this.total = 0;
               localStorage.removeItem('cart_'+this.email);
               this.Count(); 
+              this.router.navigate(['home']); // Redirect to home
           }
         })
 
         
       }, 
       
-      error: (error: any) => {console.log(error)}});
+      error: (error: any) => {
+        console.log(error)
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in OrderAndPay';
+        this.fEndError.Logger = 'cart-service';
+        this.fEndError.Exception = error.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
+      }
+    });
   }
 
   //#endregion
 
-  // to convert item from view in product (main Category di product search not in generic item from view)
+
+  //#region useful methods
+
+  // to convert item from genericView in productSearch (main Category not present in item)
   itemIntoProduct(item: GeneralView, product: productSearch){
     product.productId = item.productId;
     product.productName = item.productName;
@@ -233,8 +263,7 @@ export class CartService {
     product.mainCategory = 'any';  
   }
 
-
-
+  //check if a product is already selected
   contains(id: number) : boolean {
     let outcome: boolean = false;
     this.selectedProducts.forEach(element => {
@@ -243,6 +272,7 @@ export class CartService {
     return outcome;
   }
 
+  //find index of a given id in the array of selected products
   findIndex(id: number) : number {
     let index: number = 0;
     this.selectedProducts.forEach((element, j) => {
@@ -251,12 +281,11 @@ export class CartService {
     return index;
   }
 
-
-  //#region CHECKOUT COMPONENT
-  CheckOut(){
-
-  }
   //#endregion
+
+
+
+
 
 
   //#region  We apologize, this feature is not complete yet
