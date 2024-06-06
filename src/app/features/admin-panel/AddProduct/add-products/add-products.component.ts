@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { CategoryNameParent } from '../../../../shared/models/ProductCategory';
 import { NgFor, NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
+import { LogTrace } from '../../../../shared/models/LogTraceData';
+import { LogtraceService } from '../../../../shared/services/logtrace.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-products',
@@ -17,9 +20,11 @@ import { OnInit } from '@angular/core';
 
 export class AddProductsComponent {
 
+//fEnd errors
+fEndError: LogTrace = new LogTrace;
 
-
-constructor(private productService: AddProductService){}
+constructor(private productService: AddProductService, private logtrace: LogtraceService,
+  private router: Router){}
 
 newProduct: AddProduct = new AddProduct();
 
@@ -51,14 +56,30 @@ imageUrl: string | ArrayBuffer | null = '';
     this.productService.PostAdd(this.newProduct).subscribe({
       next: response => {
         console.log(response);
-        // Qui puoi gestire la risposta del server
+        alert("New product successfully added!")
+        this.router.navigate(['admin-panel']);
+        // manage here the response of the server
       },
       error: error => {
         console.error(error);
         console.error('Dettagli errori' + error.message);
         console.error('Dettagli errori' + error.models);
         console.error('Dettagli errori' + error.productModel);
-        // Qui puoi gestire eventuali errori
+        this.fEndError = new LogTrace();
+        this.fEndError.Level = 'error';
+        this.fEndError.Message = 'An Error Occurred in ShowAll';
+        this.fEndError.Logger = 'update-product component';
+        this.fEndError.Exception = error.message;
+        this.logtrace.PostError(this.fEndError).subscribe({
+          next: (Data: any) => { 
+            console.log('post frontend error to db:'); console.log(Data);
+          },
+          error: (err: any) => {
+            console.log('post frontend error to db:'); console.log(err);
+          }
+        });
+        alert("An unexpected error occurred. Please try again later. Our support team has been notified of the issue.")
+        this.router.navigate(['home']); // Redirect to home
       }
     });
   }
