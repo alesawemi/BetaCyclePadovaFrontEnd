@@ -7,18 +7,49 @@
   </section>
  
   <section>
-    <input type="number" #updateId placeholder="Id to update"> 
-    <button (click)="getProductInfo(updateId)">Confirm</button>
+    <input type="number" [(ngModel)]="inputId" placeholder="Id to update"> 
+    <button (click)="Show()">Show</button>
   </section>
+  
 
-  <section *ngIf="productInfo.productId!=0">
-    <td>{{ productInfo.productId }}</td>
-    <td>{{ productInfo.productName }}</td>
-    <td>{{ productInfo.color }}</td>
-    <td>{{ productInfo.listPrice }}</td>
-    <td>{{ productInfo.size }}</td>
-    <td>{{ productInfo.weight }}</td>
-  </section>
+  <section *ngIf="productInfo.productId!=0" class="product-info-section">
+    <table class="product-info-table">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Color</th>
+                <th>List Price</th>
+                <th>Size</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ productInfo.productId }}</td>
+                <td>{{ productInfo.name }}</td>
+                <td>{{ productInfo.color }}</td>
+                <td>{{ productInfo.listPrice }}</td>
+                <td>{{ productInfo.size }}</td>
+                <td>{{ productInfo.weight }}</td>
+            </tr>
+            <tr>
+                <td>{{ productInfo.productId }}</td>
+                <td><input type="text" #updateName placeholder="update name"></td>
+                <td><input type="text" #updateColor placeholder="update color"></td>
+                <td><input type="number" #updatePrice placeholder="update price"></td>
+                <td><input type="text" #updateSize placeholder="updatet size"></td>
+                <td><input type="number" #updateWeight placeholder="update weight"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="button-group">
+        <button (click)="Edit(updateName, updateColor, updatePrice, updateSize, updateWeight)">Confirm</button>
+        <button (click)="Delete()">Delete</button>
+    </div>
+</section>
+
+  
 
   <table>
     <thead>

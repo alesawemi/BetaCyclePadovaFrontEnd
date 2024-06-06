@@ -55,7 +55,7 @@ export class LoginRegistrationComponent {
 
 
 
-  //#region REGISTRATION //////////////////////////////////////////////////////////////////////////////////////////////
+  //#region REGISTRATION 
   
   [x: string]: any;
   confirmPassword: string ='';  
@@ -166,7 +166,7 @@ export class LoginRegistrationComponent {
 
 
 
-  //#region LOGIN /////////////////////////////////////////////////////////////////////////////////////////////////////
+  //#region LOGIN 
   loginCredentials: Credentials = new Credentials();
   private jwtHelper: JwtHelperService = new JwtHelperService();
   isLoading: boolean = false; // Loading state variable

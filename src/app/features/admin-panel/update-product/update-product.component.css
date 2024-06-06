@@ -2,7 +2,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,400italic);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css);
 
-
 body {
     margin: 75px 0 40px 0px;
 }
@@ -12,11 +11,11 @@ section {
     justify-content: center;
     align-items: center;
     padding-top: 20px; /* Adjust as needed */
-  }
-  
-  section input[type="checkbox"] {
+}
+
+section input[type="checkbox"] {
     margin: 0 10px; /* Adjust spacing between checkboxes */
-  }
+}
 
 /* Table Styles */
 table {
@@ -24,35 +23,34 @@ table {
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 16px;
-  }
-  
-  /* Header Styles */
-  table th {
+}
+
+/* Header Styles */
+table th {
     background-color: #2a3542;
     color: #ddd;
     padding: 12px 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left;
-  }
-  
-  /* Row Styles */
-  table td {
+}
+
+/* Row Styles */
+table td {
     padding: 12px 15px;
     border: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Row Hover Effect */
-  table tbody tr:hover {
-    background-color: #f2f2f2;
-  }
-  
-  /* Striped Rows */
-  table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
+}
 
-  /* Button Styles */
+/* Row Hover Effect */
+table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Striped Rows */
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Button Styles */
 button {
     background-color: #2a3542; /* Match the header background color */
     color: #ddd;
@@ -63,10 +61,72 @@ button {
     border-radius: 4px;
     transition: background-color 0.3s;
     margin-left: 10px; /* Add space between the text and the button */
-  }
-  
-  /* Button Hover Effect */
-  button:hover {
+}
+
+/* Button Hover Effect */
+button:hover {
     background-color: #1a2632; /* Darken the background color on hover */
-  }
-  
+}
+
+.product-info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-info-table {
+    width: 60%; /* Adjust width as needed */
+    margin: 10px auto; /* Center the table and provide smaller margin */
+    font-size: 14px; /* Reduced font size */
+    border-collapse: collapse;
+}
+
+.product-info-table th {
+    background-color: #2a3542;
+    color: #ddd;
+    padding: 8px; /* Smaller padding */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.product-info-table td {
+    padding: 8px; /* Smaller padding */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.product-info-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.product-info-table tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+.product-info-section button {
+    background-color: #2a3542;
+    color: #ddd;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Add margin between the table and the button */
+    margin-left: 10px; /* Add space between buttons */
+}
+
+/* Center buttons within product-info-section and display them inline */
+.product-info-section .button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px; /* Add margin between the table and the button group */
+}
+
+.product-info-section .button-group button {
+    margin-left: 10px; /* Add space between buttons */
+}
+
+.product-info-section .button-group button:first-child {
+    margin-left: 0; /* Remove left margin for the first button */
+}
