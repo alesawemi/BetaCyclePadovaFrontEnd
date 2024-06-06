@@ -1,11 +1,23 @@
-<p>add-products works!</p>
-<div style="height: 2000px; margin-top: 100px; width: 100%; background-color:aliceblue">
-    <div>
-        <input type="text" placeholder="productName"  [(ngModel)]="newProduct.Name">
-        <input type="text" placeholder="productNumber"[(ngModel)]="newProduct.ProductNumber"> 
-        <input type="text" placeholder="standardCost" [(ngModel)]="newProduct.ListPrice">
-        <input type="text" placeholder="listPrice"    [(ngModel)]="newProduct.StandardCost">
+<div class="container">
+    <div class="card">
+
+        <div class="contImage">
+            <img id="productImage" src="/assets/BC.jpeg">
+        </div>
+        <label class="fileContainer">
+            <h2>
+                Upload image
+            </h2>
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
+        </label>
+        <input type="text" placeholder="ProductName" [(ngModel)]="newProduct.Name">
+        <input type="text" placeholder="ProductNumber" [(ngModel)]="newProduct.ProductNumber">
+        <input type="number" placeholder="StandardCost" [ngModel]="newProduct.ListPrice || null"
+            (ngModelChange)="newProduct.ListPrice = $event || 0">
+        <input type="number" placeholder="ListPrice" [ngModel]="newProduct.StandardCost || null"
+            (ngModelChange)="newProduct.StandardCost = $event || 0">
         <button (click)="addProduct()">Add</button>
     </div>
-    
+
+
 </div>

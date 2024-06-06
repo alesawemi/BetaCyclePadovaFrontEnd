@@ -5,7 +5,11 @@ export class AddProduct{
     StandardCost: number = 0.;   
     ListPrice: number = 0.;   
     SellStartDate: string = '';    
-    ProductCategoryID:number = 0;
+    ProductCategoryID:number = 0;  
+    thumbNailPhoto: string = '';
+    largeImage: string = '';
+    productModelId: number =25
+
 }
 
 export class dbProduct {
@@ -31,7 +35,7 @@ export class dbProduct {
     thumbNailPhoto: string | null = '';
     thumbnailPhotoFileName: string | null = '';
     weight: number = 0;
-  
+}
     // constructor(data: any) {
     //   // Map data to properties
     //   this.id = data.id || 0;
@@ -57,4 +61,9 @@ export class dbProduct {
     //   this.thumbnailPhotoFileName = data.thumbnailPhotoFileName || null;
     //   this.weight = data.weight || 0;
     // }
-  }
+  
+  
+
+
+
+
